@@ -82,25 +82,4 @@ export async function requireRole(...roles: UserRole[]): Promise<User> {
   return user;
 }
 
-/**
- * Resolves the shop a vendor is acting on behalf of, and proves they own it.
- * Every vendor dashboard query must go through this — it is the tenant
- * boundary that stops one shop from reading or editing another's data.
- */
-export async function requireShopAccess(shopId: string) {
-  const user = await requireUser();
-  if (user.role === "ADMIN") {
-    const shop = await db.shop.findUnique({ where: { id: shopId } });
-    if (!shop) notFound();
-    return { user, shop };
-  }
-  // 404 rather than 403: another vendor's shop should be indistinguishable
-  // from one that does not exist.
-  const shop = await db.shop.findFirst({
-    where: { id: shopId, ownerId: user.id },
-  });
-  if (!shop) notFound();
-  return { user, shop };
-}
-
 export { SESSION_COOKIE };

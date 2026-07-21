@@ -8,7 +8,9 @@ import { getOrCreateCart } from "@/lib/cart";
 import { createOrderFromCart, CheckoutError } from "@/lib/orders";
 import type { ActionResult } from "@/components/action-form";
 
-const SHIPPING_PER_SHOP = 5;
+// Flat nationwide rate — one seller, one shipment. A "use server" module may
+// only export async functions, so the checkout page keeps its own copy.
+const SHIPPING_FLAT = 500;
 
 const optional = z
   .string()
@@ -20,7 +22,7 @@ const addressSchema = z.object({
   line1: z.string().trim().min(1, "Address is required."),
   line2: optional,
   city: z.string().trim().min(1, "City is required."),
-  region: z.string().trim().min(1, "State or region is required."),
+  region: z.string().trim().min(1, "County or region is required."),
   postalCode: z.string().trim().min(1, "Postal code is required."),
   country: z.string().trim().min(2, "Country is required."),
   phone: optional,
@@ -59,20 +61,17 @@ export async function placeOrder(formData: FormData): Promise<ActionResult> {
       cart,
       userId: user.id,
       addressId: address.id,
-      shippingPerShop: SHIPPING_PER_SHOP,
+      shipping: SHIPPING_FLAT,
     });
 
     // No payment provider is wired up yet, so the order settles the instant it
-    // is created. Stripe Connect replaces this block: the order stays
-    // PENDING_PAYMENT until the payment_intent.succeeded webhook arrives, and
-    // that webhook is what flips it to PAID and releases each slice to its shop.
-    await db.$transaction([
-      db.order.update({ where: { id: order.id }, data: { status: "PAID" } }),
-      db.shopOrder.updateMany({
-        where: { orderId: order.id },
-        data: { status: "PROCESSING" },
-      }),
-    ]);
+    // is created. Stripe replaces this line: the order stays PENDING_PAYMENT
+    // until the payment_intent.succeeded webhook arrives, and that webhook is
+    // what flips it to PAID.
+    await db.order.update({
+      where: { id: order.id },
+      data: { status: "PAID" },
+    });
 
     orderId = order.id;
   } catch (err) {

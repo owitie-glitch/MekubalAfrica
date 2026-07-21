@@ -1,7 +1,11 @@
+import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { Badge, Card, Money, PageHeader } from "@/components/ui";
+import { Badge, Money } from "@/components/ui";
+
+export const metadata: Metadata = { title: "Order" };
 
 export default async function OrderDetailPage({
   params,
@@ -16,29 +20,90 @@ export default async function OrderDetailPage({
   // from one that does not exist.
   const order = await db.order.findFirst({
     where: { id, userId: user.id },
-    include: {
-      address: true,
-      shopOrders: {
-        include: { shop: true, items: true },
-        orderBy: { createdAt: "asc" },
-      },
-    },
+    include: { address: true, items: true },
   });
   if (!order) notFound();
 
-  return (
-    <>
-      <PageHeader
-        title={order.orderNumber}
-        subtitle={`Placed ${order.createdAt.toLocaleDateString()}`}
-        action={<Badge>{order.status}</Badge>}
-      />
+  const count = order.items.reduce((n, i) => n + i.quantity, 0);
 
-      <div className="grid gap-4 sm:grid-cols-2">
-        <Card>
-          <h2 className="mb-2 text-sm font-semibold">Shipping to</h2>
+  return (
+    <div className="mx-auto max-w-3xl px-5 pt-10 pb-24 md:px-8">
+      <Link
+        href="/orders"
+        className="link-underline eyebrow text-grey-600"
+      >
+        ← All orders
+      </Link>
+
+      <header className="mt-6 border-b border-grey-200 pb-6">
+        <div className="eyebrow text-grey-600">
+          Placed{" "}
+          {order.createdAt.toLocaleDateString("en-KE", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+          })}
+        </div>
+        <div className="mt-3 flex flex-wrap items-center justify-between gap-4">
+          <h1 className="display text-[clamp(1.75rem,5vw,3.25rem)]">
+            {order.orderNumber}
+          </h1>
+          <Badge>{order.status}</Badge>
+        </div>
+      </header>
+
+      {/* One order, one shipment — CCA fulfils everything itself. */}
+      <section aria-labelledby="items-heading" className="mt-12">
+        <h2
+          id="items-heading"
+          className="eyebrow border-b border-grey-200 pb-4 text-grey-600"
+        >
+          {count} item{count === 1 ? "" : "s"}
+        </h2>
+
+        <ul>
+          {order.items.map((item) => (
+            <li
+              key={item.id}
+              className="flex gap-5 border-b border-grey-200 py-6"
+            >
+              <div className="h-24 w-20 shrink-0 overflow-hidden bg-paper">
+                {item.imageSnapshot && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={item.imageSnapshot}
+                    alt={item.titleSnapshot}
+                    className="h-full w-full object-cover"
+                  />
+                )}
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="text-sm font-medium">{item.titleSnapshot}</p>
+                <p className="mt-1 text-xs text-grey-600">
+                  {item.variantSnapshot}
+                </p>
+                <p className="mt-0.5 text-xs text-grey-600 tabular-nums">
+                  <Money value={item.unitPrice} /> × {item.quantity}
+                </p>
+              </div>
+              <span className="text-sm tabular-nums">
+                <Money value={Number(item.unitPrice) * item.quantity} />
+              </span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <div className="mt-12 grid gap-12 sm:grid-cols-2">
+        <section aria-labelledby="address-heading">
+          <h2
+            id="address-heading"
+            className="eyebrow border-b border-grey-200 pb-4 text-grey-600"
+          >
+            Delivering to
+          </h2>
           {order.address ? (
-            <address className="text-sm not-italic text-[--color-muted]">
+            <address className="mt-5 text-sm leading-relaxed not-italic">
               {order.address.fullName}
               <br />
               {order.address.line1}
@@ -61,98 +126,65 @@ export default async function OrderDetailPage({
               )}
             </address>
           ) : (
-            <p className="text-sm text-[--color-muted]">No address on file.</p>
+            <p className="mt-5 text-sm text-grey-600">No address on file.</p>
           )}
-        </Card>
 
-        <Card>
-          <h2 className="mb-2 text-sm font-semibold">Totals</h2>
-          <dl className="space-y-1 text-sm">
+          {order.trackingNumber && (
+            <div className="mt-8">
+              <div className="eyebrow text-grey-600">Tracking</div>
+              <p className="mt-2 text-sm">
+                {order.carrier ?? "Courier"} ·{" "}
+                <span className="tabular-nums">{order.trackingNumber}</span>
+              </p>
+              {order.shippedAt && (
+                <p className="mt-1 text-xs text-grey-600">
+                  Shipped{" "}
+                  {order.shippedAt.toLocaleDateString("en-KE", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                  })}
+                </p>
+              )}
+            </div>
+          )}
+        </section>
+
+        <section aria-labelledby="totals-heading">
+          <h2
+            id="totals-heading"
+            className="eyebrow border-b border-grey-200 pb-4 text-grey-600"
+          >
+            Payment
+          </h2>
+          <dl className="mt-5 space-y-3 text-sm">
             <div className="flex justify-between">
-              <dt>Subtotal</dt>
-              <dd>
+              <dt className="text-grey-600">Subtotal</dt>
+              <dd className="tabular-nums">
                 <Money value={order.subtotal} />
               </dd>
             </div>
             <div className="flex justify-between">
-              <dt>Shipping</dt>
-              <dd>
+              <dt className="text-grey-600">Shipping</dt>
+              <dd className="tabular-nums">
                 <Money value={order.shipping} />
               </dd>
             </div>
             <div className="flex justify-between">
-              <dt>Tax</dt>
-              <dd>
+              <dt className="text-grey-600">Tax</dt>
+              <dd className="tabular-nums">
                 <Money value={order.tax} />
               </dd>
             </div>
-            <div className="flex justify-between font-semibold">
-              <dt>Total</dt>
-              <dd>
+            <div className="flex items-baseline justify-between border-t border-grey-200 pt-4">
+              <dt className="eyebrow">Total</dt>
+              <dd className="text-lg font-semibold tabular-nums">
                 <Money value={order.total} />
               </dd>
             </div>
           </dl>
-        </Card>
+        </section>
       </div>
-
-      <h2 className="mt-8 mb-1 text-lg font-semibold">
-        {order.shopOrders.length} shipment
-        {order.shopOrders.length === 1 ? "" : "s"}
-      </h2>
-      <p className="mb-4 text-sm text-[--color-muted]">
-        Each shop fulfils and ships its own items, so they may arrive at
-        different times and track separately.
-      </p>
-
-      <div className="space-y-4">
-        {order.shopOrders.map((shopOrder) => (
-          <Card key={shopOrder.id}>
-            <div className="mb-3 flex items-baseline justify-between gap-4 border-b border-[--color-border] pb-3">
-              <span className="font-semibold">{shopOrder.shop.name}</span>
-              <Badge>{shopOrder.status}</Badge>
-            </div>
-
-            <ul className="space-y-2">
-              {shopOrder.items.map((item) => (
-                <li key={item.id} className="flex items-center gap-3 text-sm">
-                  <div className="h-12 w-12 shrink-0 overflow-hidden rounded bg-neutral-100">
-                    {item.imageSnapshot && (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={item.imageSnapshot}
-                        alt={item.titleSnapshot}
-                        className="h-full w-full object-cover"
-                      />
-                    )}
-                  </div>
-                  <div className="flex-1">
-                    <div>{item.titleSnapshot}</div>
-                    <div className="text-xs text-[--color-muted]">
-                      {item.variantSnapshot} × {item.quantity}
-                    </div>
-                  </div>
-                  <span>
-                    <Money value={Number(item.unitPrice) * item.quantity} />
-                  </span>
-                </li>
-              ))}
-            </ul>
-
-            <div className="mt-3 flex justify-between border-t border-[--color-border] pt-3 text-sm text-[--color-muted]">
-              <span>
-                {shopOrder.trackingNumber
-                  ? `${shopOrder.carrier ?? "Tracking"} · ${shopOrder.trackingNumber}`
-                  : "No tracking yet"}
-              </span>
-              <span>
-                <Money value={shopOrder.subtotal} /> +{" "}
-                <Money value={shopOrder.shipping} /> shipping
-              </span>
-            </div>
-          </Card>
-        ))}
-      </div>
-    </>
+    </div>
   );
 }

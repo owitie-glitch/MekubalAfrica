@@ -12,7 +12,7 @@ const cartInclude = {
       variant: {
         include: {
           product: {
-            include: { shop: true, images: { orderBy: { position: "asc" } } },
+            include: { images: { orderBy: { position: "asc" } } },
           },
         },
       },
@@ -128,27 +128,6 @@ async function mergeGuestCart(guestToken: string, targetCartId: string) {
     });
   }
   await db.cart.delete({ where: { id: guestCart.id } });
-}
-
-/** Groups cart lines by shop — the shape checkout and the cart page both need. */
-export function groupByShop(cart: CartWithItems | null) {
-  const groups = new Map<
-    string,
-    {
-      shop: CartWithItems["items"][number]["variant"]["product"]["shop"];
-      items: CartWithItems["items"];
-      subtotal: number;
-    }
-  >();
-
-  for (const item of cart?.items ?? []) {
-    const shop = item.variant.product.shop;
-    const group = groups.get(shop.id) ?? { shop, items: [], subtotal: 0 };
-    group.items.push(item);
-    group.subtotal += Number(item.variant.price) * item.quantity;
-    groups.set(shop.id, group);
-  }
-  return [...groups.values()];
 }
 
 export function cartTotal(cart: CartWithItems | null) {

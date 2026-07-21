@@ -1,204 +1,108 @@
 import Link from "next/link";
 import type { ComponentProps, ReactNode } from "react";
 
+/** Kenyan shillings, no decimals — prices here are whole numbers. */
+export function formatMoney(value: unknown) {
+  return `KSh ${Math.round(Number(value)).toLocaleString("en-KE")}`;
+}
+
+export function Money({ value }: { value: unknown }) {
+  return <>{formatMoney(value)}</>;
+}
+
 export function Button({
   className = "",
-  variant = "primary",
+  variant = "solid",
   ...props
-}: ComponentProps<"button"> & { variant?: "primary" | "ghost" | "danger" }) {
+}: ComponentProps<"button"> & { variant?: "solid" | "outline" | "ghost" }) {
   const styles = {
-    primary: "bg-black text-white hover:bg-neutral-800",
-    ghost: "border border-[--color-border] hover:bg-neutral-50",
-    danger: "border border-red-300 text-red-700 hover:bg-red-50",
+    solid: "bg-black text-white hover:bg-neutral-800",
+    outline: "border border-black hover:bg-black hover:text-white",
+    ghost: "hover:bg-grey-100",
   }[variant];
   return (
     <button
       {...props}
-      className={`rounded-lg px-4 py-2 text-sm font-medium transition disabled:opacity-50 ${styles} ${className}`}
+      className={`inline-flex items-center justify-center px-6 py-3.5 text-[11px] font-semibold uppercase tracking-[0.14em] transition-colors duration-300 disabled:opacity-40 ${styles} ${className}`}
     />
-  );
-}
-
-export function Card({
-  children,
-  className = "",
-}: {
-  children: ReactNode;
-  className?: string;
-}) {
-  return (
-    <div
-      className={`rounded-xl border border-[--color-border] bg-white p-4 ${className}`}
-    >
-      {children}
-    </div>
   );
 }
 
 export function Field({
   label,
+  className = "",
   ...props
 }: ComponentProps<"input"> & { label: string }) {
   return (
-    <label className="block space-y-1">
-      <span className="text-sm font-medium">{label}</span>
+    <label className={`block ${className}`}>
+      <span className="eyebrow text-grey-600">{label}</span>
       <input
         {...props}
-        className="w-full rounded-lg border border-[--color-border] px-3 py-2 text-sm outline-none focus:border-black"
+        className="mt-2 w-full border-b border-grey-200 bg-transparent py-2.5 text-sm outline-none transition-colors focus:border-black"
       />
     </label>
   );
 }
 
-export function PageHeader({
+/** Section heading: eyebrow label, rule, optional link. */
+export function SectionHead({
+  eyebrow,
   title,
-  subtitle,
-  action,
+  href,
+  hrefLabel = "View all",
 }: {
+  eyebrow?: string;
   title: string;
-  subtitle?: string;
-  action?: ReactNode;
+  href?: string;
+  hrefLabel?: string;
 }) {
   return (
-    <div className="mb-6 flex items-end justify-between gap-4">
+    <div className="mb-8 flex items-end justify-between gap-6 border-b border-grey-200 pb-4">
       <div>
-        <h1 className="text-2xl font-semibold tracking-tight">{title}</h1>
-        {subtitle && (
-          <p className="mt-1 text-sm text-[--color-muted]">{subtitle}</p>
-        )}
+        {eyebrow && <div className="eyebrow text-grey-600">{eyebrow}</div>}
+        <h2 className="display mt-2 text-[clamp(1.75rem,4vw,3rem)]">{title}</h2>
       </div>
-      {action}
+      {href && (
+        <Link
+          href={href}
+          className="link-underline eyebrow shrink-0 pb-1 whitespace-nowrap"
+        >
+          {hrefLabel} →
+        </Link>
+      )}
     </div>
   );
 }
 
 export function Empty({ children }: { children: ReactNode }) {
   return (
-    <div className="rounded-xl border border-dashed border-[--color-border] p-10 text-center text-sm text-[--color-muted]">
+    <div className="border border-dashed border-grey-200 px-6 py-20 text-center text-sm text-grey-600">
       {children}
     </div>
   );
 }
 
-export function Money({ value }: { value: unknown }) {
-  return <>${Number(value).toFixed(2)}</>;
-}
-
-type ShopLocationFields = {
-  addressLine?: string | null;
-  city?: string | null;
-  region?: string | null;
-  postalCode?: string | null;
-  country?: string | null;
-};
-
-/** "Nairobi, Kenya" — skips whatever the shop left blank. */
-export function formatLocation(shop: ShopLocationFields, full = false) {
-  const parts = full
-    ? [shop.addressLine, shop.city, shop.region, shop.postalCode, shop.country]
-    : [shop.city, shop.country];
-  return parts.filter(Boolean).join(", ");
-}
-
-export function ShopLocation({
-  shop,
-  full = false,
-  className = "",
-}: {
-  shop: ShopLocationFields;
-  full?: boolean;
-  className?: string;
-}) {
-  const label = formatLocation(shop, full);
-  if (!label) return null;
-  return (
-    <span
-      className={`inline-flex items-center gap-1.5 text-xs text-[--color-muted] ${className}`}
-    >
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden>
-        <path
-          d="M12 21s7-5.2 7-11a7 7 0 10-14 0c0 5.8 7 11 7 11z"
-          stroke="currentColor"
-          strokeWidth="1.8"
-        />
-        <circle cx="12" cy="10" r="2.4" stroke="currentColor" strokeWidth="1.8" />
-      </svg>
-      {label}
-    </span>
-  );
-}
-
 const badgeTones: Record<string, string> = {
-  ACTIVE: "bg-green-100 text-green-800",
-  PAID: "bg-green-100 text-green-800",
-  DELIVERED: "bg-green-100 text-green-800",
-  PENDING: "bg-amber-100 text-amber-800",
-  PENDING_PAYMENT: "bg-amber-100 text-amber-800",
-  PROCESSING: "bg-blue-100 text-blue-800",
-  SHIPPED: "bg-blue-100 text-blue-800",
-  DRAFT: "bg-neutral-100 text-neutral-700",
-  SUSPENDED: "bg-red-100 text-red-800",
-  CANCELLED: "bg-red-100 text-red-800",
-  REFUNDED: "bg-red-100 text-red-800",
+  PAID: "bg-black text-white",
+  DELIVERED: "bg-black text-white",
+  SHIPPED: "bg-neutral-700 text-white",
+  PROCESSING: "bg-grey-200 text-black",
+  PENDING_PAYMENT: "bg-grey-100 text-grey-600",
+  DRAFT: "bg-grey-100 text-grey-600",
+  ACTIVE: "bg-black text-white",
+  ARCHIVED: "bg-grey-100 text-grey-600",
+  CANCELLED: "bg-grey-100 text-grey-600",
+  REFUNDED: "bg-grey-100 text-grey-600",
 };
 
 export function Badge({ children }: { children: string }) {
-  const tone = badgeTones[children] ?? "bg-neutral-100 text-neutral-700";
   return (
     <span
-      className={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${tone}`}
+      className={`inline-block px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] ${
+        badgeTones[children] ?? "bg-grey-100 text-grey-600"
+      }`}
     >
-      {children.replaceAll("_", " ").toLowerCase()}
+      {children.replaceAll("_", " ")}
     </span>
-  );
-}
-
-export function ProductCard({
-  product,
-}: {
-  product: {
-    slug: string;
-    title: string;
-    priceMin: unknown;
-    ratingAvg: number;
-    ratingCount: number;
-    images: { url: string; alt: string | null }[];
-    shop: { slug: string; name: string };
-  };
-}) {
-  return (
-    <Card className="flex flex-col gap-2">
-      <Link href={`/products/${product.slug}`}>
-        <div className="flex aspect-square items-center justify-center overflow-hidden rounded-lg bg-neutral-100">
-          {product.images[0] ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={product.images[0].url}
-              alt={product.images[0].alt ?? product.title}
-              className="h-full w-full object-cover"
-            />
-          ) : (
-            <span className="text-xs text-[--color-muted]">No image</span>
-          )}
-        </div>
-        <h3 className="mt-2 line-clamp-1 text-sm font-medium">{product.title}</h3>
-      </Link>
-      <Link
-        href={`/shops/${product.shop.slug}`}
-        className="text-xs text-[--color-muted] hover:underline"
-      >
-        {product.shop.name}
-      </Link>
-      <div className="flex items-center justify-between text-sm">
-        <span className="font-semibold">
-          <Money value={product.priceMin} />
-        </span>
-        {product.ratingCount > 0 && (
-          <span className="text-xs text-[--color-muted]">
-            ★ {product.ratingAvg.toFixed(1)} ({product.ratingCount})
-          </span>
-        )}
-      </div>
-    </Card>
   );
 }

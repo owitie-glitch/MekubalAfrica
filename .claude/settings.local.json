@@ -36,7 +36,8 @@
       "Bash(echo \"=== tsc exit: $? ===\")",
       "Bash(curl -s -b session=__TRACKED_VAR__ http://localhost:3100/sell)",
       "Bash(curl -s http://localhost:3100/shops)",
-      "WebSearch"
+      "WebSearch",
+      "Bash(PRISMA_USER_CONSENT_FOR_DANGEROUS_AI_ACTION=\"Yes, reset the database\" npx prisma db push --force-reset)"
     ]
   }
 }
