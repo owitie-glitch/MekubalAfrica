@@ -1,6 +1,7 @@
 import { Field } from "@/components/ui";
 import { ActionForm, type ActionResult } from "@/components/action-form";
 import { Checkbox, Select, Textarea } from "../ui";
+import { ImageUploader } from "./image-uploader";
 
 // Spare rows so adding a second or third size needs no client-side JS. Blank
 // rows are dropped server-side, so leaving them empty costs nothing.
@@ -172,13 +173,7 @@ export function ProductForm({
           Images
         </h2>
         <div className="mt-6">
-          <Textarea
-            label="Image URLs"
-            name="images"
-            rows={5}
-            defaultValue={values?.images}
-            hint="One URL per line. The first is used as the thumbnail."
-          />
+          <ImageUploader name="images" defaultValue={values?.images} />
         </div>
       </section>
 

@@ -43,3 +43,6 @@ next-env.d.ts
 .env
 
 .pgdata
+
+# Uploaded product photography — real assets, not source code
+public/uploads
