@@ -1,0 +1,376 @@
+// Multi-vendor marketplace schema.
+//
+// Core idea: a Shop is an independent seller. Customers browse one shared
+// catalog and check out once, but a single Order fans out into one ShopOrder
+// per participating Shop. Each ShopOrder is fulfilled, shipped, refunded and
+// paid out independently — that split is what makes this a marketplace rather
+// than a single store with categories.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Prisma 7: the connection URL lives in prisma.config.ts (for migrations)
+// and is passed to PrismaClient via a driver adapter at runtime.
+datasource db {
+  provider = "postgresql"
+}
+
+// ---------------------------------------------------------------- identity
+
+enum UserRole {
+  CUSTOMER
+  VENDOR
+  ADMIN
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  passwordHash  String?
+  image         String?
+  role          UserRole  @default(CUSTOMER)
+  emailVerified DateTime?
+
+  shops     Shop[]
+  orders    Order[]
+  addresses Address[]
+  reviews   Review[]
+  cart      Cart?
+  sessions  Session[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+model Address {
+  id         String  @id @default(cuid())
+  userId     String
+  user       User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fullName   String
+  line1      String
+  line2      String?
+  city       String
+  region     String
+  postalCode String
+  country    String  @default("US")
+  phone      String?
+  isDefault  Boolean @default(false)
+
+  orders Order[]
+
+  @@index([userId])
+}
+
+// -------------------------------------------------------------------- shops
+
+enum ShopStatus {
+  PENDING // applied, awaiting admin approval
+  ACTIVE
+  SUSPENDED
+  CLOSED
+}
+
+model Shop {
+  id          String     @id @default(cuid())
+  slug        String     @unique
+  name        String
+  tagline     String?
+  description String?
+  logoUrl     String?
+  bannerUrl   String?
+  status      ShopStatus @default(PENDING)
+
+  // Where the shop physically trades from. Shown to buyers so they can see
+  // who they are buying from and where it ships from. Separate from a
+  // customer's delivery Address, which is per-order.
+  addressLine String?
+  city        String?
+  region      String?
+  country     String?
+  postalCode  String?
+
+  ownerId String
+  owner   User   @relation(fields: [ownerId], references: [id])
+
+  // Stripe Connect account — where this shop's share of each payment lands.
+  stripeAccountId  String?
+  commissionRate   Decimal @default(10.0) @db.Decimal(5, 2) // marketplace's cut, percent
+  payoutsEnabled   Boolean @default(false)
+
+  products   Product[]
+  shopOrders ShopOrder[]
+  payouts    Payout[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status])
+}
+
+// ----------------------------------------------------------------- catalog
+
+model Category {
+  id       String  @id @default(cuid())
+  slug     String  @unique
+  name     String
+  imageUrl String?
+
+  // Self-relation gives us Electronics > Audio > Headphones without a
+  // separate table. Kept category-agnostic on purpose.
+  parentId String?
+  parent   Category?  @relation("CategoryTree", fields: [parentId], references: [id])
+  children Category[] @relation("CategoryTree")
+
+  products Product[]
+
+  @@index([parentId])
+}
+
+enum ProductStatus {
+  DRAFT
+  ACTIVE
+  ARCHIVED
+}
+
+model Product {
+  id          String        @id @default(cuid())
+  slug        String        @unique
+  title       String
+  description String?
+  status      ProductStatus @default(DRAFT)
+
+  shopId String
+  shop   Shop   @relation(fields: [shopId], references: [id], onDelete: Cascade)
+
+  categoryId String?
+  category   Category? @relation(fields: [categoryId], references: [id])
+
+  images   ProductImage[]
+  variants ProductVariant[]
+  reviews  Review[]
+
+  // Denormalised for cheap sorting/filtering on listing pages. Recomputed
+  // when a review is written or a variant price changes.
+  ratingAvg   Float @default(0)
+  ratingCount Int   @default(0)
+  priceMin    Decimal @default(0) @db.Decimal(10, 2)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([shopId])
+  @@index([categoryId])
+  @@index([status])
+}
+
+model ProductImage {
+  id        String @id @default(cuid())
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  url       String
+  alt       String?
+  position  Int    @default(0)
+
+  @@index([productId])
+}
+
+// Every product has at least one variant, even if it's the only one. This
+// avoids a price/stock field living in two places.
+model ProductVariant {
+  id        String @id @default(cuid())
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  name      String  // "Blue / Large", or "Default"
+  sku       String? @unique
+  price     Decimal @db.Decimal(10, 2)
+  compareAt Decimal? @db.Decimal(10, 2) // struck-through "was" price
+  inventory Int     @default(0)
+
+  cartItems  CartItem[]
+  orderItems OrderItem[]
+
+  @@index([productId])
+}
+
+model Review {
+  id        String  @id @default(cuid())
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  rating    Int     // 1-5
+  body      String?
+
+  createdAt DateTime @default(now())
+
+  // One review per customer per product.
+  @@unique([productId, userId])
+  @@index([productId])
+}
+
+// -------------------------------------------------------------------- cart
+
+model Cart {
+  id     String  @id @default(cuid())
+  userId String? @unique
+  user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Guests get a cart keyed by cookie until they sign in.
+  sessionToken String? @unique
+
+  items CartItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model CartItem {
+  id        String @id @default(cuid())
+  cartId    String
+  cart      Cart   @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  variantId String
+  variant   ProductVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  quantity  Int    @default(1)
+
+  @@unique([cartId, variantId])
+  @@index([cartId])
+}
+
+// ------------------------------------------------------------------ orders
+
+enum OrderStatus {
+  PENDING_PAYMENT
+  PAID
+  PARTIALLY_FULFILLED
+  FULFILLED
+  CANCELLED
+  REFUNDED
+}
+
+enum ShopOrderStatus {
+  PENDING
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+  REFUNDED
+}
+
+// The customer-facing order: one payment, one receipt, one address.
+model Order {
+  id          String      @id @default(cuid())
+  orderNumber String      @unique
+  status      OrderStatus @default(PENDING_PAYMENT)
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  addressId String?
+  address   Address? @relation(fields: [addressId], references: [id])
+
+  subtotal Decimal @db.Decimal(10, 2)
+  shipping Decimal @default(0) @db.Decimal(10, 2)
+  tax      Decimal @default(0) @db.Decimal(10, 2)
+  total    Decimal @db.Decimal(10, 2)
+  currency String  @default("USD")
+
+  stripePaymentIntentId String? @unique
+
+  shopOrders ShopOrder[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([status])
+}
+
+// The vendor-facing slice: what one shop owes the customer, tracked and paid
+// out on its own timeline. This is the heart of the marketplace model.
+model ShopOrder {
+  id      String          @id @default(cuid())
+  status  ShopOrderStatus @default(PENDING)
+
+  orderId String
+  order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  shopId  String
+  shop    Shop   @relation(fields: [shopId], references: [id])
+
+  subtotal   Decimal @db.Decimal(10, 2)
+  shipping   Decimal @default(0) @db.Decimal(10, 2)
+  commission Decimal @db.Decimal(10, 2) // marketplace fee on this slice
+  payout     Decimal @db.Decimal(10, 2) // subtotal + shipping - commission
+
+  trackingNumber String?
+  carrier        String?
+  shippedAt      DateTime?
+
+  items    OrderItem[]
+  payoutId String?
+  payoutRef Payout?    @relation(fields: [payoutId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([orderId, shopId])
+  @@index([shopId])
+  @@index([status])
+}
+
+model OrderItem {
+  id          String    @id @default(cuid())
+  shopOrderId String
+  shopOrder   ShopOrder @relation(fields: [shopOrderId], references: [id], onDelete: Cascade)
+
+  variantId String?
+  variant   ProductVariant? @relation(fields: [variantId], references: [id], onDelete: SetNull)
+
+  // Snapshotted at purchase time — the product may later be renamed,
+  // repriced or deleted, but the receipt must not change.
+  titleSnapshot   String
+  variantSnapshot String
+  imageSnapshot   String?
+  unitPrice       Decimal @db.Decimal(10, 2)
+  quantity        Int
+
+  @@index([shopOrderId])
+}
+
+enum PayoutStatus {
+  PENDING
+  IN_TRANSIT
+  PAID
+  FAILED
+}
+
+model Payout {
+  id     String       @id @default(cuid())
+  shopId String
+  shop   Shop         @relation(fields: [shopId], references: [id])
+  status PayoutStatus @default(PENDING)
+
+  amount   Decimal @db.Decimal(10, 2)
+  currency String  @default("USD")
+
+  stripeTransferId String?
+  shopOrders       ShopOrder[]
+
+  createdAt DateTime  @default(now())
+  paidAt    DateTime?
+
+  @@index([shopId])
+}
