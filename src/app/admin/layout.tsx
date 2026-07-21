@@ -19,7 +19,7 @@ export default async function AdminLayout({
   return (
     <div className="mx-auto max-w-[1600px] px-5 py-10 md:px-8">
       <div className="flex flex-wrap items-baseline justify-between gap-4 border-b border-grey-200 pb-4">
-        <span className="display text-lg">KIOSKYANGU ADMIN</span>
+        <span className="display text-lg">MEKUBAL ADMIN</span>
         <span className="text-xs text-grey-600">{user.email}</span>
       </div>
 

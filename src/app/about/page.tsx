@@ -2,9 +2,9 @@ import Link from "next/link";
 import { Reveal, Marquee } from "@/components/motion";
 
 export const metadata = {
-  title: "About — KIOSKYANGU",
+  title: "About — MEKUBAL",
   description:
-    "Creatives Connect Afrika works directly with artisans across Kenya.",
+    "Mekubal Africa works directly with artisans across Kenya.",
 };
 
 const CRAFTS = [
@@ -19,7 +19,7 @@ export default function AboutPage() {
     <div>
       <section className="mx-auto max-w-[1600px] px-5 py-14 md:px-8 md:py-20">
         <Reveal>
-          <div className="eyebrow text-grey-600">Creatives Connect Afrika</div>
+          <div className="eyebrow text-grey-600">Mekubal Africa</div>
           <h1 className="display mt-6 text-[clamp(2.5rem,8.5vw,8rem)]">
             WE BUY
             <br />
@@ -32,13 +32,13 @@ export default function AboutPage() {
         <Reveal delay={120}>
           <div className="mt-16 grid gap-10 border-t border-grey-200 pt-14 lg:grid-cols-[1fr_1fr]">
             <h2 className="display text-[clamp(1.5rem,3.5vw,2.5rem)]">
-              KIOSKYANGU IS
+              MEKUBAL IS
               <br />
               OUR SHOP WINDOW
             </h2>
             <div className="max-w-xl space-y-5 text-sm leading-relaxed text-grey-600">
               <p>
-                Creatives Connect Afrika is a Kenyan studio working directly with
+                Mekubal Africa is a Kenyan studio working directly with
                 artisans across the country. We commission the work, agree the
                 price with the maker, and sell it here ourselves — there is no
                 middle layer between the bench it was made on and the box it
@@ -100,12 +100,12 @@ export default function AboutPage() {
             </h2>
             <div className="flex flex-col gap-4">
               <a
-                href="https://www.instagram.com/cca_eastafrica"
+                href="https://www.instagram.com/mekubal_africa"
                 target="_blank"
                 rel="noreferrer noopener"
                 className="link-underline eyebrow inline-flex w-fit items-center gap-3"
               >
-                Instagram — @cca_eastafrica
+                Instagram — @mekubal_africa
                 <span aria-hidden>⟶</span>
               </a>
               <Link

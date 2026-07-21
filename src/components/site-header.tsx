@@ -59,7 +59,7 @@ export function SiteHeader({
           </button>
 
           <Link href="/" className="display text-xl tracking-tight md:text-2xl">
-            KIOSKYANGU
+            MEKUBAL
             <sup className="ml-0.5 align-super text-[9px] tracking-normal">
               ™
             </sup>
@@ -121,7 +121,7 @@ export function SiteHeader({
       >
         <div className="mx-auto flex h-full max-w-[1600px] flex-col px-5 py-4 md:px-8">
           <div className="flex items-center justify-between">
-            <span className="display text-xl md:text-2xl">KIOSKYANGU</span>
+            <span className="display text-xl md:text-2xl">MEKUBAL</span>
             <button
               onClick={() => setMenu(false)}
               aria-label="Close menu"
@@ -148,7 +148,7 @@ export function SiteHeader({
 
           <div className="mt-auto flex flex-wrap gap-x-8 gap-y-2 border-t border-grey-200 pt-6 text-sm">
             <Link href="/about" className="link-underline">
-              About CCA
+              About Mekubal
             </Link>
             <Link href="/orders" className="link-underline">
               My orders

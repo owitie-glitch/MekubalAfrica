@@ -29,7 +29,7 @@ export async function generateMetadata({
   });
   if (!product || product.status !== "ACTIVE") return { title: "Not found" };
   return {
-    title: `${product.title} — KIOSKYANGU`,
+    title: `${product.title} — MEKUBAL`,
     description: product.description ?? undefined,
   };
 }

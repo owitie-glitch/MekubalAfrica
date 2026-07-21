@@ -26,7 +26,7 @@ export default async function RegisterPage({
       </h1>
       <p className="mt-5 text-sm leading-relaxed text-grey-600">
         One account for your cart, your addresses and every order you place with
-        CCA.
+        Mekubal.
       </p>
 
       <div className="mt-12 border-t border-grey-200 pt-10">

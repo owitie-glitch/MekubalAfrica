@@ -33,7 +33,7 @@ function isSortKey(value: string | undefined): value is SortKey {
 }
 
 export const metadata = {
-  title: "Shop — KIOSKYANGU",
+  title: "Shop — MEKUBAL",
   description: "Hand-made ornaments from artisans across Kenya.",
 };
 

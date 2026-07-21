@@ -52,7 +52,7 @@ export default async function OrderDetailPage({
         </div>
       </header>
 
-      {/* One order, one shipment — CCA fulfils everything itself. */}
+      {/* One order, one shipment — Mekubal fulfils everything itself. */}
       <section aria-labelledby="items-heading" className="mt-12">
         <h2
           id="items-heading"

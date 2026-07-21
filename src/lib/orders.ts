@@ -9,7 +9,7 @@ function money(n: number) {
 function orderNumber() {
   const stamp = Date.now().toString(36).toUpperCase();
   const rand = Math.random().toString(36).slice(2, 6).toUpperCase();
-  return `CCA-${stamp}-${rand}`;
+  return `MKB-${stamp}-${rand}`;
 }
 
 export class CheckoutError extends Error {}

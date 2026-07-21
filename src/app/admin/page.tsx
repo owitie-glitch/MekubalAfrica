@@ -45,7 +45,7 @@ export default async function AdminOverviewPage() {
 
   return (
     <>
-      <AdminHead eyebrow="Creatives Connect Afrika" title="Overview" />
+      <AdminHead eyebrow="Mekubal Africa" title="Overview" />
 
       <div className="grid grid-cols-2 gap-px bg-grey-200 md:grid-cols-4">
         <Stat label="Products" value={productTotal} />

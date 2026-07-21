@@ -9,7 +9,7 @@ const db = new PrismaClient({
 
 const dec = (n: number) => new Prisma.Decimal(n.toFixed(2));
 
-// Placeholder imagery. Replace with CCA's own product photography — the
+// Placeholder imagery. Replace with Mekubal's own product photography — the
 // editorial layout leans hard on full-bleed shots, so real cut-outs on a
 // neutral ground will change how the whole site reads.
 const img = (seed: string) => `https://picsum.photos/seed/${seed}/1200/1500`;
@@ -38,15 +38,15 @@ async function main() {
   console.log("Users…");
   await db.user.create({
     data: {
-      email: "admin@cca.co.ke",
-      name: "CCA Studio",
+      email: "admin@mekubal.africa",
+      name: "Mekubal Studio",
       role: "ADMIN",
       passwordHash: password,
     },
   });
   const customer = await db.user.create({
     data: {
-      email: "customer@cca.co.ke",
+      email: "customer@mekubal.africa",
       name: "Amina Wanjiru",
       role: "CUSTOMER",
       passwordHash: password,
@@ -79,7 +79,7 @@ async function main() {
       headline: "THE BRASS COLLECTION",
       description:
         "Hand-cast and hand-polished in Nairobi. Each piece carries the marks of the hands that made it.",
-      heroImage: img("cca-brass-hero"),
+      heroImage: img("mekubal-brass-hero"),
       position: 0,
     },
   });
@@ -90,7 +90,7 @@ async function main() {
       headline: "CARVED IN KISII",
       description:
         "Soapstone quarried and carved by artisans in Kisii, finished by hand and dyed with natural pigment.",
-      heroImage: img("cca-soapstone-hero"),
+      heroImage: img("mekubal-soapstone-hero"),
       position: 1,
     },
   });
@@ -270,7 +270,7 @@ async function main() {
         variants: {
           create: spec.variants.map((name, v) => ({
             name,
-            sku: `CCA-${slug.slice(0, 10).toUpperCase()}-${v + 1}`,
+            sku: `MKB-${slug.slice(0, 10).toUpperCase()}-${v + 1}`,
             price: dec(spec.price + v * 200),
             compareAt: v === 0 && i % 3 === 0 ? dec(spec.price * 1.3) : null,
             inventory: 3 + ((i * 5 + v * 3) % 18),
@@ -307,8 +307,8 @@ async function main() {
   console.log(`
 Seed complete.
 
-  Admin     admin@cca.co.ke     / password123
-  Customer  customer@cca.co.ke  / password123
+  Admin     admin@mekubal.africa     / password123
+  Customer  customer@mekubal.africa  / password123
 
   ${categories.length} categories, 2 collections, ${created.length} products
 `);

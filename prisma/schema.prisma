@@ -1,6 +1,6 @@
-// KIOSKYANGU — Creatives Connect Afrika (CCA East Africa)
+// MEKUBAL — Mekubal Africa (Mekubal East Africa)
 //
-// Single-seller store: CCA sells its own handmade ornaments directly. There is
+// Single-seller store: Mekubal sells its own handmade ornaments directly. There is
 // no Shop model and no per-shop order splitting; an Order owns its OrderItems
 // outright. The prior multi-vendor schema is preserved in git history if the
 // store ever opens to other artisans.
@@ -17,7 +17,7 @@ datasource db {
 
 enum UserRole {
   CUSTOMER
-  ADMIN // CCA staff: manages catalogue and fulfils orders
+  ADMIN // Mekubal staff: manages catalogue and fulfils orders
 }
 
 model User {
@@ -124,7 +124,7 @@ model Product {
 
   // Craft detail buyers actually ask about before buying a handmade piece.
   material  String?
-  artisan   String? // the maker's name — CCA sells their work, not anonymous stock
+  artisan   String? // the maker's name — Mekubal sells their work, not anonymous stock
   origin    String? // "Kisii, Kenya"
   dimensions String?
 

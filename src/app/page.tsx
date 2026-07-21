@@ -172,7 +172,7 @@ export default async function HomePage() {
             </h2>
             <div className="max-w-lg space-y-4 text-sm leading-relaxed text-grey-600 lg:pt-2">
               <p>
-                Creatives Connect Afrika works directly with artisans across
+                Mekubal Africa works directly with artisans across
                 Kenya — brass casters in Nairobi, soapstone carvers in Kisii,
                 beadworkers in Kajiado, weavers in Kisumu.
               </p>

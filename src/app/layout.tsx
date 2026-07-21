@@ -17,11 +17,11 @@ const archivo = Archivo({
 
 export const metadata: Metadata = {
   title: {
-    default: "KIOSKYANGU — Handmade ornaments from East Africa",
-    template: "%s · KIOSKYANGU",
+    default: "MEKUBAL — Handmade ornaments from East Africa",
+    template: "%s · MEKUBAL",
   },
   description:
-    "Creatives Connect Afrika. Handmade brass, soapstone, wood and beadwork ornaments, made by artisans across Kenya.",
+    "Mekubal Africa. Handmade brass, soapstone, wood and beadwork ornaments, made by artisans across Kenya.",
 };
 
 export default async function RootLayout({
@@ -73,7 +73,7 @@ export default async function RootLayout({
           <footer className="mt-24 border-t border-grey-200">
             <div className="mx-auto max-w-[1600px] px-5 py-16 md:px-8">
               <div className="display text-[clamp(2.5rem,10vw,8rem)] leading-none">
-                CCA EAST AFRICA
+                MEKUBAL AFRICA
               </div>
               <div className="mt-12 flex flex-wrap justify-between gap-8 border-t border-grey-200 pt-8 text-sm">
                 <div className="flex flex-wrap gap-x-8 gap-y-2">
@@ -87,7 +87,7 @@ export default async function RootLayout({
                     Orders
                   </Link>
                   <a
-                    href="https://www.instagram.com/cca_eastafrica"
+                    href="https://www.instagram.com/mekubal_africa"
                     target="_blank"
                     rel="noreferrer noopener"
                     className="link-underline"
@@ -96,7 +96,7 @@ export default async function RootLayout({
                   </a>
                 </div>
                 <p className="text-grey-600">
-                  © {new Date().getFullYear()} Creatives Connect Afrika
+                  © {new Date().getFullYear()} Mekubal Africa
                 </p>
               </div>
             </div>
