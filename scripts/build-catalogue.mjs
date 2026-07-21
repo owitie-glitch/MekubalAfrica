@@ -54,38 +54,28 @@ const COLLECTIONS = [
   },
 ];
 
-/** Each entry is a real product, its photographs, and what is visible in them. */
+/**
+ * One entry per KIND of piece, not per colourway.
+ *
+ * Photographs that show the same item in different colours belong to one
+ * product with a variant each — a customer should meet "Beaded Wire Basket"
+ * once with five colours, not five near-identical listings.
+ */
 const PRODUCTS = [
-  // ------------------------------------------------------- beaded collars
+  // ---------------------------------------------------------- necklaces
   {
-    title: "Maasai Beaded Fringe Collar — Cream",
+    title: "Maasai Beaded Fringe Collar",
     category: "Necklaces",
     collection: "maasai-beadwork",
     material: "Glass seed beads, brass fittings",
     description:
-      "A rope-style beaded collar in cream seed beads with brass end caps, falling into a deep curtain of fringe that shades from cream through a band of brown, black and gold patterning and back to cream.",
-    photos: [img("10.39.10 PM (1)")],
-    variants: ["Cream"],
-  },
-  {
-    title: "Maasai Beaded Fringe Collar — Silver",
-    category: "Necklaces",
-    collection: "maasai-beadwork",
-    material: "Glass seed beads, brass clasp",
-    description:
-      "Silver seed-bead rope collar finished with a brass clasp, with a deep fringe whose strands turn from silver into mixed red, blue, yellow and green beads at the lower third.",
-    photos: [img("10.39.10 PM")],
-    variants: ["Silver / Multicolour"],
-  },
-  {
-    title: "Maasai Beaded Fringe Collar — Charcoal",
-    category: "Necklaces",
-    collection: "maasai-beadwork",
-    material: "Glass seed beads, brass fittings",
-    description:
-      "Charcoal-grey seed-bead rope collar with brass fittings and a long fringe carrying a wide central block of mixed red, blue, yellow and green beading.",
-    photos: [img("10.39.12 PM (1)")],
-    variants: ["Charcoal"],
+      "A rope-style beaded collar finished with brass end caps, falling into a deep curtain of fringe. The strands change colour along their length, so the piece reads as one tone at the neck and another at the hem.",
+    photos: [
+      img("10.39.10 PM"),
+      img("10.39.10 PM (1)"),
+      img("10.39.12 PM (1)"),
+    ],
+    variants: ["Silver / Multicolour", "Cream", "Charcoal"],
   },
   {
     title: "Beaded Torsade Rope Necklace",
@@ -93,7 +83,7 @@ const PRODUCTS = [
     collection: "maasai-beadwork",
     material: "Pearlised seed beads, coiled brass",
     description:
-      "Multi-strand torsade of pearlised silver-grey seed beads twisted into a single thick braid, finished with coiled brass wire end caps and a hook clasp.",
+      "Multi-strand torsade of pearlised seed beads twisted into a single thick braid, finished with coiled brass wire end caps and a hook clasp.",
     photos: [img("10.39.10 PM (2)"), img("10.39.12 PM (4)")],
     variants: ["Silver"],
   },
@@ -103,12 +93,10 @@ const PRODUCTS = [
     collection: "maasai-beadwork",
     material: "Glass seed beads, brass end caps",
     description:
-      "Orange beaded rope necklace blocked with bands of blue, red, green, yellow and black beading, hung with two flat circular beaded medallions and finished with brass end caps.",
+      "Beaded rope necklace blocked with bands of contrasting colour and hung with two flat circular beaded medallions, finished with brass end caps.",
     photos: [img("10.39.12 PM (2)")],
     variants: ["Orange"],
   },
-
-  // --------------------------------------------------------- bead strands
   {
     title: "Graduated Wooden Bead Necklace",
     category: "Necklaces",
@@ -125,7 +113,6 @@ const PRODUCTS = [
       img("10.39.16 PM (1)"),
       img("10.39.16 PM"),
     ],
-    // Colourways visible across the photographs.
     variants: ["Red", "Orange", "Teal", "Yellow", "Multicolour", "Natural"],
   },
   {
@@ -134,7 +121,7 @@ const PRODUCTS = [
     collection: "bead-strands",
     material: "Glazed ceramic beads, waxed cord",
     description:
-      "Glazed ceramic beads graded toward the centre front and strung on knotted brown cord with a sliding closure, so the length adjusts to the wearer.",
+      "Glazed ceramic beads graded toward the centre front and strung on knotted cord with a sliding closure, so the length adjusts to the wearer.",
     photos: [
       img("10.39.15 PM"),
       img("10.39.15 PM (1)"),
@@ -143,143 +130,95 @@ const PRODUCTS = [
       img("10.39.15 PM (4)"),
       img("10.39.14 PM (4)"),
     ],
-    variants: ["Cream", "Black", "Grey", "Pink", "Olive", "Blue", "Red", "Yellow", "Teal"],
+    variants: [
+      "Cream",
+      "Black",
+      "Grey",
+      "Pink",
+      "Olive",
+      "Blue",
+      "Red",
+      "Yellow",
+      "Teal",
+    ],
   },
 
-  // ---------------------------------------------------------------- cuffs
+  // --------------------------------------------------- bracelets & cuffs
   {
-    title: "Maasai Beaded Leather Cuff — Kenyan Flag",
+    title: "Maasai Beaded Leather Cuff",
     category: "Bracelets & Cuffs",
     collection: "maasai-beadwork",
     material: "Glass seed beads on leather",
     description:
-      "Wide leather-backed cuff beaded in rows of red, white, green and black, lined in dark suede and fastened with metal snap studs.",
+      "Wide leather-backed cuff, beaded by hand and lined in dark suede with metal snap fasteners. Patterns run from flag stripes to concentric eyes and swirls, and rotate with what the beaders are making.",
     photos: [
       img("10.39.12 PM"),
       img("10.39.12 PM (3)"),
       img("10.39.13 PM (1)"),
       img("10.39.11 PM (3)"),
-    ],
-    variants: ["Red / White / Green"],
-  },
-  {
-    title: "Maasai Beaded Leather Cuff — Swirl",
-    category: "Bracelets & Cuffs",
-    collection: "maasai-beadwork",
-    material: "Glass seed beads on leather",
-    description:
-      "Wide leather-backed cuff worked in swirling rows of blue, orange, yellow, white and bronze beads, with a black suede lining and two snap fasteners.",
-    photos: [
       img("10.39.13 PM (2)"),
       img("10.39.13 PM (3)"),
       img("10.39.13 PM (4)"),
-    ],
-    variants: ["Blue / Orange"],
-  },
-  {
-    title: "Maasai Beaded Leather Cuff — Concentric Eye",
-    category: "Bracelets & Cuffs",
-    collection: "maasai-beadwork",
-    material: "Glass seed beads on leather",
-    description:
-      "Wide beaded cuff on a black leather base, patterned with concentric eye motifs and stripes in red, orange, blue, white and yellow.",
-    photos: [img("10.45.46 PM (3)"), img("10.45.45 PM (3)")],
-    variants: ["Red / Blue"],
-  },
-  {
-    title: "Maasai Beaded Leather Cuff — Assorted",
-    category: "Bracelets & Cuffs",
-    collection: "maasai-beadwork",
-    material: "Glass seed beads on leather",
-    description:
-      "Wide leather-backed beaded cuffs in Maasai patterning — chevrons, concentric eyes and banded stripes. Patterns rotate with what the beaders are making; ask us what is in stock.",
-    photos: [
+      img("10.45.46 PM (3)"),
+      img("10.45.45 PM (3)"),
       img("10.45.45 PM"),
       img("10.45.45 PM (1)"),
-      img("10.45.45 PM (2)"),
       img("10.39.14 PM (3)"),
     ],
-    variants: ["Assorted"],
+    variants: [
+      "Kenyan Flag",
+      "Swirl",
+      "Concentric Eye",
+      "Assorted pattern",
+    ],
   },
 
-  // ------------------------------------------------------- beaded baskets
+  // ------------------------------------------------------ beaded baskets
   {
-    title: "Beaded Wire Basket — Gold",
+    title: "Beaded Wire Basket",
     category: "Beaded Baskets",
     collection: null,
     material: "Glass seed beads, coiled wire",
     description:
-      "Lidded round basket coiled in metallic gold seed beads and scattered with colour, ringed at the lid edge and base with bands of red, blue, green and white.",
-    photos: [img("10.39.11 PM"), img("10.39.13 PM")],
-    variants: ["Gold"],
+      "Lidded basket built by threading glass beads onto wire and coiling them into shape by hand. Used for jewellery, trinkets and small keepsakes.",
+    photos: [
+      img("10.39.11 PM"),
+      img("10.39.13 PM"),
+      img("10.39.11 PM (1)"),
+      img("10.39.11 PM (2)"),
+      img("10.39.14 PM"),
+      img("10.39.14 PM (1)"),
+    ],
+    variants: ["Gold", "Black & Gold", "Silver", "Navy Speckle"],
   },
   {
-    title: "Beaded Wire Basket — Black & Gold",
-    category: "Beaded Baskets",
-    collection: null,
-    material: "Glass seed beads, coiled wire",
-    description:
-      "Oval lidded basket covered in black beads flecked with colour, with white beaded side panels, a gold bead rim and a looped beaded bow on the lid.",
-    photos: [img("10.39.11 PM (1)"), img("10.39.11 PM (2)")],
-    variants: ["Black / Gold"],
-  },
-  {
-    title: "Beaded Wire Basket — Silver",
-    category: "Beaded Baskets",
-    collection: null,
-    material: "Silver-lined glass beads, coiled wire",
-    description:
-      "Lidded round basket in silver-lined bugle beads with a black beaded band at the rim and a small beaded knot on the lid.",
-    photos: [img("10.39.14 PM")],
-    variants: ["Silver"],
-  },
-  {
-    title: "Beaded Wire Basket — Navy Speckle",
-    category: "Beaded Baskets",
-    collection: null,
-    material: "Glass seed beads, coiled wire",
-    description:
-      "Small lidded basket coiled in white and dark navy seed beads in a speckled spiral, the wire coils visible between rows.",
-    photos: [img("10.39.14 PM (1)")],
-    variants: ["Navy / White"],
-  },
-  {
-    title: "Beaded Wire Trinket Pot — Bronze",
+    title: "Beaded Wire Trinket Pot",
     category: "Beaded Baskets",
     collection: null,
     material: "Iridescent glass beads, coiled wire",
     description:
-      "Small coiled pot in iridescent bronze and gold beads speckled with colour, its lid topped with a looped beaded bow. Sits in the palm of a hand.",
+      "Small coiled pot in iridescent beads speckled with colour, its lid topped with a looped beaded bow. Sits in the palm of a hand.",
     photos: [img("10.39.14 PM (2)")],
     variants: ["Bronze"],
   },
 
-  // --------------------------------------------------------- table & home
+  // -------------------------------------------------------- table & home
   {
-    title: "Maasai Beaded Leather Coasters — Set of Four",
+    title: "Maasai Beaded Leather Coasters",
     category: "Table & Home",
     collection: null,
     material: "Coiled seed beads, plaited leather",
     description:
-      "Coasters of coiled seed beads set into leather discs with plaited leather edging, in red and gold spirals, dark brown and gold, and black, white and gold rings.",
+      "Coasters of coiled seed beads set into leather discs with plaited leather edging, worked in concentric rings and spirals.",
     photos: [
       img("10.45.43 PM (2)"),
       img("10.45.43 PM (3)"),
       img("10.45.43 PM (4)"),
       img("10.45.44 PM (2)"),
       img("10.45.44 PM (3)"),
+      img("10.39.21 PM (3)"),
     ],
-    variants: ["Set of 4"],
-  },
-  {
-    title: "Maasai Beaded Leather Coasters — Blue Spiral",
-    category: "Table & Home",
-    collection: null,
-    material: "Coiled seed beads, leather",
-    description:
-      "Coasters worked in concentric spirals of blue, turquoise and metallic seed beads set into dark leather-edged discs.",
-    photos: [img("10.39.21 PM (3)")],
-    variants: ["Blue"],
+    variants: ["Red & Gold", "Black & White", "Brown & Gold", "Blue Spiral"],
   },
   {
     title: "Fringed Sisal Placemat",
@@ -299,27 +238,22 @@ const PRODUCTS = [
     variants: ["Natural", "Grey", "Orange", "Yellow", "Pink"],
   },
   {
-    title: "Beaded-Rim Sisal Bowls",
+    title: "Woven Sisal Bowls",
     category: "Table & Home",
     collection: null,
     material: "Woven sisal, glass beads",
     description:
-      "Nested woven sisal bowls trimmed at the rim with seed beads in white, clear and gold-black mixes.",
-    photos: [img("10.39.20 PM (3)"), img("10.39.21 PM")],
-    variants: ["Set"],
-  },
-  {
-    title: "Coiled Sisal Bowls",
-    category: "Table & Home",
-    collection: null,
-    material: "Coiled natural fibre",
-    description:
-      "Nested coiled-fibre bowls and plates in lime green with black zigzag banding and dark rims.",
-    photos: [img("10.45.44 PM"), img("10.45.44 PM (1)")],
-    variants: ["Green"],
+      "Nested woven sisal bowls, either trimmed at the rim with seed beads or banded in dyed fibre. Sold as a nesting set.",
+    photos: [
+      img("10.39.20 PM (3)"),
+      img("10.39.21 PM"),
+      img("10.45.44 PM"),
+      img("10.45.44 PM (1)"),
+    ],
+    variants: ["Beaded rim", "Green banded"],
   },
 
-  // ------------------------------------------------------------- earrings
+  // ----------------------------------------------------------- earrings
   {
     title: "Hammered Brass Earrings",
     category: "Earrings",
@@ -328,7 +262,7 @@ const PRODUCTS = [
     description:
       "Hand-hammered brass earrings in ankh, Africa, comb, hoop, spiral, triangle and leaf shapes. Shapes rotate with what is in stock.",
     photos: [img("10.42.32 PM"), img("10.45.48 PM")],
-    variants: ["Assorted"],
+    variants: ["Assorted shape"],
   },
   {
     title: "Beaded & Cowrie Shell Earrings",
@@ -338,7 +272,7 @@ const PRODUCTS = [
     description:
       "Beaded hoops, tassels, cowrie shells, leather teardrops and carved wooden shapes. Styles rotate; ask us what is in stock.",
     photos: [img("10.42.32 PM (1)"), img("10.45.48 PM (1)")],
-    variants: ["Assorted"],
+    variants: ["Assorted style"],
   },
 ];
 
