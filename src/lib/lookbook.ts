@@ -10,7 +10,7 @@ export const lookbook = [
   },
   {
     "url": "/uploads/lookbook-3.webp",
-    "caption": "Beaded collars on the beam"
+    "caption": "The cuff table"
   },
   {
     "url": "/uploads/lookbook-4.webp",

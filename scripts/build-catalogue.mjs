@@ -28,9 +28,12 @@ const db = new PrismaClient({
 const CATEGORIES = [
   { name: "Necklaces", position: 0 },
   { name: "Bracelets & Cuffs", position: 1 },
-  { name: "Beaded Baskets", position: 2 },
-  { name: "Table & Home", position: 3 },
+  { name: "Metal Jewellery", position: 2 },
+  { name: "Belts & Bands", position: 3 },
   { name: "Earrings", position: 4 },
+  { name: "Beaded Baskets", position: 5 },
+  { name: "Table & Home", position: 6 },
+  { name: "Souvenirs & Curios", position: 7 },
 ];
 
 const COLLECTIONS = [
@@ -64,7 +67,7 @@ const COLLECTIONS = [
 const LOOKBOOK = [
   { file: img("10.39.18 PM (1)"), caption: "Bangles by the hundred, Westlands" },
   { file: img("10.45.46 PM (1)"), caption: "The cuff cabinet" },
-  { file: img("10.39.18 PM"), caption: "Beaded collars on the beam" },
+  { file: img("10.39.20 PM"), caption: "The cuff table" },
   { file: img("10.42.32 PM"), caption: "Hammered brass, by the board" },
   { file: img("10.39.19 PM"), caption: "Flag bands, stacked" },
   { file: img("10.42.33 PM (1)"), caption: "The long table" },
@@ -92,6 +95,16 @@ const PRODUCTS = [
       img("10.39.12 PM (1)"),
     ],
     variants: ["Silver / Multicolour", "Cream", "Charcoal"],
+  },
+  {
+    title: "Beaded Net Cape Collar",
+    category: "Necklaces",
+    collection: "maasai-beadwork",
+    material: "Glass seed beads, metal drops",
+    description:
+      "A wide beaded cape worked in open diamond mesh, filled with bands of accent colour and finished with a long pointed fringe. Sits over the shoulders rather than at the throat.",
+    photos: [img("10.39.18 PM"), img("10.39.19 PM (3)")],
+    variants: ["Rainbow band", "Black lattice"],
   },
   {
     title: "Beaded Torsade Rope Necklace",
@@ -292,6 +305,105 @@ const PRODUCTS = [
       "Beaded hoops, tassels, cowrie shells, leather teardrops and carved wooden shapes. Styles rotate; ask us what is in stock.",
     photos: [img("10.42.32 PM (1)"), img("10.45.48 PM (1)")],
     variants: ["Assorted style"],
+  },
+
+  // ------------------------------------------------------ metal jewellery
+  // NOTE: the metal range is only photographed as a full table, so these
+  // products share those two shots. They want individual photographs before
+  // launch — a customer cannot pick a bangle out of a crowded table.
+  {
+    title: "Brass Bangles & Cuffs",
+    category: "Metal Jewellery",
+    collection: null,
+    material: "Brass",
+    description:
+      "Hammered, twisted-wire and spiral brass bangles and open cuffs, worn singly or stacked. Finishes vary between pieces as each is worked by hand.",
+    photos: [img("10.42.32 PM (2)"), img("10.45.48 PM (2)")],
+    variants: ["Hammered", "Twisted wire", "Spiral", "Wide cuff"],
+  },
+  {
+    title: "Horn & Resin Bangles",
+    category: "Metal Jewellery",
+    collection: null,
+    material: "Polished horn, bone, resin",
+    description:
+      "Smooth bangles turned from horn and bone in natural browns and creams, alongside solid resin bangles in bright colours.",
+    photos: [img("10.45.48 PM (2)"), img("10.42.32 PM (2)")],
+    variants: ["Horn", "Bone", "Resin — assorted colour"],
+  },
+  {
+    title: "Brass Collar Necklace",
+    category: "Metal Jewellery",
+    collection: null,
+    material: "Polished brass, wire",
+    description:
+      "Statement neckpiece in polished brass — a smooth crescent collar, or layered wire coiled into a torque.",
+    photos: [img("10.42.32 PM (2)"), img("10.45.48 PM (2)")],
+    variants: ["Crescent collar", "Layered wire"],
+  },
+
+  // -------------------------------------------------------- belts & bands
+  {
+    title: "Beaded Belt",
+    category: "Belts & Bands",
+    collection: "maasai-beadwork",
+    material: "Glass seed beads on leather",
+    description:
+      "Long beaded belt worked in vertical strands of colour on a leather backing, fastening with a beaded tab.",
+    photos: [img("10.45.46 PM (2)"), img("10.45.46 PM (4)")],
+    variants: ["Multicolour", "Rainbow stripe"],
+  },
+  {
+    title: "Flat Beaded Band",
+    category: "Belts & Bands",
+    collection: "maasai-beadwork",
+    material: "Glass seed beads",
+    description:
+      "Flat woven band of seed beads, worn on the wrist or upper arm. Woven in flag stripes and geometric repeats.",
+    photos: [img("10.39.19 PM"), img("10.45.46 PM (4)")],
+    variants: ["Kenyan flag", "Assorted stripe"],
+  },
+
+  // --------------------------------------------------- souvenirs & curios
+  {
+    title: "Carved Gourd",
+    category: "Souvenirs & Curios",
+    collection: null,
+    material: "Gourd, dyed and incised",
+    description:
+      "Dried gourd dyed deep red and incised with giraffe and wildlife motifs, finished with a fitted lid.",
+    photos: [img("10.42.33 PM"), img("10.45.48 PM (3)")],
+    variants: ["Red, assorted motif"],
+  },
+  {
+    title: "Leather Wallets & Card Holders",
+    category: "Souvenirs & Curios",
+    collection: null,
+    material: "Stitched leather",
+    description:
+      "Hand-stitched leather wallets and card holders, some tooled with African motifs.",
+    photos: [img("10.42.33 PM (1)"), img("10.45.49 PM")],
+    variants: ["Wallet", "Card holder"],
+  },
+  {
+    title: "Banana Fibre Wall Art",
+    category: "Souvenirs & Curios",
+    collection: null,
+    material: "Banana fibre, board",
+    description:
+      "Framed pictures built up from layered banana fibre and bark, showing village and wildlife scenes.",
+    photos: [img("10.42.33 PM (2)"), img("10.45.49 PM (1)")],
+    variants: ["Assorted scene"],
+  },
+  {
+    title: "African Print Fabric Fan",
+    category: "Souvenirs & Curios",
+    collection: null,
+    material: "Printed cotton, wood",
+    description:
+      "Folding hand fan in printed cotton on a wooden frame, in assorted African prints.",
+    photos: [img("10.45.48 PM (4)"), img("10.42.33 PM")],
+    variants: ["Assorted print"],
   },
 ];
 
