@@ -79,8 +79,16 @@ export default async function RootLayout({
 
           <footer className="mt-24 border-t border-grey-200">
             <div className="mx-auto max-w-[1600px] px-5 py-16 md:px-8">
-              <div className="display text-[clamp(2.5rem,10vw,8rem)] leading-none">
-                MEKUBAL AFRICA
+              <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/logo.png"
+                  alt=""
+                  className="h-[clamp(2.5rem,8vw,6rem)] w-auto"
+                />
+                <div className="display text-[clamp(2.5rem,10vw,8rem)] leading-none">
+                  MEKUBAL AFRICA
+                </div>
               </div>
               <div className="mt-12 grid gap-10 border-t border-grey-200 pt-10 text-sm sm:grid-cols-3">
                 <div>

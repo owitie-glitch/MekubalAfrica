@@ -58,11 +58,18 @@ export function SiteHeader({
             <span className="block h-[2px] w-6 bg-current" />
           </button>
 
-          <Link href="/" className="display text-xl tracking-tight md:text-2xl">
-            MEKUBAL
-            <sup className="ml-0.5 align-super text-[9px] tracking-normal">
-              ™
-            </sup>
+          <Link href="/" aria-label="Mekubal Africa — home" className="flex items-center gap-2.5">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/logo.png"
+              alt=""
+              width={35}
+              height={28}
+              className="h-7 w-auto md:h-8"
+            />
+            <span className="display text-xl tracking-tight md:text-2xl">
+              MEKUBAL
+            </span>
           </Link>
 
           <nav className="mx-auto hidden gap-8 md:flex">
@@ -121,7 +128,11 @@ export function SiteHeader({
       >
         <div className="mx-auto flex h-full max-w-[1600px] flex-col px-5 py-4 md:px-8">
           <div className="flex items-center justify-between">
-            <span className="display text-xl md:text-2xl">MEKUBAL</span>
+            <span className="flex items-center gap-2.5">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/logo.png" alt="" className="h-7 w-auto md:h-8" />
+              <span className="display text-xl md:text-2xl">MEKUBAL</span>
+            </span>
             <button
               onClick={() => setMenu(false)}
               aria-label="Close menu"
