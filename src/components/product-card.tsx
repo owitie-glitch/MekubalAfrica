@@ -52,7 +52,11 @@ export function ProductCard({
           land on top of the title. */}
       <div className="relative">
         <Link href={`/product/${product.slug}`} className="block">
-          <div className="relative aspect-4/5 overflow-hidden bg-paper">
+          {/* 3:4 matches the source photographs exactly, so nothing is cropped
+            — a 4:5 frame clipped the ends off the long fringed collars. The
+            ring gives the shots an edge; they are lit on white fabric and
+            would otherwise bleed into a white page. */}
+        <div className="relative aspect-3/4 overflow-hidden bg-paper ring-1 ring-black/5">
           {primary && (
             <>
               {/* eslint-disable-next-line @next/next/no-img-element */}

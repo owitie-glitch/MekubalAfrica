@@ -115,10 +115,10 @@ export default async function ProductPage({
           {/* Images stack and scroll; the detail column stays put beside them. */}
           <div className="space-y-2">
             {product.images.length === 0 && (
-              <div className="aspect-4/5 bg-paper" aria-hidden />
+              <div className="aspect-3/4 bg-paper" aria-hidden />
             )}
             {product.images.map((image) => (
-              <div key={image.id} className="aspect-4/5 overflow-hidden bg-paper">
+              <div key={image.id} className="aspect-3/4 overflow-hidden bg-paper ring-1 ring-black/5">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={image.url}

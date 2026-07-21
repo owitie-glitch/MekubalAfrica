@@ -151,15 +151,18 @@ const PRODUCTS = [
     material: "Glass seed beads on leather",
     description:
       "Wide leather-backed cuff, beaded by hand and lined in dark suede with metal snap fasteners. Patterns run from flag stripes to concentric eyes and swirls, and rotate with what the beaders are making.",
+    // Cleanest shots lead: the worn cuff and the in-hand shot read as product
+    // photography, the shelf views read as a market stall. Order matters —
+    // the first image is the one the grid shows.
     photos: [
+      img("10.39.11 PM (3)"), // worn on the arm
+      img("10.45.46 PM (3)"), // held in hand
       img("10.39.12 PM"),
+      img("10.39.13 PM (2)"),
       img("10.39.12 PM (3)"),
       img("10.39.13 PM (1)"),
-      img("10.39.11 PM (3)"),
-      img("10.39.13 PM (2)"),
       img("10.39.13 PM (3)"),
       img("10.39.13 PM (4)"),
-      img("10.45.46 PM (3)"),
       img("10.45.45 PM (3)"),
       img("10.45.45 PM"),
       img("10.45.45 PM (1)"),

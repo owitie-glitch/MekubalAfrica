@@ -64,7 +64,7 @@ export function QuickView({
         </button>
 
         <div className="bg-paper">
-          <div className="aspect-4/5 overflow-hidden">
+          <div className="aspect-3/4 overflow-hidden">
             {product.images[image] && (
               // eslint-disable-next-line @next/next/no-img-element
               <img

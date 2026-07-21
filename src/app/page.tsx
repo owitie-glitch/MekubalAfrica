@@ -38,9 +38,7 @@ export default async function HomePage() {
               <h1 className="display text-[clamp(2.75rem,9vw,8.5rem)]">
                 {lead ? (
                   <>
-                    NEW <span className="text-grey-400">{lead.name}</span>
-                    <br />
-                    ORNAMENT
+                    THE <span className="text-grey-400">{lead.name}</span>
                     <br />
                     COLLECTION
                   </>
