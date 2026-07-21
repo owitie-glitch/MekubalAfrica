@@ -40,12 +40,16 @@ export function ProductCard({
 
   return (
     <article
-      className={`group relative ${className}`}
+      className={`group ${className}`}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
-      <Link href={`/product/${product.slug}`} className="block">
-        <div className="relative aspect-4/5 overflow-hidden bg-paper">
+      {/* The overlay anchors to THIS box, not the article — otherwise
+          `bottom-0` resolves to the bottom of the whole card and the buttons
+          land on top of the title. */}
+      <div className="relative">
+        <Link href={`/product/${product.slug}`} className="block">
+          <div className="relative aspect-4/5 overflow-hidden bg-paper">
           {primary && (
             <>
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -68,34 +72,37 @@ export function ProductCard({
             </>
           )}
 
-          {soldOut && (
-            <span className="absolute left-3 top-3 bg-white px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em]">
-              Sold out
-            </span>
-          )}
-        </div>
-      </Link>
+            {soldOut && (
+              <span className="absolute left-3 top-3 bg-white px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em]">
+                Sold out
+              </span>
+            )}
+          </div>
+        </Link>
 
-      {/* Actions slide up over the image on hover; always reachable on touch. */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-2 p-3 opacity-0 transition-all duration-300 group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:translate-y-0 group-focus-within:opacity-100 max-md:pointer-events-auto max-md:translate-y-0 max-md:opacity-100">
-        <div className="flex gap-2">
-          {onQuickView && (
-            <button
-              onClick={() => onQuickView(product)}
-              className="flex-1 bg-white/95 py-3 text-[10px] font-semibold uppercase tracking-[0.12em] backdrop-blur transition-colors hover:bg-black hover:text-white"
-            >
-              Quick view
-            </button>
-          )}
-          {single && !soldOut && (
-            <button
-              onClick={() => add(single.id)}
-              disabled={busy}
-              className="flex-1 bg-black py-3 text-[10px] font-semibold uppercase tracking-[0.12em] text-white transition-colors hover:bg-neutral-800 disabled:opacity-40"
-            >
-              Add
-            </button>
-          )}
+        {/* Slides up over the bottom of the image on hover. Hidden on touch,
+            where there is no hover and the whole card already opens the
+            product — permanently covering the photograph is a worse trade. */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 hidden translate-y-2 p-3 opacity-0 transition-all duration-300 md:block group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:translate-y-0 group-focus-within:opacity-100">
+          <div className="flex gap-2">
+            {onQuickView && (
+              <button
+                onClick={() => onQuickView(product)}
+                className="flex-1 bg-white/95 py-3 text-[10px] font-semibold uppercase tracking-[0.12em] backdrop-blur transition-colors hover:bg-black hover:text-white"
+              >
+                Quick view
+              </button>
+            )}
+            {single && !soldOut && (
+              <button
+                onClick={() => add(single.id)}
+                disabled={busy}
+                className="flex-1 bg-black py-3 text-[10px] font-semibold uppercase tracking-[0.12em] text-white transition-colors hover:bg-neutral-800 disabled:opacity-40"
+              >
+                Add
+              </button>
+            )}
+          </div>
         </div>
       </div>
 
