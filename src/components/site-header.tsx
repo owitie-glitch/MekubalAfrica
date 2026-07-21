@@ -150,6 +150,9 @@ export function SiteHeader({
             <Link href="/about" className="link-underline">
               About Mekubal
             </Link>
+            <Link href="/contact" className="link-underline">
+              Visit &amp; contact
+            </Link>
             <Link href="/orders" className="link-underline">
               My orders
             </Link>
