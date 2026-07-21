@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useCart } from "./cart-store";
 import { formatMoney } from "./ui";
+import { isEnquiry, PRICE_ON_REQUEST } from "@/lib/pricing";
 
 export type CardProduct = {
   id: string;
@@ -33,8 +34,10 @@ export function ProductCard({
   const { add, busy } = useCart();
   const [hover, setHover] = useState(false);
 
-  const soldOut = product.variants.every((v) => v.inventory < 1);
-  const single = product.variants.length === 1 ? product.variants[0] : null;
+  const enquiry = isEnquiry(product.priceMin);
+  const soldOut = !enquiry && product.variants.every((v) => v.inventory < 1);
+  const single =
+    !enquiry && product.variants.length === 1 ? product.variants[0] : null;
   const primary = product.images[0]?.url;
   const secondary = product.images[1]?.url ?? primary;
 
@@ -114,8 +117,12 @@ export function ProductCard({
           >
             {product.title}
           </Link>
-          <span className="shrink-0 text-sm tabular-nums">
-            {formatMoney(product.priceMin)}
+          <span
+            className={`shrink-0 text-sm ${
+              enquiry ? "text-grey-600" : "tabular-nums"
+            }`}
+          >
+            {enquiry ? PRICE_ON_REQUEST : formatMoney(product.priceMin)}
           </span>
         </div>
         <p className="mt-1 text-xs text-grey-600">

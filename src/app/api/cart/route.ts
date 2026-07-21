@@ -45,6 +45,15 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Unavailable." }, { status: 404 });
   }
 
+  // Zero price means "not priced yet", not "free". Refuse it here as well as
+  // hiding the button, so a crafted request can't put a KSh 0 line in an order.
+  if (Number(variant.price) <= 0) {
+    return NextResponse.json(
+      { error: "This piece is enquiry-only — message us on WhatsApp." },
+      { status: 409 },
+    );
+  }
+
   const cart = await getOrCreateCart();
   const existing = cart.items.find((i) => i.variantId === variant.id);
 

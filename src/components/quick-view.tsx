@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useCart } from "./cart-store";
 import { formatMoney } from "./ui";
+import { isEnquiry, enquiryUrl, PRICE_ON_REQUEST } from "@/lib/pricing";
 import type { CardProduct } from "./product-card";
 
 /** Product preview in a modal — buy without losing your place in the grid. */
@@ -41,7 +42,8 @@ export function QuickView({
   if (!product) return null;
 
   const variant = product.variants.find((v) => v.id === variantId) ?? null;
-  const soldOut = !variant || variant.inventory < 1;
+  const enquiry = isEnquiry(product.priceMin);
+  const soldOut = !enquiry && (!variant || variant.inventory < 1);
 
   return (
     <div
@@ -96,8 +98,10 @@ export function QuickView({
             <span className="eyebrow text-grey-600">{product.categoryName}</span>
           )}
           <h2 className="display mt-2 text-2xl">{product.title}</h2>
-          <p className="mt-3 text-lg tabular-nums">
-            {formatMoney(variant?.price ?? product.priceMin)}
+          <p className={`mt-3 text-lg ${enquiry ? "text-grey-600" : "tabular-nums"}`}>
+            {enquiry
+              ? PRICE_ON_REQUEST
+              : formatMoney(variant?.price ?? product.priceMin)}
           </p>
 
           {(product.material || product.artisan) && (
@@ -146,13 +150,24 @@ export function QuickView({
           )}
 
           <div className="mt-auto pt-6">
-            <button
-              onClick={() => variant && add(variant.id)}
-              disabled={busy || soldOut}
-              className="w-full bg-black py-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-white transition-colors hover:bg-neutral-800 disabled:opacity-40"
-            >
-              {soldOut ? "Sold out" : busy ? "Adding…" : "Add to cart"}
-            </button>
+            {enquiry ? (
+              <a
+                href={enquiryUrl(product.title, variant?.name)}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="block w-full bg-black py-4 text-center text-[11px] font-semibold uppercase tracking-[0.14em] text-white transition-colors hover:bg-neutral-800"
+              >
+                Enquire on WhatsApp
+              </a>
+            ) : (
+              <button
+                onClick={() => variant && add(variant.id)}
+                disabled={busy || soldOut}
+                className="w-full bg-black py-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-white transition-colors hover:bg-neutral-800 disabled:opacity-40"
+              >
+                {soldOut ? "Sold out" : busy ? "Adding…" : "Add to cart"}
+              </button>
+            )}
             <Link
               href={`/product/${product.slug}`}
               onClick={onClose}

@@ -58,7 +58,7 @@ const COLLECTIONS = [
 const PRODUCTS = [
   // ------------------------------------------------------- beaded collars
   {
-    title: "Cream Fringe Beaded Collar",
+    title: "Maasai Beaded Fringe Collar — Cream",
     category: "Necklaces",
     collection: "maasai-beadwork",
     material: "Glass seed beads, brass fittings",
@@ -68,7 +68,7 @@ const PRODUCTS = [
     variants: ["Cream"],
   },
   {
-    title: "Silver Fringe Beaded Collar",
+    title: "Maasai Beaded Fringe Collar — Silver",
     category: "Necklaces",
     collection: "maasai-beadwork",
     material: "Glass seed beads, brass clasp",
@@ -78,7 +78,7 @@ const PRODUCTS = [
     variants: ["Silver / Multicolour"],
   },
   {
-    title: "Charcoal Fringe Beaded Collar",
+    title: "Maasai Beaded Fringe Collar — Charcoal",
     category: "Necklaces",
     collection: "maasai-beadwork",
     material: "Glass seed beads, brass fittings",
@@ -88,7 +88,7 @@ const PRODUCTS = [
     variants: ["Charcoal"],
   },
   {
-    title: "Silver Twisted Rope Necklace",
+    title: "Beaded Torsade Rope Necklace",
     category: "Necklaces",
     collection: "maasai-beadwork",
     material: "Pearlised seed beads, coiled brass",
@@ -98,7 +98,7 @@ const PRODUCTS = [
     variants: ["Silver"],
   },
   {
-    title: "Orange Medallion Beaded Necklace",
+    title: "Maasai Beaded Medallion Necklace",
     category: "Necklaces",
     collection: "maasai-beadwork",
     material: "Glass seed beads, brass end caps",
@@ -148,7 +148,7 @@ const PRODUCTS = [
 
   // ---------------------------------------------------------------- cuffs
   {
-    title: "Flag Stripe Beaded Cuff",
+    title: "Maasai Beaded Leather Cuff — Kenyan Flag",
     category: "Bracelets & Cuffs",
     collection: "maasai-beadwork",
     material: "Glass seed beads on leather",
@@ -163,7 +163,7 @@ const PRODUCTS = [
     variants: ["Red / White / Green"],
   },
   {
-    title: "Swirl Beaded Cuff",
+    title: "Maasai Beaded Leather Cuff — Swirl",
     category: "Bracelets & Cuffs",
     collection: "maasai-beadwork",
     material: "Glass seed beads on leather",
@@ -177,7 +177,7 @@ const PRODUCTS = [
     variants: ["Blue / Orange"],
   },
   {
-    title: "Concentric Eye Beaded Cuff",
+    title: "Maasai Beaded Leather Cuff — Concentric Eye",
     category: "Bracelets & Cuffs",
     collection: "maasai-beadwork",
     material: "Glass seed beads on leather",
@@ -187,7 +187,7 @@ const PRODUCTS = [
     variants: ["Red / Blue"],
   },
   {
-    title: "Beaded Cuff — Studio Selection",
+    title: "Maasai Beaded Leather Cuff — Assorted",
     category: "Bracelets & Cuffs",
     collection: "maasai-beadwork",
     material: "Glass seed beads on leather",
@@ -204,7 +204,7 @@ const PRODUCTS = [
 
   // ------------------------------------------------------- beaded baskets
   {
-    title: "Gold Beaded Lidded Basket",
+    title: "Beaded Wire Basket — Gold",
     category: "Beaded Baskets",
     collection: null,
     material: "Glass seed beads, coiled wire",
@@ -214,7 +214,7 @@ const PRODUCTS = [
     variants: ["Gold"],
   },
   {
-    title: "Black & Gold Beaded Lidded Basket",
+    title: "Beaded Wire Basket — Black & Gold",
     category: "Beaded Baskets",
     collection: null,
     material: "Glass seed beads, coiled wire",
@@ -224,7 +224,7 @@ const PRODUCTS = [
     variants: ["Black / Gold"],
   },
   {
-    title: "Silver Bugle Bead Basket",
+    title: "Beaded Wire Basket — Silver",
     category: "Beaded Baskets",
     collection: null,
     material: "Silver-lined glass beads, coiled wire",
@@ -234,7 +234,7 @@ const PRODUCTS = [
     variants: ["Silver"],
   },
   {
-    title: "Speckled Navy Beaded Basket",
+    title: "Beaded Wire Basket — Navy Speckle",
     category: "Beaded Baskets",
     collection: null,
     material: "Glass seed beads, coiled wire",
@@ -244,7 +244,7 @@ const PRODUCTS = [
     variants: ["Navy / White"],
   },
   {
-    title: "Bronze Beaded Pot",
+    title: "Beaded Wire Trinket Pot — Bronze",
     category: "Beaded Baskets",
     collection: null,
     material: "Iridescent glass beads, coiled wire",
@@ -256,7 +256,7 @@ const PRODUCTS = [
 
   // --------------------------------------------------------- table & home
   {
-    title: "Beaded Leather Coasters — Set of Four",
+    title: "Maasai Beaded Leather Coasters — Set of Four",
     category: "Table & Home",
     collection: null,
     material: "Coiled seed beads, plaited leather",
@@ -272,7 +272,7 @@ const PRODUCTS = [
     variants: ["Set of 4"],
   },
   {
-    title: "Blue Spiral Beaded Coasters",
+    title: "Maasai Beaded Leather Coasters — Blue Spiral",
     category: "Table & Home",
     collection: null,
     material: "Coiled seed beads, leather",
@@ -299,7 +299,7 @@ const PRODUCTS = [
     variants: ["Natural", "Grey", "Orange", "Yellow", "Pink"],
   },
   {
-    title: "Beaded Rim Sisal Bowls",
+    title: "Beaded-Rim Sisal Bowls",
     category: "Table & Home",
     collection: null,
     material: "Woven sisal, glass beads",
@@ -309,7 +309,7 @@ const PRODUCTS = [
     variants: ["Set"],
   },
   {
-    title: "Coiled Fibre Bowls",
+    title: "Coiled Sisal Bowls",
     category: "Table & Home",
     collection: null,
     material: "Coiled natural fibre",
@@ -331,7 +331,7 @@ const PRODUCTS = [
     variants: ["Assorted"],
   },
   {
-    title: "Beaded & Shell Earrings",
+    title: "Beaded & Cowrie Shell Earrings",
     category: "Earrings",
     collection: null,
     material: "Glass beads, cowrie shell, leather, wood",
@@ -422,9 +422,10 @@ async function main() {
         slug,
         title: spec.title,
         description: spec.description,
-        // DRAFT with price 0: no prices were supplied and none appear in the
-        // photographs. Publishing at zero would be worse than not publishing.
-        status: "DRAFT",
+        // Price 0 renders as "Price on request" and routes to a WhatsApp
+        // enquiry — which is how Mekubal already takes orders. Setting a real
+        // price in /admin switches the piece to normal cart buying.
+        status: "ACTIVE",
         priceMin: new Prisma.Decimal(0),
         categoryId: categoryIds[spec.category],
         collectionId: spec.collection ? collectionIds[spec.collection] : null,
@@ -441,7 +442,10 @@ async function main() {
         variants: {
           create: spec.variants.map((name, i) => ({
             name,
-            sku: `MKB-${slug.slice(0, 12).toUpperCase()}-${i + 1}`,
+            // Full slug, not a prefix: several titles now share their first
+            // dozen characters ("maasai-beaded-…") and would collide on the
+            // unique sku constraint.
+            sku: `MKB-${slug.toUpperCase()}-${i + 1}`,
             price: new Prisma.Decimal(0),
             inventory: 0,
           })),
@@ -453,10 +457,10 @@ async function main() {
   }
 
   console.log(`
-Done. ${count} products, all DRAFT with no price.
+Done. ${count} products, live as "Price on request".
 
-Next: set prices and stock at /admin/products, then switch each to ACTIVE.
-Nothing is visible in the shop until you do.
+Set prices and stock at /admin/products — each piece then switches from a
+WhatsApp enquiry to normal cart buying on its own.
 `);
 }
 

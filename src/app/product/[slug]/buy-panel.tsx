@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useCart } from "@/components/cart-store";
 import { formatMoney } from "@/components/ui";
+import { isEnquiry, enquiryUrl, PRICE_ON_REQUEST } from "@/lib/pricing";
 import type { CardProduct } from "@/components/product-card";
 
 /** Variant choice, quantity and add-to-cart. The drawer opens itself on add. */
@@ -19,7 +20,8 @@ export function BuyPanel({ product }: { product: CardProduct }) {
   const [quantity, setQuantity] = useState(1);
 
   const variant = product.variants.find((v) => v.id === variantId) ?? null;
-  const soldOut = !variant || variant.inventory < 1;
+  const enquiry = isEnquiry(product.priceMin);
+  const soldOut = !enquiry && (!variant || variant.inventory < 1);
   const max = Math.max(1, variant?.inventory ?? 1);
 
   const choose = (id: string, inventory: number) => {
@@ -30,9 +32,17 @@ export function BuyPanel({ product }: { product: CardProduct }) {
 
   return (
     <div>
-      <p className="mt-4 text-xl tabular-nums">
-        {formatMoney(variant?.price ?? product.priceMin)}
+      <p className={`mt-4 text-xl ${enquiry ? "text-grey-600" : "tabular-nums"}`}>
+        {enquiry
+          ? PRICE_ON_REQUEST
+          : formatMoney(variant?.price ?? product.priceMin)}
       </p>
+      {enquiry && (
+        <p className="mt-2 max-w-sm text-xs text-grey-600">
+          This piece is priced on enquiry — message us and we&apos;ll confirm
+          the price and availability.
+        </p>
+      )}
 
       {product.variants.length > 1 && (
         <fieldset className="mt-8">
@@ -59,7 +69,16 @@ export function BuyPanel({ product }: { product: CardProduct }) {
         </fieldset>
       )}
 
-      {allSoldOut ? (
+      {enquiry ? (
+        <a
+          href={enquiryUrl(product.title, variant?.name)}
+          target="_blank"
+          rel="noreferrer noopener"
+          className="mt-8 block w-full bg-black py-4 text-center text-[11px] font-semibold tracking-[0.14em] text-white uppercase outline-none transition-colors duration-300 hover:bg-neutral-800 focus-visible:ring-1 focus-visible:ring-black focus-visible:ring-offset-2"
+        >
+          Enquire on WhatsApp
+        </a>
+      ) : allSoldOut ? (
         <p className="mt-8 border border-grey-200 px-4 py-4 text-sm text-grey-600">
           Sold out. Every piece is made by hand — write to us and we will say
           when the next one is ready.
