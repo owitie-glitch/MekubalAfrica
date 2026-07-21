@@ -58,8 +58,8 @@ export async function POST(req: Request) {
     const name = `${Date.now().toString(36)}-${randomBytes(6).toString("hex")}.webp`;
     const optimised = await sharp(Buffer.from(await file.arrayBuffer()))
       .rotate()
-      .resize({ width: 2000, withoutEnlargement: true })
-      .webp({ quality: 82 })
+      .resize({ width: 1600, withoutEnlargement: true })
+      .webp({ quality: 72 })
       .toBuffer();
 
     await writeFile(path.join(UPLOAD_DIR, name), optimised);

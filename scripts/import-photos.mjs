@@ -29,8 +29,8 @@ const replace = args.includes("--replace");
 const sourceDir = path.resolve(args.find((a) => !a.startsWith("--")) ?? "./import");
 const outputDir = path.join(process.cwd(), "public", "uploads");
 
-const MAX_WIDTH = 2000;
-const QUALITY = 82;
+const MAX_WIDTH = 1600;
+const QUALITY = 72;
 const EXTS = new Set([".jpg", ".jpeg", ".png", ".webp", ".avif", ".tif", ".tiff"]);
 
 const db = new PrismaClient({
