@@ -13,7 +13,7 @@ export function CartDrawer() {
       <div
         onClick={closeCart}
         aria-hidden
-        className={`fixed inset-0 z-40 bg-black/40 transition-opacity duration-500 ${
+        className={`fixed inset-0 z-40 bg-foreground/40 transition-opacity duration-500 ${
           open ? "opacity-100" : "pointer-events-none opacity-0"
         }`}
       />
@@ -21,7 +21,7 @@ export function CartDrawer() {
       <aside
         aria-label="Cart"
         aria-hidden={!open}
-        className={`fixed right-0 top-0 z-50 flex h-dvh w-full max-w-[420px] flex-col bg-white transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+        className={`fixed right-0 top-0 z-50 flex h-dvh w-full max-w-[420px] flex-col bg-background transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
           open ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -145,7 +145,7 @@ export function CartDrawer() {
             <Link
               href="/checkout"
               onClick={closeCart}
-              className="mt-4 block bg-black px-6 py-4 text-center text-[11px] font-semibold uppercase tracking-[0.14em] text-white transition-colors hover:bg-neutral-800"
+              className="mt-4 block bg-foreground px-6 py-4 text-center text-[11px] font-semibold uppercase tracking-[0.14em] text-white transition-colors hover:bg-foreground/85"
             >
               Checkout
             </Link>

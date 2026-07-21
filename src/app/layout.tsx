@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Archivo } from "next/font/google";
+import { Archivo, Bodoni_Moda } from "next/font/google";
 import "./globals.css";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
@@ -17,10 +17,20 @@ import {
   mailHref,
 } from "@/lib/site";
 
+// Grotesque for anything functional — navigation, buttons, prices, body.
 const archivo = Archivo({
   variable: "--font-archivo",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600"],
+});
+
+// Didone for display, chosen to rhyme with the MA monogram: same hairline
+// contrast, same classical axis.
+const bodoni = Bodoni_Moda({
+  variable: "--font-bodoni",
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -63,7 +73,7 @@ export default async function RootLayout({
   return (
     // Browser extensions stamp attributes on <html> before hydration; this
     // suppresses that one element's attribute diff only.
-    <html lang="en" className={`${archivo.variable} h-full`} suppressHydrationWarning>
+    <html lang="en" className={`${archivo.variable} ${bodoni.variable} h-full`} suppressHydrationWarning>
       <body className="flex min-h-full flex-col overflow-x-clip">
         <CartProvider initial={initialCart}>
           <SiteHeader

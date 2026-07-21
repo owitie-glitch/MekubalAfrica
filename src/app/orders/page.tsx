@@ -30,7 +30,7 @@ export default async function OrdersPage() {
         <div className="mt-12">
           <Empty>
             You haven&apos;t placed an order yet.{" "}
-            <Link href="/shop" className="link-underline text-black">
+            <Link href="/shop" className="link-underline text-foreground">
               Browse the collection
             </Link>
             .

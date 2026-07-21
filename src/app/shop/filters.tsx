@@ -73,10 +73,10 @@ export function ShopFilters({
   }, [text, q]);
 
   const pill = (active: boolean) =>
-    `border px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] transition-colors duration-300 outline-none focus-visible:ring-1 focus-visible:ring-black focus-visible:ring-offset-2 ${
+    `border px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] transition-colors duration-300 outline-none focus-visible:ring-1 focus-visible:ring-foreground focus-visible:ring-offset-2 ${
       active
-        ? "border-black bg-black text-white"
-        : "border-grey-200 hover:border-black"
+        ? "border-foreground bg-foreground text-white"
+        : "border-grey-200 hover:border-foreground"
     }`;
 
   return (
@@ -143,7 +143,7 @@ export function ShopFilters({
                 value={text}
                 onChange={(e) => setText(e.target.value)}
                 placeholder="Brass, soapstone, bowl…"
-                className="mt-2 w-full border-b border-grey-200 bg-transparent py-2.5 text-sm outline-none transition-colors focus:border-black"
+                className="mt-2 w-full border-b border-grey-200 bg-transparent py-2.5 text-sm outline-none transition-colors focus:border-foreground"
               />
             </label>
 
@@ -156,7 +156,7 @@ export function ShopFilters({
                     sort: e.target.value === "newest" ? null : e.target.value,
                   })
                 }
-                className="mt-2 w-full border-b border-grey-200 bg-transparent py-2.5 pr-6 text-sm outline-none transition-colors focus:border-black"
+                className="mt-2 w-full border-b border-grey-200 bg-transparent py-2.5 pr-6 text-sm outline-none transition-colors focus:border-foreground"
               >
                 {SORT_OPTIONS.map((o) => (
                   <option key={o.value} value={o.value}>
@@ -185,7 +185,7 @@ export function ShopFilters({
                 setText("");
                 startTransition(() => router.replace(pathname));
               }}
-              className="link-underline eyebrow outline-none focus-visible:ring-1 focus-visible:ring-black focus-visible:ring-offset-2"
+              className="link-underline eyebrow outline-none focus-visible:ring-1 focus-visible:ring-foreground focus-visible:ring-offset-2"
             >
               Clear all
             </button>

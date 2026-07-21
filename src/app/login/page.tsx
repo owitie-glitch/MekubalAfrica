@@ -49,7 +49,7 @@ export default async function LoginPage({
         No account?{" "}
         <Link
           href={`/register${next ? `?next=${encodeURIComponent(next)}` : ""}`}
-          className="link-underline text-black"
+          className="link-underline text-foreground"
         >
           Create one
         </Link>

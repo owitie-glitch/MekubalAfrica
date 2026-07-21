@@ -119,7 +119,7 @@ export default function ContactPage() {
           <div className="mt-10 flex flex-wrap gap-3">
             <a
               href={telHref}
-              className="flex-1 bg-black px-6 py-4 text-center text-[11px] font-semibold tracking-[0.14em] text-white uppercase transition-colors duration-300 hover:bg-neutral-800"
+              className="flex-1 bg-foreground px-6 py-4 text-center text-[11px] font-semibold tracking-[0.14em] text-white uppercase transition-colors duration-300 hover:bg-foreground/85"
             >
               Call {site.phone}
             </a>
@@ -127,7 +127,7 @@ export default function ContactPage() {
               href={whatsappUrl}
               target="_blank"
               rel="noreferrer noopener"
-              className="flex-1 border border-black px-6 py-4 text-center text-[11px] font-semibold tracking-[0.14em] uppercase transition-colors duration-300 hover:bg-black hover:text-white"
+              className="flex-1 border border-foreground px-6 py-4 text-center text-[11px] font-semibold tracking-[0.14em] uppercase transition-colors duration-300 hover:bg-foreground hover:text-white"
             >
               WhatsApp
             </a>

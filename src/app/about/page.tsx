@@ -72,7 +72,7 @@ export default function AboutPage() {
         <div className="grid grid-cols-2 gap-px bg-grey-200 md:grid-cols-4">
           {CRAFTS.map(([place, craft], i) => (
             <Reveal key={place} delay={i * 60}>
-              <div className="flex h-full min-h-44 flex-col justify-between bg-white p-5">
+              <div className="flex h-full min-h-44 flex-col justify-between bg-background p-5">
                 <span className="eyebrow text-grey-400">0{i + 1}</span>
                 <div className="mt-8">
                   <span className="display block text-xl leading-tight">

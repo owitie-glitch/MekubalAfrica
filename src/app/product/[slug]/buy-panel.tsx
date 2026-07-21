@@ -55,10 +55,10 @@ export function BuyPanel({ product }: { product: CardProduct }) {
                 onClick={() => choose(v.id, v.inventory)}
                 disabled={v.inventory < 1}
                 aria-pressed={v.id === variantId}
-                className={`border px-4 py-2.5 text-xs outline-none transition-colors duration-300 focus-visible:ring-1 focus-visible:ring-black focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:line-through disabled:opacity-40 ${
+                className={`border px-4 py-2.5 text-xs outline-none transition-colors duration-300 focus-visible:ring-1 focus-visible:ring-foreground focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:line-through disabled:opacity-40 ${
                   v.id === variantId
-                    ? "border-black bg-black text-white"
-                    : "border-grey-200 hover:border-black"
+                    ? "border-foreground bg-foreground text-white"
+                    : "border-grey-200 hover:border-foreground"
                 }`}
               >
                 {v.name}
@@ -74,7 +74,7 @@ export function BuyPanel({ product }: { product: CardProduct }) {
           href={enquiryUrl(product.title, variant?.name)}
           target="_blank"
           rel="noreferrer noopener"
-          className="mt-8 block w-full bg-black py-4 text-center text-[11px] font-semibold tracking-[0.14em] text-white uppercase outline-none transition-colors duration-300 hover:bg-neutral-800 focus-visible:ring-1 focus-visible:ring-black focus-visible:ring-offset-2"
+          className="mt-8 block w-full bg-foreground py-4 text-center text-[11px] font-semibold tracking-[0.14em] text-white uppercase outline-none transition-colors duration-300 hover:bg-foreground/85 focus-visible:ring-1 focus-visible:ring-foreground focus-visible:ring-offset-2"
         >
           Enquire on WhatsApp
         </a>
@@ -98,7 +98,7 @@ export function BuyPanel({ product }: { product: CardProduct }) {
                 aria-label="Decrease quantity"
                 onClick={() => setQuantity((n) => Math.max(1, n - 1))}
                 disabled={quantity <= 1}
-                className="h-full px-4 text-lg leading-none outline-none transition-colors hover:bg-grey-100 focus-visible:ring-1 focus-visible:ring-black disabled:opacity-30"
+                className="h-full px-4 text-lg leading-none outline-none transition-colors hover:bg-grey-100 focus-visible:ring-1 focus-visible:ring-foreground disabled:opacity-30"
               >
                 −
               </button>
@@ -113,7 +113,7 @@ export function BuyPanel({ product }: { product: CardProduct }) {
                 aria-label="Increase quantity"
                 onClick={() => setQuantity((n) => Math.min(max, n + 1))}
                 disabled={quantity >= max}
-                className="h-full px-4 text-lg leading-none outline-none transition-colors hover:bg-grey-100 focus-visible:ring-1 focus-visible:ring-black disabled:opacity-30"
+                className="h-full px-4 text-lg leading-none outline-none transition-colors hover:bg-grey-100 focus-visible:ring-1 focus-visible:ring-foreground disabled:opacity-30"
               >
                 +
               </button>
@@ -123,7 +123,7 @@ export function BuyPanel({ product }: { product: CardProduct }) {
               type="button"
               onClick={() => variant && add(variant.id, quantity)}
               disabled={busy || soldOut}
-              className="flex-1 bg-black py-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-white outline-none transition-colors duration-300 hover:bg-neutral-800 focus-visible:ring-1 focus-visible:ring-black focus-visible:ring-offset-2 disabled:opacity-40"
+              className="flex-1 bg-foreground py-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-white outline-none transition-colors duration-300 hover:bg-foreground/85 focus-visible:ring-1 focus-visible:ring-foreground focus-visible:ring-offset-2 disabled:opacity-40"
             >
               {soldOut ? "Sold out" : busy ? "Adding…" : "Add to cart"}
             </button>

@@ -56,7 +56,7 @@ export function ProductCard({
             — a 4:5 frame clipped the ends off the long fringed collars. The
             ring gives the shots an edge; they are lit on white fabric and
             would otherwise bleed into a white page. */}
-        <div className="relative aspect-3/4 overflow-hidden bg-paper ring-1 ring-black/5">
+        <div className="relative aspect-3/4 overflow-hidden bg-paper ring-1 ring-foreground/8">
           {primary && (
             <>
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -80,7 +80,7 @@ export function ProductCard({
           )}
 
             {soldOut && (
-              <span className="absolute left-3 top-3 bg-white px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em]">
+              <span className="absolute left-3 top-3 bg-background px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em]">
                 Sold out
               </span>
             )}
@@ -95,7 +95,7 @@ export function ProductCard({
             {onQuickView && (
               <button
                 onClick={() => onQuickView(product)}
-                className="flex-1 bg-white/95 py-3 text-[10px] font-semibold uppercase tracking-[0.12em] backdrop-blur transition-colors hover:bg-black hover:text-white"
+                className="flex-1 bg-background/95 py-3 text-[10px] font-semibold uppercase tracking-[0.12em] backdrop-blur transition-colors hover:bg-foreground hover:text-white"
               >
                 Quick view
               </button>
@@ -104,7 +104,7 @@ export function ProductCard({
               <button
                 onClick={() => add(single.id)}
                 disabled={busy}
-                className="flex-1 bg-black py-3 text-[10px] font-semibold uppercase tracking-[0.12em] text-white transition-colors hover:bg-neutral-800 disabled:opacity-40"
+                className="flex-1 bg-foreground py-3 text-[10px] font-semibold uppercase tracking-[0.12em] text-white transition-colors hover:bg-foreground/85 disabled:opacity-40"
               >
                 Add
               </button>

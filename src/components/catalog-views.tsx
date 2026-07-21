@@ -8,7 +8,9 @@ import { DragRow } from "./motion";
 /** Grid of products with quick-view wired in. */
 export function ProductGrid({
   products,
-  columns = "grid-cols-2 md:grid-cols-3 lg:grid-cols-4",
+  // Three across, not four. Bigger images and more air — the products need
+  // room more than the page needs density.
+  columns = "grid-cols-2 lg:grid-cols-3",
 }: {
   products: CardProduct[];
   columns?: string;
@@ -17,7 +19,7 @@ export function ProductGrid({
 
   return (
     <>
-      <div className={`grid gap-x-4 gap-y-10 ${columns}`}>
+      <div className={`grid gap-x-6 gap-y-16 md:gap-x-10 ${columns}`}>
         {products.map((p) => (
           <ProductCard key={p.id} product={p} onQuickView={setQuick} />
         ))}

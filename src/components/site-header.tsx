@@ -45,7 +45,7 @@ export function SiteHeader({
     <>
       <header
         className={`sticky top-0 z-30 transition-colors duration-500 ${
-          solid ? "bg-white" : "bg-transparent"
+          solid ? "bg-background" : "bg-transparent"
         }`}
       >
         <div className="mx-auto flex max-w-[1600px] items-center gap-6 px-5 py-4 md:px-8">
@@ -112,7 +112,7 @@ export function SiteHeader({
                   strokeLinejoin="round"
                 />
               </svg>
-              <span className="flex h-6 min-w-6 items-center justify-center bg-black px-1 text-[11px] font-semibold tabular-nums text-white">
+              <span className="flex h-6 min-w-6 items-center justify-center bg-foreground px-1 text-[11px] font-semibold tabular-nums text-white">
                 {count}
               </span>
             </button>
@@ -122,7 +122,7 @@ export function SiteHeader({
 
       {/* Full-screen menu — the panel the hamburger implies. */}
       <div
-        className={`fixed inset-0 z-50 bg-white transition-[opacity,visibility] duration-400 ${
+        className={`fixed inset-0 z-50 bg-background transition-[opacity,visibility] duration-400 ${
           menu ? "visible opacity-100" : "invisible opacity-0"
         }`}
       >

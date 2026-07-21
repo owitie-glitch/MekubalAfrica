@@ -135,7 +135,7 @@ export function DragRow({
           type="button"
           aria-label={dir === -1 ? "Scroll left" : "Scroll right"}
           onClick={() => scrollBy(dir as 1 | -1)}
-          className={`absolute top-1/2 hidden h-11 w-11 -translate-y-1/2 items-center justify-center border border-grey-200 bg-white/90 opacity-0 backdrop-blur transition-opacity duration-300 group-hover/row:opacity-100 hover:bg-black hover:text-white md:flex ${
+          className={`absolute top-1/2 hidden h-11 w-11 -translate-y-1/2 items-center justify-center border border-grey-200 bg-background/90 opacity-0 backdrop-blur transition-opacity duration-300 group-hover/row:opacity-100 hover:bg-foreground hover:text-white md:flex ${
             dir === -1 ? "left-2" : "right-2"
           }`}
         >

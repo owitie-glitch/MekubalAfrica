@@ -25,7 +25,7 @@ export default async function CartPage() {
         <div className="mt-12">
           <Empty>
             Your cart is empty.{" "}
-            <Link href="/shop" className="link-underline text-black">
+            <Link href="/shop" className="link-underline text-foreground">
               Browse the collection
             </Link>
             .
@@ -170,7 +170,7 @@ export default async function CartPage() {
 
             <Link
               href="/checkout"
-              className="mt-8 block bg-black px-6 py-4 text-center text-[11px] font-semibold tracking-[0.14em] text-white uppercase transition-colors duration-300 hover:bg-neutral-800"
+              className="mt-8 block bg-foreground px-6 py-4 text-center text-[11px] font-semibold tracking-[0.14em] text-white uppercase transition-colors duration-300 hover:bg-foreground/85"
             >
               Checkout
             </Link>

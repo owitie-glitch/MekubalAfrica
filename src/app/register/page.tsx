@@ -61,7 +61,7 @@ export default async function RegisterPage({
         Already registered?{" "}
         <Link
           href={`/login${next ? `?next=${encodeURIComponent(next)}` : ""}`}
-          className="link-underline text-black"
+          className="link-underline text-foreground"
         >
           Sign in
         </Link>

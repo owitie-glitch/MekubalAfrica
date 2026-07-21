@@ -16,8 +16,8 @@ export function Button({
   ...props
 }: ComponentProps<"button"> & { variant?: "solid" | "outline" | "ghost" }) {
   const styles = {
-    solid: "bg-black text-white hover:bg-neutral-800",
-    outline: "border border-black hover:bg-black hover:text-white",
+    solid: "bg-foreground text-white hover:bg-foreground/85",
+    outline: "border border-foreground hover:bg-foreground hover:text-white",
     ghost: "hover:bg-grey-100",
   }[variant];
   return (
@@ -38,7 +38,7 @@ export function Field({
       <span className="eyebrow text-grey-600">{label}</span>
       <input
         {...props}
-        className="mt-2 w-full border-b border-grey-200 bg-transparent py-2.5 text-sm outline-none transition-colors focus:border-black"
+        className="mt-2 w-full border-b border-grey-200 bg-transparent py-2.5 text-sm outline-none transition-colors focus:border-foreground"
       />
     </label>
   );
@@ -60,7 +60,9 @@ export function SectionHead({
     <div className="mb-8 flex items-end justify-between gap-6 border-b border-grey-200 pb-4">
       <div>
         {eyebrow && <div className="eyebrow text-grey-600">{eyebrow}</div>}
-        <h2 className="display mt-2 text-[clamp(1.75rem,4vw,3rem)]">{title}</h2>
+        <h2 className="display mt-3 text-[clamp(1.9rem,4.5vw,3.5rem)] font-normal">
+          {title}
+        </h2>
       </div>
       {href && (
         <Link
@@ -83,13 +85,13 @@ export function Empty({ children }: { children: ReactNode }) {
 }
 
 const badgeTones: Record<string, string> = {
-  PAID: "bg-black text-white",
-  DELIVERED: "bg-black text-white",
+  PAID: "bg-foreground text-white",
+  DELIVERED: "bg-foreground text-white",
   SHIPPED: "bg-neutral-700 text-white",
-  PROCESSING: "bg-grey-200 text-black",
+  PROCESSING: "bg-grey-200 text-foreground",
   PENDING_PAYMENT: "bg-grey-100 text-grey-600",
   DRAFT: "bg-grey-100 text-grey-600",
-  ACTIVE: "bg-black text-white",
+  ACTIVE: "bg-foreground text-white",
   ARCHIVED: "bg-grey-100 text-grey-600",
   CANCELLED: "bg-grey-100 text-grey-600",
   REFUNDED: "bg-grey-100 text-grey-600",

@@ -1,17 +1,26 @@
 @import "tailwindcss";
 
-/* MEKUBAL / Mekubal — editorial monochrome.
-   Black, white and a narrow grey ramp. Colour comes from the photography
-   only; nothing in the chrome competes with the product. */
+/* Mekubal Africa.
+ *
+ * The identity is a Didone monogram — high contrast, hairline serifs. The type
+ * follows it: a true Didone for display, a quiet grotesque for anything
+ * functional. Ground is warm paper rather than clinical white, so the reds and
+ * ochres in the beadwork sit richer against it.
+ *
+ * Colour lives in the photography. Nothing in the chrome competes.
+ */
 
 :root {
-  --background: #ffffff;
-  --foreground: #0a0a0a;
-  --grey-100: #f4f4f4;
-  --grey-200: #e6e6e6;
-  --grey-400: #b4b4b4;
-  --grey-600: #6e6e6e;
-  --paper: #f7f6f4;
+  --background: #faf8f4;
+  --foreground: #17140f;
+  --grey-100: #f1ede6;
+  --grey-200: #e3ded4;
+  --grey-400: #b2aa9d;
+  --grey-600: #6d6659;
+  --paper: #f2eee7;
+
+  /* Everything eases the same way. Long and soft — nothing snaps. */
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @theme inline {
@@ -22,7 +31,7 @@
   --color-grey-400: var(--grey-400);
   --color-grey-600: var(--grey-600);
   --color-paper: var(--paper);
-  --font-display: var(--font-archivo);
+  --font-display: var(--font-bodoni);
   --font-sans: var(--font-archivo);
 }
 
@@ -31,25 +40,39 @@ body {
   color: var(--foreground);
   font-family: var(--font-archivo), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-/* Display type: the oversized uppercase headlines the layout is built around.
-   Negative tracking is what stops them reading as shouty rather than editorial. */
+/* Display: Didone, set light and large. A high-contrast serif in caps needs
+   positive tracking or the hairlines collide; the heavy grotesque this
+   replaced wanted the opposite. */
 .display {
-  font-weight: 800;
+  font-family: var(--font-bodoni), Georgia, serif;
+  font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: -0.035em;
-  line-height: 0.86;
+  letter-spacing: 0.015em;
+  line-height: 0.96;
+  font-optical-sizing: auto;
+}
+
+/* Mixed-case display, for pull quotes and campaign lines where caps would
+   shout. Italic Didone is the most expensive-looking thing on the page. */
+.display-quote {
+  font-family: var(--font-bodoni), Georgia, serif;
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: -0.01em;
+  line-height: 1.08;
 }
 
 .eyebrow {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.14em;
+  font-family: var(--font-archivo), system-ui, sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
 }
 
-/* Underline that draws in from the left on hover — used on every text link. */
 .link-underline {
   position: relative;
 }
@@ -63,14 +86,13 @@ body {
   background: currentColor;
   transform: scaleX(0);
   transform-origin: right;
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 0.7s var(--ease);
 }
 .link-underline:hover::after {
   transform: scaleX(1);
   transform-origin: left;
 }
 
-/* Horizontal scrollers: drag-to-scroll, no visible scrollbar. */
 .no-scrollbar {
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -84,17 +106,17 @@ body {
   to { transform: translateX(-50%); }
 }
 .animate-marquee {
-  animation: marquee 38s linear infinite;
+  animation: marquee 52s linear infinite;
 }
 
-/* Scroll-reveal base state. The observer adds .is-visible.
-   Anyone who has asked for less motion simply starts visible. */
+/* Scroll reveal. Slower and gentler than the default — the page should
+   unfold rather than pop. */
 .reveal {
   opacity: 0;
-  transform: translateY(28px);
+  transform: translateY(22px);
   transition:
-    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 1.4s var(--ease),
+    transform 1.4s var(--ease);
 }
 .reveal.is-visible {
   opacity: 1;

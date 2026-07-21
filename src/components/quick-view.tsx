@@ -52,9 +52,9 @@ export function QuickView({
       aria-label={`Quick view: ${product.title}`}
       className="fixed inset-0 z-50 flex items-center justify-center p-4"
     >
-      <div className="absolute inset-0 bg-black/50" onClick={onClose} aria-hidden />
+      <div className="absolute inset-0 bg-foreground/50" onClick={onClose} aria-hidden />
 
-      <div className="relative z-10 grid max-h-[88dvh] w-full max-w-4xl grid-cols-1 overflow-y-auto bg-white md:grid-cols-2">
+      <div className="relative z-10 grid max-h-[88dvh] w-full max-w-4xl grid-cols-1 overflow-y-auto bg-background md:grid-cols-2">
         <button
           onClick={onClose}
           aria-label="Close quick view"
@@ -82,7 +82,7 @@ export function QuickView({
                   onClick={() => setImage(i)}
                   aria-label={`View image ${i + 1}`}
                   className={`h-14 w-12 overflow-hidden border transition-colors ${
-                    i === image ? "border-black" : "border-transparent"
+                    i === image ? "border-foreground" : "border-transparent"
                   }`}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -132,8 +132,8 @@ export function QuickView({
                     disabled={v.inventory < 1}
                     className={`border px-3 py-2 text-xs transition-colors disabled:cursor-not-allowed disabled:line-through disabled:opacity-40 ${
                       v.id === variantId
-                        ? "border-black bg-black text-white"
-                        : "border-grey-200 hover:border-black"
+                        ? "border-foreground bg-foreground text-white"
+                        : "border-grey-200 hover:border-foreground"
                     }`}
                   >
                     {v.name}
@@ -155,7 +155,7 @@ export function QuickView({
                 href={enquiryUrl(product.title, variant?.name)}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="block w-full bg-black py-4 text-center text-[11px] font-semibold uppercase tracking-[0.14em] text-white transition-colors hover:bg-neutral-800"
+                className="block w-full bg-foreground py-4 text-center text-[11px] font-semibold uppercase tracking-[0.14em] text-white transition-colors hover:bg-foreground/85"
               >
                 Enquire on WhatsApp
               </a>
@@ -163,7 +163,7 @@ export function QuickView({
               <button
                 onClick={() => variant && add(variant.id)}
                 disabled={busy || soldOut}
-                className="w-full bg-black py-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-white transition-colors hover:bg-neutral-800 disabled:opacity-40"
+                className="w-full bg-foreground py-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-white transition-colors hover:bg-foreground/85 disabled:opacity-40"
               >
                 {soldOut ? "Sold out" : busy ? "Adding…" : "Add to cart"}
               </button>

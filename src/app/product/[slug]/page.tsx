@@ -118,7 +118,7 @@ export default async function ProductPage({
               <div className="aspect-3/4 bg-paper" aria-hidden />
             )}
             {product.images.map((image) => (
-              <div key={image.id} className="aspect-3/4 overflow-hidden bg-paper ring-1 ring-black/5">
+              <div key={image.id} className="aspect-3/4 overflow-hidden bg-paper ring-1 ring-foreground/5">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={image.url}
@@ -197,7 +197,7 @@ export default async function ProductPage({
           ) : (
             <ul className="grid gap-px bg-grey-200 md:grid-cols-2 lg:grid-cols-3">
               {product.reviews.map((review) => (
-                <li key={review.id} className="bg-white p-6">
+                <li key={review.id} className="bg-background p-6">
                   <Stars rating={review.rating} />
                   <p className="mt-3 text-sm font-medium">
                     {review.user.name ?? "Verified buyer"}

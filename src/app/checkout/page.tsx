@@ -28,7 +28,7 @@ export default async function CheckoutPage() {
         <div className="mt-10">
           <Empty>
             Your cart is empty.{" "}
-            <Link href="/shop" className="link-underline text-black">
+            <Link href="/shop" className="link-underline text-foreground">
               Browse the collection
             </Link>
             .

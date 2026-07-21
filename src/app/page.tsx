@@ -36,7 +36,9 @@ export default async function HomePage() {
         <div className="mx-auto mt-16 max-w-[1600px] px-5 md:px-8">
           <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:items-end">
             <Reveal>
-              <h1 className="display text-[clamp(2.75rem,9vw,8.5rem)]">
+              {/* Set larger and lighter than the grotesque it replaced — a
+                  Didone at heavy weight loses the hairlines that make it. */}
+              <h1 className="display text-[clamp(3rem,10vw,9.5rem)] font-normal">
                 {lead ? (
                   <>
                     THE <span className="text-grey-400">{lead.name}</span>
@@ -100,7 +102,7 @@ export default async function HomePage() {
             <Reveal key={c.id} delay={i * 60}>
               <Link
                 href={`/shop?category=${c.slug}`}
-                className="group flex h-full min-h-40 flex-col justify-between bg-white p-5 transition-colors hover:bg-black hover:text-white"
+                className="group flex h-full min-h-40 flex-col justify-between bg-background p-5 transition-colors hover:bg-foreground hover:text-white"
               >
                 <span className="eyebrow text-grey-400">0{i + 1}</span>
                 <span className="display mt-8 text-xl leading-tight">
@@ -199,23 +201,26 @@ export default async function HomePage() {
       {/* ------------------------------------------------------- story */}
       <section className="mx-auto mt-28 max-w-[1600px] px-5 md:px-8">
         <Reveal>
-          <div className="grid gap-10 border-t border-grey-200 pt-14 lg:grid-cols-[1fr_1fr]">
-            <h2 className="display text-[clamp(1.75rem,5vw,4rem)]">
-              EVERY PIECE
+          <div className="grid gap-12 border-t border-grey-200 pt-16 lg:grid-cols-[1.15fr_1fr] lg:gap-20">
+            {/* Italic Didone, mixed case. Caps would shout; this is the one
+                place on the page allowed to be quiet and expensive. */}
+            <h2 className="display-quote text-[clamp(2rem,5.5vw,4.25rem)]">
+              Every piece carries
               <br />
-              HAS A MAKER&apos;S
+              the hand that
               <br />
-              NAME ON IT
+              made it.
             </h2>
-            <div className="max-w-lg space-y-4 text-sm leading-relaxed text-grey-600 lg:pt-2">
+            <div className="max-w-lg space-y-5 text-sm leading-[1.75] text-grey-600 lg:pt-3">
               <p>
-                Mekubal Africa works directly with artisans across
-                Kenya — brass casters in Nairobi, soapstone carvers in Kisii,
-                beadworkers in Kajiado, weavers in Kisumu.
+                Mekubal Africa works with beaders and metalworkers across Kenya.
+                Every collar, cuff and bangle is strung and stitched by hand, one
+                bead at a time.
               </p>
               <p>
-                Each piece is made by hand, so small variations in colour, grain
-                and finish are the signature of the work rather than a fault.
+                Small variations in colour, spacing and finish are the signature
+                of that work rather than a fault — no two pieces leave the shop
+                identical.
               </p>
               <Link href="/about" className="link-underline eyebrow inline-block">
                 Read more →
