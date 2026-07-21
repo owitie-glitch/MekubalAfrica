@@ -46,3 +46,6 @@ next-env.d.ts
 
 # Uploaded product photography — real assets, not source code
 public/uploads
+
+# Drop-folder for photo import (source files, not web assets)
+import

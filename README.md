@@ -28,6 +28,36 @@ Seeded logins (both `password123`):
 | Admin    | `admin@mekubal.africa`    |
 | Customer | `customer@mekubal.africa` |
 
+## Importing photographs
+
+Two ways in. Both resize to 2000px wide, convert to WebP, honour EXIF
+orientation (phone photos are often sideways) and write to `public/uploads`.
+
+**A whole catalogue at once** — drop the files in `import/` and run:
+
+```bash
+npm run import:photos -- --dry-run   # preview, changes nothing
+npm run import:photos                # do it
+npm run import:photos -- --replace   # replace a product's photos, not append
+npm run import:photos -- ./some/dir  # any other folder
+```
+
+Filenames decide which product a photo belongs to. Everything before a trailing
+number is the product name, so all three of these land on one product:
+
+```
+Ndege Brass Bird-1.jpg
+ndege brass bird 2.JPG
+ndege_brass_bird_3.png
+```
+
+A name matching an existing product **adds** to it. A name matching nothing
+**creates a DRAFT** product with no price — drafts never appear in the shop, so
+a half-finished import can't leak. Finish them at `/admin/products`.
+
+**One product at a time** — drag files straight onto the form at
+`/admin/products/new`.
+
 ## Content status
 
 **The catalogue is placeholder.** Product names, makers, prices and imagery were

@@ -12,7 +12,8 @@
     "db:seed": "prisma db seed",
     "db:studio": "prisma studio",
     "postinstall": "prisma generate",
-    "db:dev": "node scripts/dev-db.mjs"
+    "db:dev": "node scripts/dev-db.mjs",
+    "import:photos": "node scripts/import-photos.mjs"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.9.0",

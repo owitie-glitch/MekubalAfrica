@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { randomBytes } from "node:crypto";
 import { writeFile, mkdir } from "node:fs/promises";
 import path from "node:path";
+import sharp from "sharp";
 import { getCurrentUser } from "@/lib/auth";
 
 // Only these are accepted, and the extension is derived from the type we
@@ -51,11 +52,17 @@ export async function POST(req: Request) {
       );
     }
 
-    const name = `${Date.now().toString(36)}-${randomBytes(6).toString("hex")}.${ext}`;
-    await writeFile(
-      path.join(UPLOAD_DIR, name),
-      Buffer.from(await file.arrayBuffer()),
-    );
+    // A phone photo is often 4-8MB and 4000px wide. Serving that raw would
+    // dominate page weight, so everything is normalised to a sane web size —
+    // .rotate() first, since EXIF orientation is otherwise lost on resize.
+    const name = `${Date.now().toString(36)}-${randomBytes(6).toString("hex")}.webp`;
+    const optimised = await sharp(Buffer.from(await file.arrayBuffer()))
+      .rotate()
+      .resize({ width: 2000, withoutEnlargement: true })
+      .webp({ quality: 82 })
+      .toBuffer();
+
+    await writeFile(path.join(UPLOAD_DIR, name), optimised);
     urls.push(`/uploads/${name}`);
   }
 
