@@ -2,8 +2,9 @@ import Link from "next/link";
 import { db } from "@/lib/db";
 import { cardInclude, toCard, publicProductWhere } from "@/lib/catalog";
 import { ProductRail, ProductGrid } from "@/components/catalog-views";
-import { Reveal, Marquee } from "@/components/motion";
+import { Reveal, Marquee, DragRow } from "@/components/motion";
 import { SectionHead } from "@/components/ui";
+import { lookbook } from "@/lib/lookbook";
 
 export default async function HomePage() {
   const [featured, latest, collections, categories] = await Promise.all([
@@ -56,7 +57,7 @@ export default async function HomePage() {
 
             <Reveal delay={120} className="lg:pb-6">
               <div className="flex flex-wrap items-center gap-8 opacity-40">
-                {["BRASS", "SOAPSTONE", "SISAL", "OLIVE WOOD"].map((m) => (
+                {["GLASS BEADS", "BRASS", "LEATHER", "SISAL"].map((m) => (
                   <span key={m} className="display text-lg">
                     {m}
                   </span>
@@ -154,6 +155,44 @@ export default async function HomePage() {
         />
         <Reveal>
           <ProductGrid products={latest.map(toCard)} />
+        </Reveal>
+      </section>
+
+      {/* ---------------------------------------------------- lookbook */}
+      <section className="mt-28">
+        <div className="mx-auto max-w-[1600px] px-5 md:px-8">
+          <SectionHead
+            eyebrow="Westlands Market, Nairobi"
+            title="Inside the shop"
+            href="/contact"
+            hrefLabel="Visit us"
+          />
+        </div>
+        <Reveal>
+          {/* Full-bleed: these are wide, dim interiors and they need room. */}
+          <DragRow ariaLabel="Photographs from the shop" className="gap-3 px-5 md:px-8">
+            {lookbook.map((shot, i) => (
+              <figure
+                key={shot.url}
+                className={`shrink-0 snap-start ${
+                  i % 3 === 0 ? "w-[86vw] lg:w-[46vw]" : "w-[70vw] lg:w-[30vw]"
+                }`}
+              >
+                <div className="aspect-4/3 overflow-hidden bg-paper">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={shot.url}
+                    alt={shot.caption}
+                    loading="lazy"
+                    className="h-full w-full object-cover transition-transform duration-[1.2s] ease-out hover:scale-105"
+                  />
+                </div>
+                <figcaption className="mt-2 text-xs text-grey-600">
+                  {shot.caption}
+                </figcaption>
+              </figure>
+            ))}
+          </DragRow>
         </Reveal>
       </section>
 

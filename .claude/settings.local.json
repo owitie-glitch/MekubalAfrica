@@ -37,7 +37,9 @@
       "Bash(curl -s -b session=__TRACKED_VAR__ http://localhost:3100/sell)",
       "Bash(curl -s http://localhost:3100/shops)",
       "WebSearch",
-      "Bash(PRISMA_USER_CONSENT_FOR_DANGEROUS_AI_ACTION=\"Yes, reset the database\" npx prisma db push --force-reset)"
+      "Bash(PRISMA_USER_CONSENT_FOR_DANGEROUS_AI_ACTION=\"Yes, reset the database\" npx prisma db push --force-reset)",
+      "Bash(git add *)",
+      "Bash(git -c user.email=noreply@anthropic.com -c user.name=Claude commit -q -m 'Normalise photo exposure and add an editorial lookbook *)"
     ]
   }
 }
