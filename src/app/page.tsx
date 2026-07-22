@@ -36,9 +36,10 @@ export default async function HomePage() {
         <div className="mx-auto mt-16 max-w-[1600px] px-5 md:px-8">
           <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:items-end">
             <Reveal>
-              {/* Set larger and lighter than the grotesque it replaced — a
-                  Didone at heavy weight loses the hairlines that make it. */}
-              <h1 className="display text-[clamp(3rem,10vw,9.5rem)] font-normal">
+              {/* Bodoni is a wide face, so the vw term — not the floor — is
+                  what governs phone width. 7vw keeps "THE BEADWORK" on one line
+                  inside a 360px screen while still filling a desktop hero. */}
+              <h1 className="display text-[clamp(1.75rem,7vw,9rem)] font-normal">
                 {lead ? (
                   <>
                     THE <span className="text-grey-400">{lead.name}</span>

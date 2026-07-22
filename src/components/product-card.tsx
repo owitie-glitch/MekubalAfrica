@@ -113,23 +113,23 @@ export function ProductCard({
         </div>
       </div>
 
+      {/* Stacked, not a justified row: "Price on request" beside a title is
+          too wide for a two-up mobile card and was clipping off the edge. */}
       <div className="pt-3">
-        <div className="flex items-start justify-between gap-3">
-          <Link
-            href={`/product/${product.slug}`}
-            className="link-underline text-sm font-medium leading-snug"
-          >
-            {product.title}
-          </Link>
-          <span
-            className={`shrink-0 text-sm ${
-              enquiry ? "text-grey-600" : "tabular-nums"
-            }`}
-          >
-            {enquiry ? PRICE_ON_REQUEST : formatMoney(product.priceMin)}
-          </span>
-        </div>
-        <p className="mt-1 text-xs text-grey-600">
+        <Link
+          href={`/product/${product.slug}`}
+          className="link-underline block text-sm font-medium leading-snug"
+        >
+          {product.title}
+        </Link>
+        <p
+          className={`mt-1.5 text-sm ${
+            enquiry ? "text-grey-600" : "tabular-nums"
+          }`}
+        >
+          {enquiry ? PRICE_ON_REQUEST : formatMoney(product.priceMin)}
+        </p>
+        <p className="mt-0.5 text-xs text-grey-400">
           {product.material ?? product.categoryName}
         </p>
       </div>

@@ -39,7 +39,9 @@
       "WebSearch",
       "Bash(PRISMA_USER_CONSENT_FOR_DANGEROUS_AI_ACTION=\"Yes, reset the database\" npx prisma db push --force-reset)",
       "Bash(git add *)",
-      "Bash(git -c user.email=noreply@anthropic.com -c user.name=Claude commit -q -m 'Normalise photo exposure and add an editorial lookbook *)"
+      "Bash(git -c user.email=noreply@anthropic.com -c user.name=Claude commit -q -m 'Normalise photo exposure and add an editorial lookbook *)",
+      "Read(//c/Program Files/Google/Chrome/Application/**)",
+      "Read(//c/Program Files \\\\\\(x86\\\\\\)/Microsoft/Edge/Application/**)"
     ]
   }
 }
