@@ -48,7 +48,7 @@ export function Checkbox({
       <input
         {...props}
         type="checkbox"
-        className="mt-0.5 h-4 w-4 shrink-0 appearance-none border border-grey-400 bg-white checked:border-black checked:bg-black focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-black"
+        className="mt-0.5 h-4 w-4 shrink-0 appearance-none rounded-md border border-grey-400 bg-white checked:border-black checked:bg-black focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-black"
       />
       <span>
         <span className="eyebrow block">{label}</span>

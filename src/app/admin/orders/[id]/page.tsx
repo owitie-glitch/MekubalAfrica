@@ -70,7 +70,7 @@ export default async function AdminOrderDetailPage({
           <ul className="divide-y divide-grey-200">
             {order.items.map((item) => (
               <li key={item.id} className="flex items-center gap-4 py-4">
-                <div className="h-16 w-16 shrink-0 overflow-hidden bg-grey-100">
+                <div className="h-16 w-16 shrink-0 overflow-hidden rounded-md bg-grey-100">
                   {item.imageSnapshot && (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img

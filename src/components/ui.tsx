@@ -16,14 +16,14 @@ export function Button({
   ...props
 }: ComponentProps<"button"> & { variant?: "solid" | "outline" | "ghost" }) {
   const styles = {
-    solid: "bg-foreground text-white hover:bg-foreground/85",
+    solid: "bg-rust text-white hover:bg-rust-700",
     outline: "border border-foreground hover:bg-foreground hover:text-white",
     ghost: "hover:bg-grey-100",
   }[variant];
   return (
     <button
       {...props}
-      className={`inline-flex items-center justify-center px-6 py-3.5 text-[11px] font-semibold uppercase tracking-[0.14em] transition-colors duration-300 disabled:opacity-40 ${styles} ${className}`}
+      className={`inline-flex items-center justify-center rounded-full px-7 py-3.5 text-[11px] font-semibold uppercase tracking-[0.14em] transition-colors duration-300 disabled:opacity-40 ${styles} ${className}`}
     />
   );
 }
@@ -78,7 +78,7 @@ export function SectionHead({
 
 export function Empty({ children }: { children: ReactNode }) {
   return (
-    <div className="border border-dashed border-grey-200 px-6 py-20 text-center text-sm text-grey-600">
+    <div className="rounded-2xl border border-dashed border-grey-200 px-6 py-20 text-center text-sm text-grey-600">
       {children}
     </div>
   );
@@ -100,7 +100,7 @@ const badgeTones: Record<string, string> = {
 export function Badge({ children }: { children: string }) {
   return (
     <span
-      className={`inline-block px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] ${
+      className={`inline-block rounded-md px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] ${
         badgeTones[children] ?? "bg-grey-100 text-grey-600"
       }`}
     >

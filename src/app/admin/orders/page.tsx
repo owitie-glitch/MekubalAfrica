@@ -76,7 +76,7 @@ export default async function AdminOrdersPage({
 
         <button
           type="submit"
-          className="border border-black px-6 py-3 text-[11px] font-semibold tracking-[0.14em] uppercase transition-colors duration-300 hover:bg-black hover:text-white"
+          className="rounded-lg border border-black px-6 py-3 text-[11px] font-semibold tracking-[0.14em] uppercase transition-colors duration-300 hover:bg-black hover:text-white"
         >
           Filter
         </button>

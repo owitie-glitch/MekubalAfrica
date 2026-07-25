@@ -44,11 +44,18 @@ next-env.d.ts
 
 .pgdata
 
-# Uploaded product photography — real assets, not source code
-public/uploads
+# Product photography IS committed so the hosted site has its images.
+# (public/uploads is intentionally tracked.)
 
 # Drop-folder for photo import (source files, not web assets)
 import
 
 # Source photographs from the client (large, not web assets)
 images
+
+# Local source/working files — the web-ready versions live in /public
+/*.png
+/*.jpg
+/*.jpeg
+/*.jfif
+/photos/

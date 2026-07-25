@@ -69,7 +69,7 @@ export default function AboutPage() {
       />
 
       <section className="mx-auto max-w-[1600px] px-5 py-20 md:px-8">
-        <div className="grid grid-cols-2 gap-px bg-grey-200 md:grid-cols-4">
+        <div className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl bg-grey-200 md:grid-cols-4">
           {CRAFTS.map(([place, craft], i) => (
             <Reveal key={place} delay={i * 60}>
               <div className="flex h-full min-h-44 flex-col justify-between bg-background p-5">

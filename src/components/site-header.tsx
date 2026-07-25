@@ -7,6 +7,14 @@ import { useCart } from "./cart-store";
 
 type NavItem = { name: string; slug: string };
 
+const NAV = [
+  { name: "Home", href: "/" },
+  { name: "Shop", href: "/shop" },
+  { name: "Collections", href: "/shop?view=collections" },
+  { name: "About", href: "/about" },
+  { name: "Contact", href: "/contact" },
+];
+
 export function SiteHeader({
   categories,
   user,
@@ -16,22 +24,9 @@ export function SiteHeader({
 }) {
   const { count, openCart } = useCart();
   const [menu, setMenu] = useState(false);
-  const [solid, setSolid] = useState(false);
   const pathname = usePathname();
 
-  // The header sits over the hero on the home page and turns solid once you
-  // scroll past it; everywhere else it is solid from the start.
-  const overlay = pathname === "/";
-
   useEffect(() => setMenu(false), [pathname]);
-
-  useEffect(() => {
-    if (!overlay) return setSolid(true);
-    const onScroll = () => setSolid(window.scrollY > 40);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [overlay]);
 
   useEffect(() => {
     const prev = document.body.style.overflow;
@@ -41,70 +36,62 @@ export function SiteHeader({
     };
   }, [menu]);
 
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href.split("?")[0]);
+
   return (
     <>
-      <header
-        className={`sticky top-0 z-30 transition-colors duration-500 ${
-          solid ? "bg-background" : "bg-transparent"
-        }`}
-      >
-        <div className="mx-auto flex max-w-[1600px] items-center gap-6 px-5 py-4 md:px-8">
+      <header className="glass sticky top-0 z-30">
+        <div className="mx-auto flex max-w-[1600px] items-center gap-6 px-5 py-3.5 md:px-8">
           <button
             onClick={() => setMenu(true)}
             aria-label="Open menu"
-            className="flex flex-col gap-[5px] py-2"
+            className="flex flex-col gap-[5px] py-2 md:hidden"
           >
             <span className="block h-[2px] w-6 bg-current" />
             <span className="block h-[2px] w-6 bg-current" />
           </button>
 
-          <Link href="/" aria-label="Mekubal Africa — home" className="flex items-center gap-2.5">
+          <Link href="/" aria-label="Mekubal Africa — home" className="flex items-center">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/logo.png"
-              alt=""
-              width={35}
-              height={28}
-              className="h-7 w-auto md:h-8"
+              alt="Mekubal Africa"
+              width={942}
+              height={674}
+              className="h-11 w-auto md:h-14"
             />
-            <span className="display text-xl tracking-tight md:text-2xl">
-              MEKUBAL
-            </span>
           </Link>
 
-          <nav className="mx-auto hidden gap-8 md:flex">
-            {categories.slice(0, 4).map((c) => (
-              <Link
-                key={c.slug}
-                href={`/shop?category=${c.slug}`}
-                className="link-underline text-sm"
-              >
-                {c.name}
-              </Link>
-            ))}
+          <nav className="mx-auto hidden items-center gap-9 md:flex">
+            {NAV.map((item) => {
+              const active = isActive(item.href);
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={`relative text-sm transition-colors hover:text-foreground ${
+                    active ? "text-foreground" : "text-grey-600"
+                  }`}
+                >
+                  {item.name}
+                  <span
+                    className={`absolute -bottom-1.5 left-0 h-[2px] bg-rust transition-all duration-300 ${
+                      active ? "w-full" : "w-0"
+                    }`}
+                  />
+                </Link>
+              );
+            })}
           </nav>
 
-          <div className="ml-auto flex items-center gap-4 md:ml-0">
-            <Link href="/shop" aria-label="Search" className="p-1">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="1.8" />
-                <path
-                  d="M20 20l-3.6-3.6"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </Link>
-
-            <span className="hidden h-4 w-px bg-grey-200 sm:block" />
-
+          <div className="ml-auto flex items-center gap-3 md:gap-4">
             <button
               onClick={openCart}
               aria-label={`Cart, ${count} items`}
-              className="flex items-center gap-2 p-1"
+              className="relative flex items-center p-1"
             >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                 <path
                   d="M6 7h12l-1 13H7L6 7zM9 7V5a3 3 0 016 0v2"
                   stroke="currentColor"
@@ -112,10 +99,20 @@ export function SiteHeader({
                   strokeLinejoin="round"
                 />
               </svg>
-              <span className="flex h-6 min-w-6 items-center justify-center bg-foreground px-1 text-[11px] font-semibold tabular-nums text-white">
-                {count}
-              </span>
+              {count > 0 && (
+                <span className="absolute -right-1.5 -top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-rust px-1 text-[10px] font-semibold tabular-nums text-white">
+                  {count}
+                </span>
+              )}
             </button>
+
+            <Link
+              href="/shop"
+              className="hidden items-center gap-2 rounded-full bg-rust px-5 py-2.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-white transition-colors hover:bg-rust-700 sm:inline-flex"
+            >
+              Shop Now
+              <span aria-hidden>→</span>
+            </Link>
           </div>
         </div>
       </header>
@@ -128,10 +125,9 @@ export function SiteHeader({
       >
         <div className="mx-auto flex h-full max-w-[1600px] flex-col px-5 py-4 md:px-8">
           <div className="flex items-center justify-between">
-            <span className="flex items-center gap-2.5">
+            <span className="flex items-center">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/logo.png" alt="" className="h-7 w-auto md:h-8" />
-              <span className="display text-xl md:text-2xl">MEKUBAL</span>
+              <img src="/logo.png" alt="Mekubal Africa" className="h-10 w-auto md:h-12" />
             </span>
             <button
               onClick={() => setMenu(false)}
@@ -142,28 +138,39 @@ export function SiteHeader({
             </button>
           </div>
 
-          <nav className="mt-16 flex flex-col gap-1">
-            {[{ name: "All pieces", slug: "" }, ...categories].map((c, i) => (
+          <nav className="mt-14 flex flex-col gap-1">
+            {NAV.map((item, i) => (
               <Link
-                key={c.slug || "all"}
-                href={c.slug ? `/shop?category=${c.slug}` : "/shop"}
-                className="display group flex items-baseline gap-4 py-1 text-[clamp(2rem,7vw,4.5rem)] transition-colors hover:text-grey-400"
+                key={item.name}
+                href={item.href}
+                className="font-display group flex items-baseline gap-4 py-1 text-[clamp(2rem,7vw,4rem)] transition-colors hover:text-rust"
               >
                 <span className="text-[11px] font-semibold tracking-normal text-grey-400">
                   0{i + 1}
                 </span>
-                {c.name}
+                {item.name}
               </Link>
             ))}
           </nav>
 
+          {categories.length > 0 && (
+            <div className="mt-10 border-t border-grey-200 pt-6">
+              <p className="eyebrow text-grey-600">Browse by category</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {categories.map((c) => (
+                  <Link
+                    key={c.slug}
+                    href={`/shop?category=${c.slug}`}
+                    className="rounded-full border border-grey-200 px-3.5 py-2 text-xs transition-colors hover:border-foreground"
+                  >
+                    {c.name}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+
           <div className="mt-auto flex flex-wrap gap-x-8 gap-y-2 border-t border-grey-200 pt-6 text-sm">
-            <Link href="/about" className="link-underline">
-              About Mekubal
-            </Link>
-            <Link href="/contact" className="link-underline">
-              Visit &amp; contact
-            </Link>
             <Link href="/orders" className="link-underline">
               My orders
             </Link>

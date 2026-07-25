@@ -68,7 +68,7 @@ export function ImageUploader({
           setDragOver(false);
           upload(e.dataTransfer.files);
         }}
-        className={`border border-dashed p-6 text-center transition-colors ${
+        className={`rounded-2xl border border-dashed p-6 text-center transition-colors ${
           dragOver ? "border-black bg-grey-100" : "border-grey-200"
         }`}
       >
@@ -102,7 +102,7 @@ export function ImageUploader({
         <ul className="flex flex-wrap gap-3">
           {urls.map((url, i) => (
             <li key={`${url}-${i}`} className="relative">
-              <div className="h-24 w-20 overflow-hidden bg-paper">
+              <div className="h-24 w-20 overflow-hidden rounded-2xl bg-paper">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={url} alt="" className="h-full w-full object-cover" />
               </div>
@@ -113,7 +113,7 @@ export function ImageUploader({
                 type="button"
                 onClick={() => removeAt(i)}
                 aria-label={`Remove image ${i + 1}`}
-                className="absolute -top-2 -right-2 flex h-6 w-6 items-center justify-center border border-grey-200 bg-white text-sm leading-none hover:bg-black hover:text-white"
+                className="absolute -top-2 -right-2 flex h-6 w-6 items-center justify-center rounded-md border border-grey-200 bg-white text-sm leading-none hover:bg-black hover:text-white"
               >
                 ×
               </button>
@@ -129,7 +129,7 @@ export function ImageUploader({
         value={value}
         onChange={(e) => setValue(e.target.value)}
         placeholder="One image URL per line — the first is the main image."
-        className="w-full border border-grey-200 px-3 py-2 font-mono text-xs outline-none focus:border-black"
+        className="w-full rounded-lg border border-grey-200 px-3 py-2 font-mono text-xs outline-none focus:border-black"
       />
     </div>
   );

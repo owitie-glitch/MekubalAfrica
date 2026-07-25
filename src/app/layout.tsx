@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Archivo, Bodoni_Moda } from "next/font/google";
+import { Archivo, Bodoni_Moda, Caveat } from "next/font/google";
 import "./globals.css";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
@@ -31,6 +31,13 @@ const bodoni = Bodoni_Moda({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
   style: ["normal", "italic"],
+});
+
+// Handwriting, for the one script line in the landing hero.
+const caveat = Caveat({
+  variable: "--font-caveat",
+  subsets: ["latin"],
+  weight: ["500", "600"],
 });
 
 export const metadata: Metadata = {
@@ -73,7 +80,7 @@ export default async function RootLayout({
   return (
     // Browser extensions stamp attributes on <html> before hydration; this
     // suppresses that one element's attribute diff only.
-    <html lang="en" className={`${archivo.variable} ${bodoni.variable} h-full`} suppressHydrationWarning>
+    <html lang="en" className={`${archivo.variable} ${bodoni.variable} ${caveat.variable} h-full`} suppressHydrationWarning>
       <body className="flex min-h-full flex-col overflow-x-clip">
         <CartProvider initial={initialCart}>
           <SiteHeader
@@ -89,16 +96,13 @@ export default async function RootLayout({
 
           <footer className="mt-24 border-t border-grey-200">
             <div className="mx-auto max-w-[1600px] px-5 py-16 md:px-8">
-              <div className="flex flex-wrap items-end gap-x-6 gap-y-4">
+              <div className="flex justify-center">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/logo.png"
-                  alt=""
-                  className="h-[clamp(2.5rem,8vw,6rem)] w-auto"
+                  alt="Mekubal Africa"
+                  className="h-[clamp(6rem,20vw,14rem)] w-auto"
                 />
-                <div className="display text-[clamp(2.5rem,10vw,8rem)] leading-none">
-                  MEKUBAL AFRICA
-                </div>
               </div>
               <div className="mt-12 grid gap-10 border-t border-grey-200 pt-10 text-sm sm:grid-cols-3">
                 <div>

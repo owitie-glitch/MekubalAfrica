@@ -11,13 +11,26 @@
  */
 
 :root {
-  --background: #faf8f4;
-  --foreground: #17140f;
-  --grey-100: #f1ede6;
-  --grey-200: #e3ded4;
-  --grey-400: #b2aa9d;
-  --grey-600: #6d6659;
-  --paper: #f2eee7;
+  /* Earthy ceramics palette — warm cream ground, soft charcoal ink. */
+  --background: #f4efe4;
+  --foreground: #2f2a20; /* warm charcoal-brown, the ink */
+  --grey-100: #ede7d9;
+  --grey-200: #ddd5c4;
+  --grey-400: #a89f8c;
+  --grey-600: #6f6553;
+  --paper: #eae2d3; /* deeper cream for image beds and blocks */
+
+  /* Accents. Terracotta leads; olive and clay support. */
+  --rust: #bd6a4c; /* terracotta — primary accent + primary buttons */
+  --rust-700: #a2593e; /* darker terracotta for hovers */
+  --olive: #6f7353; /* sage-olive — secondary accent */
+  --olive-700: #565a3f;
+  --clay: #ccbca0; /* warm tan */
+
+  /* Kept from the logo for the mark itself. */
+  --green: #21351e;
+  --gold: #b78d43;
+  --gold-600: #a67e38;
 
   /* Everything eases the same way. Long and soft — nothing snaps. */
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
@@ -31,8 +44,17 @@
   --color-grey-400: var(--grey-400);
   --color-grey-600: var(--grey-600);
   --color-paper: var(--paper);
+  --color-rust: var(--rust);
+  --color-rust-700: var(--rust-700);
+  --color-olive: var(--olive);
+  --color-olive-700: var(--olive-700);
+  --color-clay: var(--clay);
+  --color-green: var(--green);
+  --color-gold: var(--gold);
+  --color-gold-600: var(--gold-600);
   --font-display: var(--font-bodoni);
   --font-sans: var(--font-archivo);
+  --font-script: var(--font-caveat);
 }
 
 body {
@@ -41,6 +63,34 @@ body {
   font-family: var(--font-archivo), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+/* Brand-tinted text selection. */
+::selection {
+  background: var(--rust);
+  color: #fff;
+}
+
+/* Organic shapes for the earthy look. */
+.arch {
+  border-radius: 50% 50% 1.75rem 1.75rem / 42% 42% 1.75rem 1.75rem;
+}
+/* Gentler arch for product cards — a domed top without the full semicircle. */
+.arch-soft {
+  border-radius: 42% 42% 1.25rem 1.25rem / 22% 22% 1.25rem 1.25rem;
+}
+.blob {
+  border-radius: 47% 53% 55% 45% / 55% 47% 53% 45%;
+}
+/* Category tiles: rounded rect with one deeply-rounded corner (a leaf note). */
+.leaf-tl {
+  border-radius: 4.5rem 1.5rem 1.5rem 1.5rem;
+}
+.leaf-tr {
+  border-radius: 1.5rem 4.5rem 1.5rem 1.5rem;
+}
+.leaf-br {
+  border-radius: 1.5rem 1.5rem 4.5rem 1.5rem;
 }
 
 /* Display: Didone, set light and large. A high-contrast serif in caps needs
@@ -73,6 +123,12 @@ body {
   text-transform: uppercase;
 }
 
+/* Handwriting, for the landing hero's "Every piece tells a story." line. */
+.script {
+  font-family: var(--font-caveat), ui-rounded, cursive;
+  font-weight: 600;
+}
+
 .link-underline {
   position: relative;
 }
@@ -83,7 +139,7 @@ body {
   bottom: -2px;
   width: 100%;
   height: 1px;
-  background: currentColor;
+  background: var(--rust); /* terracotta accent sweeps under on hover */
   transform: scaleX(0);
   transform-origin: right;
   transition: transform 0.7s var(--ease);
@@ -91,6 +147,99 @@ body {
 .link-underline:hover::after {
   transform: scaleX(1);
   transform-origin: left;
+}
+
+/* Fluid glass — a frosted, faintly lit pane for the header. Warm-paper tint so
+   it belongs to the ground; blur + saturation let the photography read through
+   it, an inset top highlight and soft drop give it the liquid-glass depth. */
+.glass {
+  background: color-mix(in srgb, var(--background) 60%, transparent);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  backdrop-filter: blur(20px) saturate(160%);
+  border-bottom: 1px solid color-mix(in srgb, var(--foreground) 8%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, #fff 45%, transparent),
+    0 10px 30px -22px color-mix(in srgb, var(--foreground) 55%, transparent);
+}
+
+/* No backdrop-filter support (or forced-colors): fall back to a near-solid
+   pane so the chrome never turns unreadable over photography. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass {
+    background: color-mix(in srgb, var(--background) 92%, transparent);
+  }
+}
+
+/* The dimmed layer behind an open modal or drawer: frosted, not just darkened,
+   so the page reads as glass through it. */
+.glass-backdrop {
+  background: color-mix(in srgb, var(--green) 26%, transparent);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+  backdrop-filter: blur(10px) saturate(120%);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass-backdrop {
+    background: color-mix(in srgb, var(--green) 50%, transparent);
+  }
+}
+
+/* Fluid glass for floating cards (the quick-view modal). Heavier blur and a
+   higher paper opacity than the header so body text stays readable over the
+   dimmed page behind it, with a lit top edge and a deep green-cast shadow. */
+.glass-panel {
+  background: color-mix(in srgb, var(--background) 82%, transparent);
+  -webkit-backdrop-filter: blur(28px) saturate(150%);
+  backdrop-filter: blur(28px) saturate(150%);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, #fff 55%, transparent),
+    0 40px 90px -45px color-mix(in srgb, var(--green) 70%, transparent);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass-panel {
+    background: color-mix(in srgb, var(--background) 97%, transparent);
+  }
+}
+
+/* Warm, marbled ground for the hero showcase — a soft gold glow at the top
+   fading into the paper background, so the dark panel sits on warmth. */
+.hero-warm {
+  background:
+    radial-gradient(
+      135% 95% at 50% -12%,
+      color-mix(in srgb, var(--gold) 42%, var(--background)) 0%,
+      color-mix(in srgb, var(--gold) 16%, var(--background)) 32%,
+      var(--background) 66%
+    );
+}
+
+/* Landing hero background: the portrait photograph, covering the section, with
+   the warm gradient layered underneath as a fallback while the image loads (or
+   if it is missing). Swap /landing-bg.jpg for the real asset. */
+.hero-bg {
+  background:
+    url("/landing-bg.jpg") center 22% / cover no-repeat,
+    radial-gradient(
+      135% 95% at 50% -12%,
+      color-mix(in srgb, var(--gold) 42%, var(--background)) 0%,
+      var(--background) 66%
+    );
+}
+
+/* The hero panel as dark-green glass: a translucent green tint over the photo
+   with a heavy blur, so the picture reads softly through it and white type
+   stays legible. */
+.glass-green {
+  background: color-mix(in srgb, var(--green) 62%, transparent);
+  -webkit-backdrop-filter: blur(22px) saturate(135%);
+  backdrop-filter: blur(22px) saturate(135%);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, #fff 16%, transparent),
+    0 40px 90px -45px rgba(0, 0, 0, 0.65);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass-green {
+    background: color-mix(in srgb, var(--green) 90%, transparent);
+  }
 }
 
 .no-scrollbar {

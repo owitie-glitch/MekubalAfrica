@@ -67,7 +67,7 @@ export default async function OrderDetailPage({
               key={item.id}
               className="flex gap-5 border-b border-grey-200 py-6"
             >
-              <div className="h-24 w-20 shrink-0 overflow-hidden bg-paper">
+              <div className="h-24 w-20 shrink-0 overflow-hidden rounded-2xl bg-paper">
                 {item.imageSnapshot && (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img

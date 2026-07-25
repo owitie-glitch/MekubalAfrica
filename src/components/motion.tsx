@@ -100,6 +100,9 @@ export function DragRow({
           // Mouse only: touch already scrolls natively, and hijacking it
           // breaks momentum scrolling on phones.
           if (e.pointerType !== "mouse") return;
+          // A press that starts on a control (Quick view / Add) must click, not
+          // begin a drag — otherwise the click-cancel below can swallow it.
+          if ((e.target as HTMLElement).closest("button")) return;
           const el = ref.current!;
           setDragging(true);
           start.current = { x: e.clientX, scroll: el.scrollLeft, moved: 0 };
@@ -118,9 +121,13 @@ export function DragRow({
           ref.current?.releasePointerCapture(e.pointerId);
         }}
         onPointerCancel={() => setDragging(false)}
-        // A drag that ends over a card must not also register as a click.
+        // A drag that ends over a card must not also register as a click — but
+        // never cancel a button (Quick view / Add), which must always fire.
         onClickCapture={(e) => {
-          if (start.current.moved > 6) {
+          if (
+            start.current.moved > 6 &&
+            !(e.target as HTMLElement).closest("button")
+          ) {
             e.preventDefault();
             e.stopPropagation();
           }

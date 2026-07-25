@@ -39,7 +39,7 @@ export function ConfirmDelete({
       <button
         type="submit"
         disabled={pending}
-        className="border border-black px-6 py-3.5 text-[11px] font-semibold tracking-[0.14em] uppercase transition-colors duration-300 hover:bg-black hover:text-white disabled:opacity-40"
+        className="rounded-lg border border-black px-6 py-3.5 text-[11px] font-semibold tracking-[0.14em] uppercase transition-colors duration-300 hover:bg-black hover:text-white disabled:opacity-40"
       >
         {pending ? "Deleting…" : label}
       </button>

@@ -111,14 +111,16 @@ export default async function ProductPage({
           )}
         </nav>
 
-        <div className="mt-8 grid gap-10 lg:grid-cols-[1.25fr_1fr] lg:gap-16">
-          {/* Images stack and scroll; the detail column stays put beside them. */}
-          <div className="space-y-2">
+        <div className="mt-8 grid gap-10 lg:grid-cols-[1fr_1.3fr] lg:gap-16">
+          {/* Images stack and scroll; the detail column stays put beside them.
+              The image column is the narrower track so the photographs read at a
+              calmer size and the detail column carries the page. */}
+          <div className="space-y-2 lg:max-w-[560px]">
             {product.images.length === 0 && (
-              <div className="aspect-3/4 bg-paper" aria-hidden />
+              <div className="arch-soft aspect-3/4 bg-paper" aria-hidden />
             )}
             {product.images.map((image) => (
-              <div key={image.id} className="aspect-3/4 overflow-hidden bg-paper ring-1 ring-foreground/5">
+              <div key={image.id} className="arch-soft aspect-3/4 overflow-hidden bg-paper ring-1 ring-foreground/5">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={image.url}
@@ -195,7 +197,7 @@ export default async function ProductPage({
               No reviews yet — this piece is waiting for its first one.
             </p>
           ) : (
-            <ul className="grid gap-px bg-grey-200 md:grid-cols-2 lg:grid-cols-3">
+            <ul className="grid gap-px overflow-hidden rounded-2xl bg-grey-200 md:grid-cols-2 lg:grid-cols-3">
               {product.reviews.map((review) => (
                 <li key={review.id} className="bg-background p-6">
                   <Stars rating={review.rating} />

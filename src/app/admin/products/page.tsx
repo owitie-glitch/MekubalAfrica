@@ -48,7 +48,7 @@ export default async function AdminProductsPage({
         action={
           <Link
             href="/admin/products/new"
-            className="inline-flex items-center justify-center bg-black px-6 py-3.5 text-[11px] font-semibold tracking-[0.14em] text-white uppercase transition-colors duration-300 hover:bg-neutral-800"
+            className="inline-flex items-center justify-center rounded-lg bg-black px-6 py-3.5 text-[11px] font-semibold tracking-[0.14em] text-white uppercase transition-colors duration-300 hover:bg-neutral-800"
           >
             New product
           </Link>
@@ -86,7 +86,7 @@ export default async function AdminProductsPage({
 
         <button
           type="submit"
-          className="border border-black px-6 py-3 text-[11px] font-semibold tracking-[0.14em] uppercase transition-colors duration-300 hover:bg-black hover:text-white"
+          className="rounded-lg border border-black px-6 py-3 text-[11px] font-semibold tracking-[0.14em] uppercase transition-colors duration-300 hover:bg-black hover:text-white"
         >
           Filter
         </button>
@@ -133,7 +133,7 @@ export default async function AdminProductsPage({
               return (
                 <tr key={product.id} className="transition-colors hover:bg-grey-100">
                   <Td>
-                    <div className="h-12 w-12 overflow-hidden bg-grey-100">
+                    <div className="h-12 w-12 overflow-hidden rounded-md bg-grey-100">
                       {product.images[0] && (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img
