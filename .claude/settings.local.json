@@ -42,7 +42,11 @@
       "Bash(git -c user.email=noreply@anthropic.com -c user.name=Claude commit -q -m 'Normalise photo exposure and add an editorial lookbook *)",
       "Read(//c/Program Files/Google/Chrome/Application/**)",
       "Read(//c/Program Files \\\\\\(x86\\\\\\)/Microsoft/Edge/Application/**)",
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "Bash(mkdir -p wordpress/brand)",
+      "Bash(cp public/logo.png wordpress/brand/logo.png)",
+      "Bash(cp src/app/icon.png wordpress/brand/favicon.png)",
+      "Bash(cp public/hero-photo.png wordpress/brand/hero.png)"
     ]
   }
 }

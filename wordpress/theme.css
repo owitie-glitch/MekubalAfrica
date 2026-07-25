@@ -1,0 +1,85 @@
+/*
+ * Mekubal Africa — brand styling for a WooCommerce site.
+ *
+ * Where to paste this: WordPress admin → Appearance → Customize →
+ * Additional CSS (or a child theme's style.css).
+ *
+ * Fonts: load "Archivo", "Bodoni Moda" and "Caveat" from Google Fonts
+ * (most themes have a font setting, or use a plugin like "Custom Fonts").
+ *
+ * Works best on a light, flexible theme (Storefront, Astra, Kadence, or a
+ * block theme). It sets the earthy palette, serif headings and pill buttons
+ * from the original site.
+ */
+
+:root {
+  --mk-bg: #f4efe4;             /* warm cream ground */
+  --mk-ink: #2f2a20;           /* charcoal-brown text */
+  --mk-terracotta: #bd6a4c;    /* primary accent + buttons */
+  --mk-terracotta-dark: #a2593e;
+  --mk-olive: #6f7353;         /* secondary accent */
+  --mk-clay: #ccbca0;          /* warm tan */
+  --mk-line: #ddd5c4;          /* hairlines */
+}
+
+body {
+  background: var(--mk-bg);
+  color: var(--mk-ink);
+  font-family: "Archivo", system-ui, sans-serif;
+}
+
+h1, h2, h3, h4,
+.product_title, .entry-title,
+.wp-block-heading {
+  font-family: "Bodoni Moda", Georgia, serif;
+  font-weight: 500;
+  color: var(--mk-ink);
+}
+
+/* The terracotta accent for the last word of a headline: wrap it in
+   <span class="mk-accent">…</span>. */
+.mk-accent { color: var(--mk-terracotta); }
+
+/* Buttons → terracotta pills */
+a.button, button, input[type="submit"], .button, .wp-block-button__link,
+.woocommerce a.button, .woocommerce button.button,
+.woocommerce #respond input#submit,
+.woocommerce .single_add_to_cart_button {
+  background: var(--mk-terracotta) !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 999px !important;
+  padding: 0.95em 2.1em !important;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  font-size: 0.72rem;
+}
+a.button:hover, button:hover, .button:hover, .wp-block-button__link:hover,
+.woocommerce a.button:hover, .woocommerce button.button:hover,
+.woocommerce .single_add_to_cart_button:hover {
+  background: var(--mk-terracotta-dark) !important;
+}
+
+/* Product images / cards: soft rounded corners */
+.woocommerce ul.products li.product img,
+.woocommerce div.product .woocommerce-product-gallery__image img,
+.wc-block-grid__product-image img {
+  border-radius: 1.25rem;
+}
+
+/* Links and accents */
+a { color: var(--mk-ink); text-decoration-color: var(--mk-terracotta); }
+a:hover { color: var(--mk-terracotta); }
+
+/* "Price on request" reads as a soft olive note rather than a hard price */
+.woocommerce div.product p.price,
+.woocommerce ul.products li.product .price {
+  color: var(--mk-olive);
+  font-style: italic;
+}
+
+/* Category tiles / callout blocks (if you use them): earthy fills */
+.mk-tile-terracotta { background: var(--mk-terracotta); color: #fff; border-radius: 1.5rem; }
+.mk-tile-clay       { background: var(--mk-clay);       color: var(--mk-ink); border-radius: 1.5rem; }
+.mk-tile-olive      { background: var(--mk-olive);      color: #fff; border-radius: 1.5rem; }
