@@ -41,7 +41,8 @@
       "Bash(git add *)",
       "Bash(git -c user.email=noreply@anthropic.com -c user.name=Claude commit -q -m 'Normalise photo exposure and add an editorial lookbook *)",
       "Read(//c/Program Files/Google/Chrome/Application/**)",
-      "Read(//c/Program Files \\\\\\(x86\\\\\\)/Microsoft/Edge/Application/**)"
+      "Read(//c/Program Files \\\\\\(x86\\\\\\)/Microsoft/Edge/Application/**)",
+      "Bash(npm run *)"
     ]
   }
 }

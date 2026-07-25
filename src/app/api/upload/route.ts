@@ -34,6 +34,20 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "No files received." }, { status: 400 });
   }
 
+  // Serverless hosts (Vercel included) have a read-only filesystem, so writing
+  // into /public/uploads isn't possible there. Fail with a clear, actionable
+  // message rather than a cryptic 500. See DEPLOY.md to wire up cloud storage
+  // (e.g. Vercel Blob) if admins need to upload images on the live site.
+  if (process.env.VERCEL) {
+    return NextResponse.json(
+      {
+        error:
+          "Image upload isn't available on this host — it needs cloud storage (e.g. Vercel Blob). See DEPLOY.md.",
+      },
+      { status: 501 },
+    );
+  }
+
   await mkdir(UPLOAD_DIR, { recursive: true });
 
   const urls: string[] = [];
