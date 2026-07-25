@@ -48,18 +48,42 @@ export const metadata: Metadata = {
   description: `${site.name}. ${site.tagline}. ${addressLines.join(", ")}. Open ${site.hours[0].days}, ${site.hours[0].time}.`,
 };
 
+// The store reads live data (catalogue, cart, session) on every request, so
+// render dynamically rather than prerendering at build time. This also keeps
+// the production build from needing a database connection. Applies to every
+// route beneath the root layout.
+export const dynamic = "force-dynamic";
+
+async function loadShell() {
+  try {
+    const [user, cart, categories] = await Promise.all([
+      getCurrentUser(),
+      readCart(),
+      db.category.findMany({
+        where: { parentId: null },
+        orderBy: { position: "asc" },
+        select: { name: true, slug: true },
+      }),
+    ]);
+    return { user, cart, categories };
+  } catch (err) {
+    console.error("Layout shell data unavailable — rendering empty shell:", err);
+    return {
+      user: null,
+      cart: null,
+      categories: [] as { name: string; slug: string }[],
+    };
+  }
+}
+
 export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const [user, cart, categories] = await Promise.all([
-    getCurrentUser(),
-    readCart(),
-    db.category.findMany({
-      where: { parentId: null },
-      orderBy: { position: "asc" },
-      select: { name: true, slug: true },
-    }),
-  ]);
+  // Load the chrome's data, but never let it fail the render. During a
+  // production build (or a transient database outage) the DB may be
+  // unreachable — fall back to an empty shell so pages like /_not-found still
+  // prerender; real data fills in at request time once the DB is connected.
+  const { user, cart, categories } = await loadShell();
 
   const initialCart = {
     count: (cart?.items ?? []).reduce((n, i) => n + i.quantity, 0),
