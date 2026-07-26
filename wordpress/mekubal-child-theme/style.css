@@ -4,7 +4,7 @@ Theme URI: https://mekubalafrica.co.ke
 Description: The full Mekubal Africa storefront design — earthy cream ground, terracotta and olive accents, Bodoni serif display type, arched imagery, pill buttons, and WhatsApp enquiry on every product. Built as a child of Storefront, which supplies the WooCommerce machinery underneath.
 Author: Mekubal Africa
 Template: storefront
-Version: 2.3.3
+Version: 2.3.4
 */
 
 /* ---------------------------------------------------------------- tokens */
@@ -1060,7 +1060,7 @@ body.home,
   background:
     linear-gradient(to right, var(--mk-night) 0%, rgba(12, 10, 8, 0) 16%),
     linear-gradient(to left, var(--mk-night) 0%, rgba(12, 10, 8, 0) 8%),
-    linear-gradient(to bottom, rgba(12, 10, 8, 0) 80%, var(--mk-night) 100%),
+    linear-gradient(to bottom, rgba(12, 10, 8, 0) 60%, rgba(12, 10, 8, 0.55) 82%, var(--mk-night) 96%),
     linear-gradient(to top, rgba(12, 10, 8, 0) 93%, var(--mk-night) 100%);
 }
 @media (max-width: 999px) {
