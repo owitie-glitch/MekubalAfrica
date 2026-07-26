@@ -1,5 +1,11 @@
 # Moving Mekubal Africa to WordPress + WooCommerce
 
+> **Status (26 Jul 2026):** WordPress, WooCommerce and the theme are live on
+> HostPinnacle. The full v2 theme and all 86 product images were deployed
+> straight to the server over FTP, so **Steps 1, 3 and 5 are DONE**. What
+> remains: **Step 4 (import `products-woocommerce.csv`)**, menus/pages, and
+> turning off Coming-soon mode.
+
 The original site is a custom React/Next.js app; it can't be copied into
 WordPress. Instead you rebuild it as a **WooCommerce** store and bring across
 your **products, images and branding** — which is what this folder contains:

@@ -49,7 +49,10 @@
       "Bash(cp public/hero-photo.png wordpress/brand/hero.png)",
       "Bash(node \"C:/Users/owiti/AppData/Local/Temp/claude/c--DEV-ecommerce/ef28b37b-f928-4841-91dd-e0e9e4945f19/scratchpad/makezip2.mjs\")",
       "Bash(git commit -q -m ' *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(curl -s --max-time 30 \"https://mekubalafrica.co.ke/wp-content/themes/mekubal-child-theme/style.css\")",
+      "Bash(curl -s -o /dev/null -w \"home: HTTP %{http_code}\\\\n\" --max-time 40 \"https://mekubalafrica.co.ke/\")",
+      "Bash(curl -s -o /dev/null -w \"wp-login: HTTP %{http_code}\\\\n\" --max-time 40 \"https://mekubalafrica.co.ke/wp-login.php\")"
     ]
   }
 }
