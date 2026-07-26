@@ -85,7 +85,7 @@ $mk_shop = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( '
 				<div class="mk-gallery-grid">
 					<?php foreach ( $mk_products as $mk_product ) : ?>
 						<a class="mk-card" href="<?php echo esc_url( get_permalink( $mk_product->get_id() ) ); ?>">
-							<?php echo $mk_product->get_image( 'woocommerce_thumbnail' ); ?>
+							<?php echo $mk_product->get_image( 'large' ); ?>
 							<span class="mk-card-title"><?php echo esc_html( $mk_product->get_name() ); ?></span>
 							<span class="mk-card-price"><?php echo wp_kses_post( $mk_product->get_price_html() ); ?></span>
 						</a>
