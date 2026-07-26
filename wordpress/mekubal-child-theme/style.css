@@ -4,7 +4,7 @@ Theme URI: https://mekubalafrica.co.ke
 Description: The full Mekubal Africa storefront design — earthy cream ground, terracotta and olive accents, Bodoni serif display type, arched imagery, pill buttons, and WhatsApp enquiry on every product. Built as a child of Storefront, which supplies the WooCommerce machinery underneath.
 Author: Mekubal Africa
 Template: storefront
-Version: 2.4.0
+Version: 2.4.1
 */
 
 /* ---------------------------------------------------------------- tokens */
@@ -972,13 +972,22 @@ body.home { overflow-x: clip; }
 /* hero — a full-bleed night band; everything after it stays cream */
 .home .site-content { padding-top: 0; }
 .home .mk-hero {
+  /* the last stretch of the band melts night -> warm earth -> cream */
+  --mk-fade: clamp(110px, 16vh, 180px);
   align-items: center;
   gap: 28px;
-  background: var(--mk-night);
+  background: linear-gradient(
+    180deg,
+    var(--mk-night) 0%,
+    var(--mk-night) calc(100% - var(--mk-fade)),
+    #3f372b calc(100% - var(--mk-fade) * 0.5),
+    #a08d72 calc(100% - var(--mk-fade) * 0.16),
+    var(--mk-bg) 100%
+  );
   color: var(--mk-cream);
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
-  padding: 24px calc(50vw - 50%) 20px;
+  padding: 24px calc(50vw - 50%) var(--mk-fade);
 }
 @media (min-width: 1000px) {
   .home .mk-hero {
@@ -987,6 +996,8 @@ body.home { overflow-x: clip; }
     min-height: min(700px, calc(100vh - 170px));
   }
 }
+/* the dusk fade already provides the breathing room above the tiles */
+.home .mk-tiles { margin-top: 26px; }
 .home .mk-eyebrow { color: var(--mk-goldA); font-size: 12px; letter-spacing: 0.18em; }
 .home .mk-h1 {
   color: var(--mk-cream);
