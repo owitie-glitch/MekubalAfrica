@@ -4,7 +4,7 @@ Theme URI: https://mekubalafrica.co.ke
 Description: The full Mekubal Africa storefront design — earthy cream ground, terracotta and olive accents, Bodoni serif display type, arched imagery, pill buttons, and WhatsApp enquiry on every product. Built as a child of Storefront, which supplies the WooCommerce machinery underneath.
 Author: Mekubal Africa
 Template: storefront
-Version: 2.3.4
+Version: 2.4.0
 */
 
 /* ---------------------------------------------------------------- tokens */
@@ -922,13 +922,10 @@ a.button:hover, button:hover, .button:hover,
   --mk-mut: #b0a692;        /* muted body text on dark */
 }
 
-body.home,
-.home #page.site,
-.home .site-content {
-  background: var(--mk-night) !important;
-  color: var(--mk-cream);
-}
-.home :focus-visible { outline-color: var(--mk-goldA); }
+/* The dark treatment is confined to the hero band — the page itself keeps
+   the cream ground. clip guards the band's full-bleed breakout from causing
+   a sideways scrollbar. */
+body.home { overflow-x: clip; }
 
 /* header, gone dark */
 .home .mk-header { border-bottom-color: rgba(255, 255, 255, 0.07); }
@@ -972,14 +969,22 @@ body.home,
   .home .mk-nav-extra .mk-small { color: var(--mk-mut); }
 }
 
-/* hero */
+/* hero — a full-bleed night band; everything after it stays cream */
 .home .site-content { padding-top: 0; }
-.home .mk-hero { align-items: center; gap: 28px; padding-top: 12px; }
+.home .mk-hero {
+  align-items: center;
+  gap: 28px;
+  background: var(--mk-night);
+  color: var(--mk-cream);
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding: 24px calc(50vw - 50%) 20px;
+}
 @media (min-width: 1000px) {
   .home .mk-hero {
     grid-template-columns: 1.05fr 1fr;
     gap: 44px;
-    min-height: min(760px, calc(100vh - 170px));
+    min-height: min(700px, calc(100vh - 170px));
   }
 }
 .home .mk-eyebrow { color: var(--mk-goldA); font-size: 12px; letter-spacing: 0.18em; }
@@ -1042,7 +1047,7 @@ body.home,
   position: relative;
   width: 100%;
   max-width: 660px;
-  margin: 0 calc(-1 * clamp(20px, 4vw, 44px)) 0 auto;
+  margin: 0 0 0 auto;
 }
 /* Show the WHOLE portrait: contain (not cover) so nothing is cropped — the
    letterboxed space is black-on-black, so it simply melts into the ground. */
@@ -1068,26 +1073,5 @@ body.home,
   .home .mk-hero-photo img { max-height: 62vh; }
 }
 
-/* sections on the night ground */
-.home .mk-philosophy h2,
-.home .mk-gallery-head h2 { color: var(--mk-cream); }
-.home .mk-philosophy p { color: var(--mk-mut); }
-.home .mk-blob { background: var(--mk-night-2); }
-.home .mk-card img { background: var(--mk-night-2); }
-.home .mk-card-title { color: var(--mk-cream); }
-.home .mk-card:hover .mk-card-title { color: var(--mk-goldA); }
-.home .mk-card-price, .home .mk-por,
-.home .mk-card-price .mk-por { color: #cbb489; }
-.home .mk-viewall { color: var(--mk-cream); border-bottom-color: var(--mk-goldA); }
-.home .mk-tile:hover { box-shadow: 0 30px 60px -28px rgba(0, 0, 0, 0.85); }
-.home .mk-card:hover img { box-shadow: 0 30px 60px -28px rgba(0, 0, 0, 0.85); }
-
-/* footer, gone dark */
-.home .mk-footer { border-top-color: rgba(255, 255, 255, 0.08); }
-.home .mk-footer-logo img { filter: drop-shadow(0 0 18px rgba(244, 239, 228, 0.25)); }
-.home .mk-footer-cols { border-top-color: rgba(255, 255, 255, 0.08); }
-.home .mk-footer h4 { color: #8e8471; }
-.home .mk-footer p, .home .mk-footer a { color: #d9d0bf; }
-.home .mk-footer a:hover { color: var(--mk-goldA); }
-.home .mk-small { color: #8e8471; }
-.home .mk-copyright { color: #8e8471; border-top-color: rgba(255, 255, 255, 0.08); }
+/* Below the hero band, the homepage sections and footer use the same light
+   styling as the rest of the site. */

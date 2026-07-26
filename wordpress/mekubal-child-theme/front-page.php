@@ -91,7 +91,7 @@ $mk_about_url = $mk_about ? get_permalink( $mk_about ) : $mk_shop;
 			<h2>Every piece carries the hand that made it.</h2>
 			<p>Mekubal Africa works with beaders and metalworkers across Kenya. Every collar, cuff and bangle is strung and stitched by hand, one bead at a time.</p>
 			<p>Small variations in colour, spacing and finish are the signature of that work &mdash; no two pieces leave the shop identical.</p>
-			<a class="mk-cta mk-cta--ghost" href="<?php echo esc_url( $mk_about_url ); ?>">Learn more <span aria-hidden="true">&rarr;</span></a>
+			<a class="mk-pill mk-pill--olive" href="<?php echo esc_url( $mk_about_url ); ?>">Learn more <span aria-hidden="true">&rarr;</span></a>
 		</div>
 	</section>
 
