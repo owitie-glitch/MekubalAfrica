@@ -4,7 +4,7 @@ Theme URI: https://mekubalafrica.co.ke
 Description: The full Mekubal Africa storefront design — earthy cream ground, terracotta and olive accents, Bodoni serif display type, arched imagery, pill buttons, and WhatsApp enquiry on every product. Built as a child of Storefront, which supplies the WooCommerce machinery underneath.
 Author: Mekubal Africa
 Template: storefront
-Version: 2.3.1
+Version: 2.3.2
 */
 
 /* ---------------------------------------------------------------- tokens */
@@ -933,7 +933,9 @@ body.home,
 /* header, gone dark */
 .home .mk-header { border-bottom-color: rgba(255, 255, 255, 0.07); }
 .home .mk-header::before { background: rgba(12, 10, 8, 0.82); }
-.home .mk-logo img { filter: brightness(0) invert(1); opacity: 0.95; }
+/* the logo keeps its true colours on the night ground; a faint warm glow
+   lifts the dark-green wordmark off the black */
+.home .mk-logo img { filter: drop-shadow(0 0 14px rgba(244, 239, 228, 0.28)); }
 .home .mk-cart { color: var(--mk-cream); }
 .home .mk-cart .mk-count { background: var(--mk-goldA); color: #221a10; }
 .home .mk-burger span { background: var(--mk-cream); }
@@ -1039,7 +1041,7 @@ body.home,
 .home .mk-hero-photo {
   position: relative;
   width: 100%;
-  max-width: 560px;
+  max-width: 660px;
   margin: 0 calc(-1 * clamp(20px, 4vw, 44px)) 0 auto;
 }
 /* Show the WHOLE portrait: contain (not cover) so nothing is cropped — the
@@ -1047,7 +1049,7 @@ body.home,
 .home .mk-hero-photo img {
   display: block;
   width: 100%;
-  max-height: min(72vh, 680px);
+  max-height: min(82vh, 800px);
   object-fit: contain;
   object-position: center top;
 }
@@ -1062,8 +1064,8 @@ body.home,
     linear-gradient(to top, rgba(12, 10, 8, 0) 93%, var(--mk-night) 100%);
 }
 @media (max-width: 999px) {
-  .home .mk-hero-photo { margin: 0 auto; max-width: 400px; }
-  .home .mk-hero-photo img { max-height: 54vh; }
+  .home .mk-hero-photo { margin: 0 auto; max-width: 460px; }
+  .home .mk-hero-photo img { max-height: 62vh; }
 }
 
 /* sections on the night ground */
@@ -1082,7 +1084,7 @@ body.home,
 
 /* footer, gone dark */
 .home .mk-footer { border-top-color: rgba(255, 255, 255, 0.08); }
-.home .mk-footer-logo img { filter: brightness(0) invert(1); opacity: 0.95; }
+.home .mk-footer-logo img { filter: drop-shadow(0 0 18px rgba(244, 239, 228, 0.25)); }
 .home .mk-footer-cols { border-top-color: rgba(255, 255, 255, 0.08); }
 .home .mk-footer h4 { color: #8e8471; }
 .home .mk-footer p, .home .mk-footer a { color: #d9d0bf; }
