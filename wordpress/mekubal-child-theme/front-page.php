@@ -8,6 +8,7 @@
 get_header();
 
 $mk_hero = get_theme_mod( 'mekubal_hero_image', get_stylesheet_directory_uri() . '/assets/hero.png' );
+$mk_hero = add_query_arg( 'v', MEKUBAL_VERSION, $mk_hero ); // cache-bust on theme updates
 $mk_shop = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/' );
 $mk_about = get_page_by_path( 'about' );
 $mk_about_url = $mk_about ? get_permalink( $mk_about ) : $mk_shop;
