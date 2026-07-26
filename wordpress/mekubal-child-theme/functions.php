@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'MEKUBAL_VERSION', '2.6.2' );
+define( 'MEKUBAL_VERSION', '2.6.3' );
 
 /* ------------------------------------------------------------- setup */
 
@@ -174,6 +174,36 @@ add_filter( 'body_class', function ( $classes ) {
 	}
 	return $classes;
 } );
+
+/* ----------------------------------------------------------- widgets */
+
+// Drop WordPress's default "Recent Posts" and "Recent Comments" widgets from
+// every sidebar — a store has no need for them. Non-destructive: it only hides
+// them at render time, so they can always be re-added in Appearance -> Widgets.
+add_filter( 'sidebars_widgets', 'mekubal_strip_default_widgets' );
+function mekubal_strip_default_widgets( $sidebars_widgets ) {
+	if ( is_admin() ) {
+		return $sidebars_widgets;
+	}
+	$drop = array( 'recent-posts', 'recent-comments' );
+	foreach ( $sidebars_widgets as $sidebar => $widgets ) {
+		if ( ! is_array( $widgets ) ) {
+			continue;
+		}
+		$sidebars_widgets[ $sidebar ] = array_values( array_filter(
+			$widgets,
+			function ( $id ) use ( $drop ) {
+				foreach ( $drop as $prefix ) {
+					if ( 0 === strpos( (string) $id, $prefix ) ) {
+						return false;
+					}
+				}
+				return true;
+			}
+		) );
+	}
+	return $sidebars_widgets;
+}
 
 /* ------------------------------------------------------------- pages */
 
