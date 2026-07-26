@@ -46,7 +46,10 @@
       "Bash(mkdir -p wordpress/brand)",
       "Bash(cp public/logo.png wordpress/brand/logo.png)",
       "Bash(cp src/app/icon.png wordpress/brand/favicon.png)",
-      "Bash(cp public/hero-photo.png wordpress/brand/hero.png)"
+      "Bash(cp public/hero-photo.png wordpress/brand/hero.png)",
+      "Bash(node \"C:/Users/owiti/AppData/Local/Temp/claude/c--DEV-ecommerce/ef28b37b-f928-4841-91dd-e0e9e4945f19/scratchpad/makezip2.mjs\")",
+      "Bash(git commit -q -m ' *)",
+      "Bash(git push *)"
     ]
   }
 }

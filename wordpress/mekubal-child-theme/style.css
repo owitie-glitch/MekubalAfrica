@@ -1,61 +1,94 @@
 /*
 Theme Name: Mekubal Africa
-Theme URI: https://mekubal.africa
-Description: Earthy WooCommerce theme for Mekubal Africa — warm cream ground, terracotta accents, Bodoni serif headings and pill buttons. A child theme of Storefront (install "Storefront" from Appearance → Themes first).
+Theme URI: https://mekubalafrica.co.ke
+Description: The full Mekubal Africa storefront design — earthy cream ground, terracotta and olive accents, Bodoni serif display type, arched imagery, pill buttons, and WhatsApp enquiry on every product. Built as a child of Storefront, which supplies the WooCommerce machinery underneath.
 Author: Mekubal Africa
 Template: storefront
-Version: 1.0
+Version: 2.0.0
 */
 
+/* ---------------------------------------------------------------- tokens */
+
 :root {
-  --mk-bg: #f4efe4;             /* warm cream ground */
-  --mk-ink: #2f2a20;           /* charcoal-brown text */
+  --mk-bg: #f4efe4;            /* warm cream ground */
+  --mk-ink: #2f2a20;           /* charcoal-brown ink */
   --mk-terracotta: #bd6a4c;    /* primary accent + buttons */
   --mk-terracotta-dark: #a2593e;
   --mk-olive: #6f7353;         /* secondary accent */
+  --mk-olive-dark: #565a3f;
   --mk-clay: #ccbca0;          /* warm tan */
   --mk-line: #ddd5c4;          /* hairlines */
+  --mk-grey: #6f6553;          /* muted text */
+  --mk-paper: #eae2d3;         /* image beds */
+  --mk-ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* ------------------------------------------------------------------ base */
+
 body,
-.site-content,
-.storefront-full-width-content {
-  background: var(--mk-bg);
+#page.site,
+.site-content {
+  background: var(--mk-bg) !important;
   color: var(--mk-ink);
   font-family: "Archivo", system-ui, sans-serif;
 }
 
-/* Headings → Bodoni serif, mixed case */
+.col-full {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
 h1, h2, h3, h4,
-.site-title, .product_title, .entry-title,
-.woocommerce-loop-product__title,
+.site-title,
+.entry-title,
+.product_title,
 .wp-block-heading {
   font-family: "Bodoni Moda", Georgia, serif !important;
   font-weight: 500;
   color: var(--mk-ink);
 }
 
-/* Terracotta accent — wrap the last word of a headline in
-   <span class="mk-accent">…</span> */
+a { color: var(--mk-ink); }
+a:hover { color: var(--mk-terracotta); }
+
 .mk-accent { color: var(--mk-terracotta); }
 
-/* Header / footer on the cream ground */
-.site-header,
-.site-footer {
-  background: var(--mk-bg) !important;
-  color: var(--mk-ink);
-}
-.site-header a, .main-navigation ul li a { color: var(--mk-ink) !important; }
-.main-navigation ul li a:hover,
-.main-navigation ul li.current-menu-item > a { color: var(--mk-terracotta) !important; }
+::selection { background: var(--mk-terracotta); color: #fff; }
 
-/* Buttons → terracotta pills, everywhere */
+/* ------------------------------------------------------------- shapes */
+
+.mk-arch {
+  border-radius: 50% 50% 1.75rem 1.75rem / 42% 42% 1.75rem 1.75rem;
+  overflow: hidden;
+  background: #000;
+}
+.mk-arch img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+}
+.mk-blob {
+  border-radius: 47% 53% 55% 45% / 55% 47% 53% 45%;
+  overflow: hidden;
+  background: var(--mk-paper);
+}
+.mk-blob img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+}
+
+/* ---------------------------------------------------------------- pills */
+
 a.button, button, input[type="submit"], .button,
+.wp-block-button__link,
 .woocommerce a.button, .woocommerce button.button,
 .woocommerce #respond input#submit,
-.woocommerce .single_add_to_cart_button,
-.wp-block-button__link,
-.storefront-sticky-add-to-cart a.button {
+.woocommerce .single_add_to_cart_button {
   background-color: var(--mk-terracotta) !important;
   color: #fff !important;
   border: none !important;
@@ -67,31 +100,413 @@ a.button, button, input[type="submit"], .button,
   font-size: 0.72rem;
 }
 a.button:hover, button:hover, .button:hover,
+.wp-block-button__link:hover,
 .woocommerce a.button:hover, .woocommerce button.button:hover,
-.woocommerce .single_add_to_cart_button:hover,
-.wp-block-button__link:hover {
+.woocommerce .single_add_to_cart_button:hover {
   background-color: var(--mk-terracotta-dark) !important;
 }
 
-/* Product images / cards → soft rounded corners */
-.woocommerce ul.products li.product img,
-.woocommerce div.product .woocommerce-product-gallery__image img,
-.wc-block-grid__product-image img {
-  border-radius: 1.25rem;
+.mk-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--mk-terracotta);
+  color: #fff !important;
+  border-radius: 999px;
+  padding: 15px 32px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 600;
+  font-size: 11px;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+.mk-pill:hover { background: var(--mk-terracotta-dark); }
+.mk-pill--olive { background: var(--mk-olive); }
+.mk-pill--olive:hover { background: var(--mk-olive-dark); }
+
+/* --------------------------------------------------------------- header */
+
+.mk-header {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background: rgba(244, 239, 228, 0.82);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  backdrop-filter: blur(14px) saturate(140%);
+  border-bottom: 1px solid rgba(47, 42, 32, 0.08);
+}
+.mk-header-inner {
+  max-width: 1500px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 10px 20px;
+}
+.mk-logo { display: flex; align-items: center; text-decoration: none; }
+.mk-logo img { height: 58px; width: auto; display: block; }
+.mk-logo .mk-logo-text {
+  font-family: "Bodoni Moda", Georgia, serif;
+  font-size: 24px;
+  letter-spacing: 0.08em;
 }
 
-/* Links + accents */
-a { color: var(--mk-ink); }
-a:hover { color: var(--mk-terracotta); }
+.mk-nav { margin: 0 auto; }
+.mk-nav ul { display: flex; gap: 34px; list-style: none; margin: 0; padding: 0; }
+.mk-nav li { margin: 0; }
+.mk-nav a {
+  color: var(--mk-grey);
+  text-decoration: none;
+  font-size: 15px;
+  position: relative;
+  padding-bottom: 6px;
+}
+.mk-nav a:hover { color: var(--mk-ink); }
+.mk-nav .current-menu-item > a,
+.mk-nav .current_page_item > a { color: var(--mk-ink); }
+.mk-nav .current-menu-item > a::after,
+.mk-nav .current_page_item > a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
+  background: var(--mk-terracotta);
+}
 
-/* "Price on request" reads as a soft olive note */
-.woocommerce div.product p.price,
-.woocommerce ul.products li.product .price {
+.mk-actions { margin-left: auto; display: flex; align-items: center; gap: 18px; }
+.mk-cart { position: relative; display: flex; color: var(--mk-ink); }
+.mk-cart .mk-count {
+  position: absolute;
+  top: -7px;
+  right: -9px;
+  background: var(--mk-terracotta);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+}
+.mk-shopnow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--mk-terracotta);
+  color: #fff !important;
+  border-radius: 999px;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  font-size: 11px;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+.mk-shopnow:hover { background: var(--mk-terracotta-dark); }
+
+.mk-burger {
+  display: none;
+  background: none !important;
+  border: 0 !important;
+  padding: 8px !important;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+}
+.mk-burger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--mk-ink);
+}
+
+.mk-noscroll { overflow: hidden; }
+
+@media (max-width: 900px) {
+  .mk-burger { display: flex; }
+  .mk-shopnow { display: none; }
+  .mk-nav {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 998;
+    background: var(--mk-bg);
+    padding: 110px 28px 28px;
+    overflow-y: auto;
+  }
+  .mk-nav.open { display: block; }
+  .mk-nav ul { flex-direction: column; gap: 10px; }
+  .mk-nav a {
+    font-family: "Bodoni Moda", Georgia, serif;
+    font-size: clamp(1.8rem, 7vw, 2.6rem);
+    color: var(--mk-ink);
+  }
+}
+
+/* -------------------------------------------------------------- landing */
+
+.mk-landing { padding-bottom: 40px; }
+
+.mk-eyebrow {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--mk-grey);
+}
+.mk-dot { color: var(--mk-terracotta); padding: 0 6px; }
+
+.mk-hero {
+  display: grid;
+  gap: 36px;
+  align-items: center;
+  padding-top: 44px;
+}
+@media (min-width: 1000px) {
+  .mk-hero { grid-template-columns: 3fr 2fr; gap: 56px; }
+}
+.mk-h1 {
+  font-size: clamp(2.6rem, 6vw, 5.25rem) !important;
+  line-height: 1.02;
+  margin: 0.35em 0 0;
+}
+.mk-lede {
+  max-width: 430px;
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--mk-grey);
+  margin: 22px 0 30px;
+}
+.mk-hero-art { max-width: 420px; margin: 0 auto; width: 100%; }
+@media (min-width: 1000px) { .mk-hero-art { margin: 0 0 0 auto; } }
+
+/* category tiles */
+.mk-tiles {
+  display: grid;
+  gap: 16px;
+  margin-top: 72px;
+}
+@media (min-width: 700px) { .mk-tiles { grid-template-columns: repeat(3, 1fr); } }
+.mk-tile {
+  min-height: 215px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 32px;
+  text-decoration: none !important;
+  transition: transform 0.5s var(--mk-ease);
+}
+.mk-tile:hover { transform: translateY(-4px); }
+.mk-tile--rust  { background: var(--mk-terracotta); color: #fff !important; border-radius: 4.5rem 1.5rem 1.5rem 1.5rem; }
+.mk-tile--clay  { background: var(--mk-clay); color: var(--mk-ink) !important; border-radius: 1.5rem 4.5rem 1.5rem 1.5rem; }
+.mk-tile--olive { background: var(--mk-olive); color: #fff !important; border-radius: 1.5rem 1.5rem 4.5rem 1.5rem; }
+.mk-tile-num { font-size: 10px; letter-spacing: 0.2em; opacity: 0.65; }
+.mk-tile-title {
+  display: block;
+  font-family: "Bodoni Moda", Georgia, serif;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  line-height: 1.15;
+  color: inherit;
+}
+.mk-tile-cta { display: inline-flex; gap: 8px; font-size: 12px; opacity: 0.7; margin-top: 10px; }
+.mk-tile:hover .mk-tile-cta { opacity: 1; }
+.mk-tile, .mk-tile:hover { color: inherit; }
+
+/* philosophy */
+.mk-philosophy {
+  display: grid;
+  gap: 40px;
+  align-items: center;
+  margin-top: 96px;
+}
+@media (min-width: 1000px) { .mk-philosophy { grid-template-columns: 1fr 1fr; gap: 64px; } }
+.mk-philosophy .mk-blob { max-width: 430px; margin: 0 auto; }
+.mk-philosophy h2 { font-size: clamp(1.9rem, 4vw, 3.25rem) !important; line-height: 1.15; margin: 0 0 20px; }
+.mk-philosophy p { max-width: 500px; font-size: 14px; line-height: 1.75; color: var(--mk-grey); }
+.mk-philosophy .mk-pill { margin-top: 22px; }
+
+/* gallery */
+.mk-gallery { margin-top: 96px; }
+.mk-gallery-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+}
+.mk-gallery-head h2 { font-size: clamp(1.9rem, 4vw, 3rem) !important; margin: 0; }
+.mk-viewall {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: 1px solid var(--mk-terracotta);
+  padding-bottom: 3px;
+  white-space: nowrap;
+}
+.mk-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  margin-top: 30px;
+}
+@media (min-width: 900px) { .mk-gallery-grid { grid-template-columns: repeat(4, 1fr); } }
+.mk-card { text-decoration: none !important; display: block; }
+.mk-card img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 1.5rem;
+  display: block;
+  background: var(--mk-paper);
+  transition: transform 0.7s var(--mk-ease);
+}
+.mk-card:hover img { transform: scale(1.02); }
+.mk-card-title { display: block; margin-top: 12px; font-size: 14px; font-weight: 500; color: var(--mk-ink); }
+.mk-card-price { display: block; margin-top: 2px; font-size: 12px; }
+
+/* newsletter */
+.mk-news {
+  margin-top: 96px;
+  background: var(--mk-terracotta);
+  color: #fff;
+  border-radius: 1.5rem 4.5rem 1.5rem 1.5rem;
+  padding: clamp(32px, 6vw, 60px);
+  display: grid;
+  gap: 32px;
+  align-items: center;
+}
+@media (min-width: 900px) { .mk-news { grid-template-columns: 1.1fr 1fr; } }
+.mk-news h2 { color: #fff !important; font-size: clamp(1.9rem, 4vw, 3rem) !important; margin: 0 0 12px; }
+.mk-news p { color: rgba(255, 255, 255, 0.8); font-size: 14px; max-width: 380px; }
+.mk-news-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--mk-bg);
+  border-radius: 999px;
+  padding: 6px 6px 6px 22px;
+}
+.mk-news-form input[type="email"] {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: 0;
+  outline: none;
+  color: var(--mk-ink);
+  font-size: 14px;
+}
+.mk-news-form button {
+  width: 42px !important;
+  height: 42px !important;
+  padding: 0 !important;
+  border-radius: 999px !important;
+  background: var(--mk-olive) !important;
+  flex: 0 0 auto;
+  font-size: 16px !important;
+}
+.mk-news-form button:hover { background: var(--mk-olive-dark) !important; }
+.mk-news-alt { font-size: 12px; margin-top: 12px; }
+.mk-news-alt a { color: #fff; text-decoration: underline; }
+
+/* ---------------------------------------------------------- woocommerce */
+
+.mk-por, .woocommerce div.product p.price, .woocommerce ul.products li.product .price {
   color: var(--mk-olive);
   font-style: italic;
 }
 
-/* Earthy category tiles, if you build a category row with these classes */
-.mk-tile-terracotta { background: var(--mk-terracotta); color: #fff; border-radius: 1.5rem; }
-.mk-tile-clay       { background: var(--mk-clay);       color: var(--mk-ink); border-radius: 1.5rem; }
-.mk-tile-olive      { background: var(--mk-olive);      color: #fff; border-radius: 1.5rem; }
+.woocommerce ul.products li.product img,
+.wc-block-grid__product-image img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: 42% 42% 1.25rem 1.25rem / 22% 22% 1.25rem 1.25rem;
+  background: var(--mk-paper);
+}
+.woocommerce ul.products li.product .woocommerce-loop-product__title {
+  font-family: "Archivo", system-ui, sans-serif !important;
+  font-size: 15px;
+  font-weight: 500;
+  padding-top: 12px;
+}
+.woocommerce div.product .woocommerce-product-gallery__image img {
+  border-radius: 42% 42% 1.25rem 1.25rem / 22% 22% 1.25rem 1.25rem;
+}
+.woocommerce div.product .product_title { font-size: clamp(1.8rem, 4vw, 3rem); }
+
+.mk-whatsapp-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--mk-terracotta);
+  color: #fff !important;
+  border-radius: 999px;
+  padding: 16px 26px;
+  margin: 18px 0 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 11px;
+  font-weight: 600;
+  text-decoration: none !important;
+  transition: background 0.3s;
+}
+.mk-whatsapp-btn:hover { background: var(--mk-terracotta-dark); }
+.mk-whatsapp-btn svg { flex: 0 0 auto; }
+
+/* full-width shop pages: hide the sidebar the parent theme would add */
+.woocommerce #secondary, .woocommerce-page #secondary { display: none; }
+.woocommerce .content-area, .woocommerce-page .content-area { width: 100%; float: none; }
+
+.woocommerce .woocommerce-breadcrumb { color: var(--mk-grey); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+.woocommerce .woocommerce-breadcrumb a { color: var(--mk-grey); }
+
+.woocommerce-result-count { color: var(--mk-grey); }
+
+/* --------------------------------------------------------------- footer */
+
+.mk-footer {
+  margin-top: 100px;
+  border-top: 1px solid var(--mk-line);
+  padding: 64px 20px 40px;
+}
+.mk-footer-logo { display: flex; justify-content: center; margin-bottom: 44px; }
+.mk-footer-logo img { height: clamp(6rem, 16vw, 10.5rem); width: auto; }
+.mk-footer-cols {
+  max-width: 1500px;
+  margin: 0 auto;
+  display: grid;
+  gap: 40px;
+  border-top: 1px solid var(--mk-line);
+  padding-top: 44px;
+}
+@media (min-width: 700px) { .mk-footer-cols { grid-template-columns: repeat(3, 1fr); } }
+.mk-footer h4 {
+  font-family: "Archivo", system-ui, sans-serif !important;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--mk-grey);
+  margin: 0 0 14px;
+}
+.mk-footer p { font-size: 14px; line-height: 1.9; margin: 0 0 10px; }
+.mk-footer a { text-decoration: none; }
+.mk-footer a:hover { color: var(--mk-terracotta); }
+.mk-small { font-size: 12px; color: var(--mk-grey); }
+.mk-copyright {
+  max-width: 1500px;
+  margin: 44px auto 0;
+  padding-top: 24px;
+  border-top: 1px solid var(--mk-line);
+  font-size: 12px;
+  color: var(--mk-grey);
+}
