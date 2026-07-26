@@ -4,7 +4,7 @@ Theme URI: https://mekubalafrica.co.ke
 Description: The full Mekubal Africa storefront design — earthy cream ground, terracotta and olive accents, Bodoni serif display type, arched imagery, pill buttons, and WhatsApp enquiry on every product. Built as a child of Storefront, which supplies the WooCommerce machinery underneath.
 Author: Mekubal Africa
 Template: storefront
-Version: 2.4.1
+Version: 2.4.2
 */
 
 /* ---------------------------------------------------------------- tokens */
@@ -161,9 +161,13 @@ a.button:hover, button:hover, .button:hover,
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: rgba(244, 239, 228, 0.85);
-  -webkit-backdrop-filter: blur(14px) saturate(140%);
-  backdrop-filter: blur(14px) saturate(140%);
+  background: rgba(244, 239, 228, 0.55);
+  -webkit-backdrop-filter: blur(18px) saturate(170%);
+  backdrop-filter: blur(18px) saturate(170%);
+  /* top sheen + a soft drop give the pane its glass depth */
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    0 10px 30px -18px rgba(47, 42, 32, 0.3);
 }
 .mk-header-inner {
   max-width: 1280px;
@@ -927,9 +931,14 @@ a.button:hover, button:hover, .button:hover,
    a sideways scrollbar. */
 body.home { overflow-x: clip; }
 
-/* header, gone dark */
-.home .mk-header { border-bottom-color: rgba(255, 255, 255, 0.07); }
-.home .mk-header::before { background: rgba(12, 10, 8, 0.82); }
+/* header, gone dark — same glass, night-tinted */
+.home .mk-header { border-bottom-color: rgba(255, 255, 255, 0.09); }
+.home .mk-header::before {
+  background: rgba(12, 10, 8, 0.5);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 10px 30px -18px rgba(0, 0, 0, 0.55);
+}
 /* the logo keeps its true colours on the night ground; a faint warm glow
    lifts the dark-green wordmark off the black */
 .home .mk-logo img { filter: drop-shadow(0 0 14px rgba(244, 239, 228, 0.28)); }
