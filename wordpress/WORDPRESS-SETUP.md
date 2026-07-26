@@ -47,14 +47,13 @@ hosting first:
    into it. Fastest way: zip that folder, upload the one zip, then use File
    Manager's **Extract**.
 
-Your images are now at
-`https://yourdomain.com/wp-content/uploads/mekubal/<filename>`. Open
-`products-woocommerce.csv` and **find-and-replace**
-`https://REPLACE-WITH-YOUR-IMAGE-HOST/uploads` with
-`https://yourdomain.com/wp-content/uploads/mekubal`.
+The CSV is **already pointed at**
+`https://mekubalafrica.co.ke/wp-content/uploads/mekubal/<filename>`, so once the
+photos are sitting in that `mekubal` folder there's nothing to edit — go
+straight to the import in Step 4.
 
-> Tell me your domain and I'll regenerate the CSV with these URLs already filled
-> in — then there's nothing to replace, just import.
+> Make sure your site loads over **https** first (cPanel → **SSL/TLS Status** →
+> Run AutoSSL if it isn't already green), since the image links use https.
 
 ## Step 4 — Import the products
 
