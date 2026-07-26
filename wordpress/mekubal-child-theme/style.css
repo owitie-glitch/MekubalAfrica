@@ -4,7 +4,7 @@ Theme URI: https://mekubalafrica.co.ke
 Description: The full Mekubal Africa storefront design — earthy cream ground, terracotta and olive accents, Bodoni serif display type, arched imagery, pill buttons, and WhatsApp enquiry on every product. Built as a child of Storefront, which supplies the WooCommerce machinery underneath.
 Author: Mekubal Africa
 Template: storefront
-Version: 2.0.0
+Version: 2.1.0
 */
 
 /* ---------------------------------------------------------------- tokens */
@@ -510,3 +510,195 @@ a.button:hover, button:hover, .button:hover,
   font-size: 12px;
   color: var(--mk-grey);
 }
+
+/* -------------------------------------------------- about & contact */
+
+.mk-page-hero { padding-top: 44px; }
+.mk-h1--page { font-size: clamp(2.2rem, 5vw, 4.25rem) !important; max-width: 900px; }
+
+.mk-about-grid {
+  display: grid;
+  gap: 40px;
+  align-items: center;
+  margin-top: 48px;
+}
+@media (min-width: 1000px) { .mk-about-grid { grid-template-columns: 1fr 1.1fr; gap: 64px; } }
+.mk-about-grid .mk-blob { max-width: 430px; margin: 0 auto; }
+.mk-about-grid p { max-width: 540px; font-size: 15px; line-height: 1.8; color: var(--mk-grey); }
+.mk-btn-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+
+.mk-values {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+  margin-top: 72px;
+  border-top: 1px solid var(--mk-line);
+  padding-top: 40px;
+}
+@media (min-width: 900px) { .mk-values { grid-template-columns: repeat(4, 1fr); } }
+.mk-values h5 {
+  font-family: "Archivo", system-ui, sans-serif !important;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+.mk-values p { font-size: 12px; color: var(--mk-grey); margin: 0; }
+
+.mk-contact-grid {
+  display: grid;
+  gap: 40px;
+  margin-top: 48px;
+  align-items: start;
+}
+@media (min-width: 1000px) { .mk-contact-grid { grid-template-columns: 1fr 1.3fr; gap: 64px; } }
+.mk-contact-info h4 {
+  font-family: "Archivo", system-ui, sans-serif !important;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--mk-grey);
+  margin: 28px 0 10px;
+}
+.mk-contact-info h4:first-child { margin-top: 0; }
+.mk-contact-info p { font-size: 15px; line-height: 1.9; margin: 0 0 10px; }
+.mk-contact-info a { text-decoration: none; }
+.mk-contact-info .mk-pill { margin: 8px 0 4px; }
+.mk-textlink { border-bottom: 1px solid var(--mk-terracotta); padding-bottom: 2px; font-size: 13px; }
+.mk-map {
+  border-radius: 1.5rem;
+  overflow: hidden;
+  background: var(--mk-paper);
+  aspect-ratio: 4 / 3;
+}
+.mk-map iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+/* ------------------------------------------- woocommerce inner screens */
+
+/* single product: tabs, meta, related */
+.woocommerce div.product .woocommerce-tabs ul.tabs {
+  border-bottom: 1px solid var(--mk-line);
+  padding: 0;
+  margin: 0 0 24px;
+}
+.woocommerce div.product .woocommerce-tabs ul.tabs li {
+  background: none;
+  border: 0;
+  margin: 0 28px 0 0;
+  padding: 0;
+}
+.woocommerce div.product .woocommerce-tabs ul.tabs li a {
+  padding: 12px 0;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--mk-grey);
+}
+.woocommerce div.product .woocommerce-tabs ul.tabs li.active a {
+  color: var(--mk-ink);
+  border-bottom: 2px solid var(--mk-terracotta);
+}
+.woocommerce div.product .product_meta {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mk-grey);
+  border-top: 1px solid var(--mk-line);
+  padding-top: 18px;
+  margin-top: 18px;
+}
+.woocommerce div.product .product_meta a { color: var(--mk-grey); }
+.related.products > h2,
+.up-sells.products > h2 {
+  font-size: clamp(1.6rem, 3vw, 2.4rem) !important;
+  margin-bottom: 24px;
+}
+
+/* quantity + variations */
+.woocommerce .quantity .qty {
+  border: 1px solid var(--mk-line);
+  border-radius: 999px;
+  padding: 10px 14px;
+  background: transparent;
+  color: var(--mk-ink);
+}
+.woocommerce div.product form.cart .variations select {
+  border: 1px solid var(--mk-line);
+  border-radius: 999px;
+  padding: 8px 14px;
+  background: var(--mk-bg);
+}
+
+/* shop toolbar + pagination */
+.woocommerce .woocommerce-ordering select,
+.woocommerce select.orderby {
+  border: 0;
+  border-bottom: 1px solid var(--mk-line);
+  border-radius: 0;
+  background: transparent;
+  padding: 8px 4px;
+  color: var(--mk-ink);
+}
+.woocommerce nav.woocommerce-pagination ul {
+  border: 0;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+.woocommerce nav.woocommerce-pagination ul li {
+  border: 0;
+}
+.woocommerce nav.woocommerce-pagination ul li a,
+.woocommerce nav.woocommerce-pagination ul li span {
+  min-width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid var(--mk-line);
+  color: var(--mk-ink);
+  background: transparent;
+}
+.woocommerce nav.woocommerce-pagination ul li span.current,
+.woocommerce nav.woocommerce-pagination ul li a:hover {
+  background: var(--mk-ink);
+  color: #fff;
+  border-color: var(--mk-ink);
+}
+
+/* stars */
+.woocommerce .star-rating span::before,
+.woocommerce p.stars a { color: var(--mk-gold, #b78d43); }
+
+/* cart & checkout */
+.woocommerce-cart table.cart img { border-radius: 1rem; width: 72px; }
+.woocommerce table.shop_table {
+  border: 1px solid var(--mk-line);
+  border-radius: 1.25rem;
+  overflow: hidden;
+}
+.woocommerce table.shop_table td, .woocommerce table.shop_table th {
+  border-color: var(--mk-line);
+}
+.woocommerce .cart_totals h2, .woocommerce-checkout h3 { font-size: 1.4rem !important; }
+.woocommerce form .form-row input.input-text,
+.woocommerce form .form-row textarea {
+  border: 1px solid var(--mk-line);
+  border-radius: 0.9rem;
+  padding: 12px 14px;
+  background: #fff;
+}
+
+/* notices */
+.woocommerce-message, .woocommerce-info, .woocommerce-error {
+  border-top-color: var(--mk-terracotta);
+  background: var(--mk-paper);
+  color: var(--mk-ink);
+  border-radius: 0.9rem;
+}
+.woocommerce-message::before, .woocommerce-info::before { color: var(--mk-terracotta); }
+
+/* generic page titles (search, archives) */
+.page .entry-header h1, .archive .page-title { font-size: clamp(2rem, 4.5vw, 3.4rem) !important; }

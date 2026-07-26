@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'MEKUBAL_VERSION', '2.0.0' );
+define( 'MEKUBAL_VERSION', '2.1.0' );
 
 /* ------------------------------------------------------------- setup */
 
@@ -127,6 +127,33 @@ add_filter( 'body_class', function ( $classes ) {
 	}
 	return $classes;
 } );
+
+/* ------------------------------------------------------------- pages */
+
+// Create the About and Contact pages once, so the nav and footer links have
+// somewhere to go. Their design comes from page-about.php / page-contact.php.
+add_action( 'init', 'mekubal_ensure_pages' );
+function mekubal_ensure_pages() {
+	if ( get_option( 'mekubal_pages_created' ) ) {
+		return;
+	}
+	$pages = array(
+		'about'   => 'About',
+		'contact' => 'Contact',
+	);
+	foreach ( $pages as $slug => $title ) {
+		if ( ! get_page_by_path( $slug ) ) {
+			wp_insert_post( array(
+				'post_type'    => 'page',
+				'post_status'  => 'publish',
+				'post_name'    => $slug,
+				'post_title'   => $title,
+				'post_content' => '',
+			) );
+		}
+	}
+	update_option( 'mekubal_pages_created', 1 );
+}
 
 /* ------------------------------------------------------ menu fallback */
 
