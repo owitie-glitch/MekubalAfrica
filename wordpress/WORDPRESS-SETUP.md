@@ -16,15 +16,18 @@ Product photos to upload live in the project's `public/uploads/` folder (86 file
 
 ---
 
-## Step 1 — Get WordPress with WooCommerce
+## Step 1 — Install WordPress on HostPinnacle (cPanel)
 
-You need WordPress **hosting** (e.g. Hostinger, SiteGround, Bluehost, or
-WordPress.com Business — anything that lets you install plugins).
+HostPinnacle is cPanel shared hosting, so WordPress installs in a few clicks:
 
-1. Install WordPress (most hosts have a one-click installer).
-2. In the WordPress admin: **Plugins → Add New → search "WooCommerce" →
-   Install → Activate**, then run its setup wizard (currency: **KES**;
-   location: **Kenya**).
+1. Log into **cPanel** (from your HostPinnacle client area, or
+   `https://yourdomain.com/cpanel`).
+2. Find **Softaculous Apps Installer** → **WordPress** → **Install**.
+   - Choose your domain, set **Site Name** = "Mekubal Africa", pick an **admin
+     username** and a **strong password**, and your email. Install.
+3. Log in at `https://yourdomain.com/wp-admin`.
+4. **Plugins → Add New → search "WooCommerce" → Install → Activate**, then run
+   its setup wizard (location: **Kenya**, currency: **KES**).
 
 ## Step 2 — Create your categories
 
@@ -33,21 +36,25 @@ Necklaces, Bracelets & Cuffs, Metal Jewellery, Belts & Bands, Earrings,
 Beaded Baskets, Table & Home, Souvenirs & Curios. (The import will also create
 any it doesn't find.)
 
-## Step 3 — Get the product images online
+## Step 3 — Upload the product images (cPanel File Manager)
 
-WooCommerce imports images from a **web address**, so the photos need a URL.
-Easiest option:
+WooCommerce imports images from a web address, so put the photos on your own
+hosting first:
 
-- **Deploy the current site first** (see the main `DEPLOY.md`). Once it's live at
-  `https://your-site.vercel.app`, every image is reachable at
-  `https://your-site.vercel.app/uploads/<filename>`.
-- Then open `products-woocommerce.csv` and **find-and-replace**
-  `https://REPLACE-WITH-YOUR-IMAGE-HOST/uploads` with
-  `https://your-site.vercel.app/uploads`.
+1. In cPanel → **File Manager** → open `public_html/wp-content/uploads`.
+2. Create a folder called **`mekubal`**.
+3. Upload every file from the project's `public/uploads/` folder (86 images)
+   into it. Fastest way: zip that folder, upload the one zip, then use File
+   Manager's **Extract**.
 
-(Alternative: upload all files from `public/uploads/` into WordPress →
-**Media**, then replace that placeholder with your media URL, e.g.
-`https://your-wp-site.com/wp-content/uploads/2026/07`.)
+Your images are now at
+`https://yourdomain.com/wp-content/uploads/mekubal/<filename>`. Open
+`products-woocommerce.csv` and **find-and-replace**
+`https://REPLACE-WITH-YOUR-IMAGE-HOST/uploads` with
+`https://yourdomain.com/wp-content/uploads/mekubal`.
+
+> Tell me your domain and I'll regenerate the CSV with these URLs already filled
+> in — then there's nothing to replace, just import.
 
 ## Step 4 — Import the products
 
