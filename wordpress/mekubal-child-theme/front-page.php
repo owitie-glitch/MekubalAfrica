@@ -1,28 +1,56 @@
 <?php
 /**
- * The landing page — arch hero, category tiles, philosophy, gallery,
- * newsletter. A direct port of the original Mekubal Africa storefront.
+ * The landing page — dark heritage edition. Gold accents on near-black,
+ * the portrait blended into the ground, then category tiles, philosophy,
+ * gallery and newsletter. Scoped dark styling lives under body.home.
  */
 
 get_header();
 
 $mk_hero = get_theme_mod( 'mekubal_hero_image', get_stylesheet_directory_uri() . '/assets/hero.png' );
 $mk_shop = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/' );
+$mk_about = get_page_by_path( 'about' );
+$mk_about_url = $mk_about ? get_permalink( $mk_about ) : $mk_shop;
 ?>
 
 <div class="mk-landing">
 
 	<section class="mk-hero">
 		<div class="mk-hero-copy">
-			<p class="mk-eyebrow">Handcrafted <span class="mk-dot">&bull;</span> African Heritage <span class="mk-dot">&bull;</span> Timeless Design</p>
-			<h1 class="mk-h1">Handmade Beauty for <span class="mk-accent">Everyday Living.</span></h1>
-			<p class="mk-lede">Beaded collars, brass cuffs and woven pieces &mdash; made by hand by artisans across Kenya, so no two are ever quite alike.</p>
-			<a class="mk-pill" href="<?php echo esc_url( $mk_shop ); ?>">Shop Now <span aria-hidden="true">&rarr;</span></a>
-		</div>
-		<div class="mk-hero-art">
-			<div class="mk-arch">
-				<img src="<?php echo esc_url( $mk_hero ); ?>" alt="Adornment by Mekubal Africa">
+			<p class="mk-eyebrow">Rooted in culture. Made to empower.</p>
+			<h1 class="mk-h1">Celebrate<br>Your Heritage</h1>
+			<p class="mk-lede">Timeless pieces that honor African tradition and elevate modern elegance.</p>
+
+			<div class="mk-btn-row">
+				<a class="mk-cta mk-cta--gold" href="<?php echo esc_url( $mk_shop ); ?>">Shop Collection</a>
+				<a class="mk-cta mk-cta--ghost" href="<?php echo esc_url( $mk_about_url ); ?>">
+					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l6 3.5-6 3.5z" fill="currentColor" stroke="none"/></svg>
+					Our Story
+				</a>
 			</div>
+
+			<div class="mk-feats">
+				<div class="mk-feat">
+					<svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 4S9 3 6 9c-2.5 5 1 9 1 9s7 1 10-4c2-3.3 3-10 3-10zM7 18C10 12 15 9 18 8"/></svg>
+					<h5>Ethically Made</h5>
+					<p>Sustainable materials and fair trade</p>
+				</div>
+				<div class="mk-feat">
+					<svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11V6a1.5 1.5 0 013 0v4m0-1a1.5 1.5 0 013 0v2m0-1a1.5 1.5 0 013 0v4a6 6 0 01-6 6h-1.7a4 4 0 01-2.9-1.2L5 15.5a1.6 1.6 0 012.3-2.2L9 15"/></svg>
+					<h5>Handcrafted</h5>
+					<p>By skilled artisans across Africa</p>
+				</div>
+				<div class="mk-feat">
+					<svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 3 2.5 15 0 18M12 3c-2.5 3-2.5 15 0 18"/></svg>
+					<h5>Global Impact</h5>
+					<p>Preserving culture, empowering communities</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="mk-hero-photo">
+			<img src="<?php echo esc_url( $mk_hero ); ?>" alt="Adornment by Mekubal Africa">
+			<span class="mk-hero-fade" aria-hidden="true"></span>
 		</div>
 	</section>
 
@@ -62,8 +90,7 @@ $mk_shop = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( '
 			<h2>Every piece carries the hand that made it.</h2>
 			<p>Mekubal Africa works with beaders and metalworkers across Kenya. Every collar, cuff and bangle is strung and stitched by hand, one bead at a time.</p>
 			<p>Small variations in colour, spacing and finish are the signature of that work &mdash; no two pieces leave the shop identical.</p>
-			<?php $mk_about = get_page_by_path( 'about' ); ?>
-			<a class="mk-pill mk-pill--olive" href="<?php echo esc_url( $mk_about ? get_permalink( $mk_about ) : $mk_shop ); ?>">Learn more <span aria-hidden="true">&rarr;</span></a>
+			<a class="mk-cta mk-cta--ghost" href="<?php echo esc_url( $mk_about_url ); ?>">Learn more <span aria-hidden="true">&rarr;</span></a>
 		</div>
 	</section>
 

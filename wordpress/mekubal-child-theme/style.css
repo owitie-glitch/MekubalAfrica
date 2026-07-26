@@ -4,7 +4,7 @@ Theme URI: https://mekubalafrica.co.ke
 Description: The full Mekubal Africa storefront design — earthy cream ground, terracotta and olive accents, Bodoni serif display type, arched imagery, pill buttons, and WhatsApp enquiry on every product. Built as a child of Storefront, which supplies the WooCommerce machinery underneath.
 Author: Mekubal Africa
 Template: storefront
-Version: 2.2.0
+Version: 2.3.0
 */
 
 /* ---------------------------------------------------------------- tokens */
@@ -151,10 +151,19 @@ a.button:hover, button:hover, .button:hover,
   position: sticky;
   top: 0;
   z-index: 999;
+  border-bottom: 1px solid rgba(47, 42, 32, 0.08);
+}
+/* The glass layer lives on a pseudo-element: a backdrop-filter directly on
+   the header would make it the containing block for the fixed mobile panel,
+   pinning the panel inside the header bar instead of the viewport. */
+.mk-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
   background: rgba(244, 239, 228, 0.85);
   -webkit-backdrop-filter: blur(14px) saturate(140%);
   backdrop-filter: blur(14px) saturate(140%);
-  border-bottom: 1px solid rgba(47, 42, 32, 0.08);
 }
 .mk-header-inner {
   max-width: 1280px;
@@ -273,12 +282,12 @@ a.button:hover, button:hover, .button:hover,
     top: 0;
     right: 0;
     bottom: 0;
-    width: min(86vw, 380px);
+    width: min(78vw, 300px);
     z-index: 1001;
     background: var(--mk-bg);
     display: flex;
     flex-direction: column;
-    padding: 84px 22px 26px;
+    padding: 68px 16px 18px;
     overflow-y: auto;
     transform: translateX(105%);
     visibility: hidden;
@@ -297,13 +306,13 @@ a.button:hover, button:hover, .button:hover,
   .mk-nav-close {
     display: flex;
     position: absolute;
-    top: 22px;
-    right: 18px;
+    top: 12px;
+    right: 10px;
     background: none !important;
     border: 0 !important;
     box-shadow: none !important;
     color: var(--mk-ink);
-    font-size: 30px;
+    font-size: 25px;
     line-height: 1;
     padding: 8px !important;
     transition: transform 0.3s;
@@ -331,16 +340,16 @@ a.button:hover, button:hover, .button:hover,
     justify-content: space-between;
     gap: 12px;
     font-family: "Bodoni Moda", Georgia, serif;
-    font-size: 1.65rem;
+    font-size: 1.15rem;
     color: var(--mk-ink);
     text-decoration: none;
-    padding: 14px 16px;
-    border-radius: 1rem;
+    padding: 11px 13px;
+    border-radius: 0.75rem;
     transition: background 0.3s, color 0.3s;
   }
   .mk-nav a::after {
     content: "\2192";
-    font-size: 1.05rem;
+    font-size: 0.9rem;
     color: var(--mk-terracotta);
     opacity: 0;
     transform: translateX(-8px);
@@ -360,13 +369,17 @@ a.button:hover, button:hover, .button:hover,
   .mk-nav-extra {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 12px;
     margin-top: auto;
-    padding-top: 24px;
+    padding-top: 18px;
     border-top: 1px solid var(--mk-line);
   }
-  .mk-nav-extra .mk-pill { justify-content: center; }
-  .mk-nav-extra .mk-small { text-align: center; }
+  .mk-nav-extra .mk-pill { justify-content: center; padding: 13px 24px; font-size: 10px; }
+  .mk-nav-extra .mk-small { text-align: center; font-size: 11px; }
+}
+/* the WP admin bar is 32px tall between 783–900px */
+@media (max-width: 900px) and (min-width: 783px) {
+  .admin-bar .mk-nav { top: 32px; }
 }
 
 /* -------------------------------------------------------------- landing */
@@ -895,3 +908,182 @@ a.button:hover, button:hover, .button:hover,
   font-size: 12px;
   color: var(--mk-grey);
 }
+
+/* ==================================================================== */
+/* DARK HERITAGE LANDING — the homepage only (body.home)                */
+/* ==================================================================== */
+
+:root {
+  --mk-night: #0c0a08;      /* near-black, faintly warm */
+  --mk-night-2: #16120e;    /* raised surfaces on the night ground */
+  --mk-goldA: #d59b55;      /* the gold accent */
+  --mk-goldA-soft: #e0ac66;
+  --mk-cream: #f3ead9;      /* headline cream */
+  --mk-mut: #b0a692;        /* muted body text on dark */
+}
+
+body.home,
+.home #page.site,
+.home .site-content {
+  background: var(--mk-night) !important;
+  color: var(--mk-cream);
+}
+.home :focus-visible { outline-color: var(--mk-goldA); }
+
+/* header, gone dark */
+.home .mk-header { border-bottom-color: rgba(255, 255, 255, 0.07); }
+.home .mk-header::before { background: rgba(12, 10, 8, 0.82); }
+.home .mk-logo img { filter: brightness(0) invert(1); opacity: 0.95; }
+.home .mk-cart { color: var(--mk-cream); }
+.home .mk-cart .mk-count { background: var(--mk-goldA); color: #221a10; }
+.home .mk-burger span { background: var(--mk-cream); }
+.home .mk-shopnow { background: var(--mk-goldA); color: #221a10 !important; }
+.home .mk-shopnow:hover { background: var(--mk-goldA-soft); box-shadow: 0 12px 26px -14px rgba(213, 155, 85, 0.55); }
+
+@media (min-width: 901px) {
+  .home .mk-nav a { color: var(--mk-mut); }
+  .home .mk-nav a:hover,
+  .home .mk-nav .current-menu-item > a,
+  .home .mk-nav .current_page_item > a { color: var(--mk-cream); }
+  .home .mk-nav a::after { background: var(--mk-goldA); }
+}
+@media (max-width: 900px) {
+  .home .mk-nav {
+    background: var(--mk-night-2);
+    box-shadow: -24px 0 60px rgba(0, 0, 0, 0.5), -100vw 0 0 100vw rgba(0, 0, 0, 0);
+  }
+  .home .mk-nav.open {
+    box-shadow: -24px 0 60px rgba(0, 0, 0, 0.55), -100vw 0 0 100vw rgba(0, 0, 0, 0.55);
+  }
+  .home .mk-nav a { color: var(--mk-cream); }
+  .home .mk-nav a::after { color: var(--mk-goldA); }
+  .home .mk-nav a:hover,
+  .home .mk-nav a:active,
+  .home .mk-nav .current-menu-item > a,
+  .home .mk-nav .current_page_item > a {
+    background: rgba(213, 155, 85, 0.12);
+    color: var(--mk-goldA);
+  }
+  .home .mk-nav-close { color: var(--mk-cream); }
+  .home .mk-nav-extra { border-top-color: rgba(255, 255, 255, 0.08); }
+  .home .mk-nav-extra .mk-pill { background: var(--mk-goldA); color: #221a10 !important; }
+  .home .mk-nav-extra .mk-small { color: var(--mk-mut); }
+}
+
+/* hero */
+.home .site-content { padding-top: 0; }
+.home .mk-hero { align-items: center; gap: 28px; padding-top: 12px; }
+@media (min-width: 1000px) {
+  .home .mk-hero {
+    grid-template-columns: 1.05fr 1fr;
+    gap: 44px;
+    min-height: min(760px, calc(100vh - 170px));
+  }
+}
+.home .mk-eyebrow { color: var(--mk-goldA); font-size: 12px; letter-spacing: 0.18em; }
+.home .mk-h1 {
+  color: var(--mk-cream);
+  font-size: clamp(2.8rem, 6.4vw, 5.5rem) !important;
+  line-height: 1.04;
+  margin-top: 0.3em;
+}
+.home .mk-lede { color: var(--mk-mut); font-size: 16px; max-width: 460px; }
+.home .mk-btn-row { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 14px; }
+
+.home .mk-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 30px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none !important;
+  transition: background 0.3s, color 0.3s, transform 0.2s, box-shadow 0.25s;
+}
+.home .mk-cta--gold { background: var(--mk-goldA); color: #221a10 !important; }
+.home .mk-cta--gold:hover {
+  background: var(--mk-goldA-soft);
+  transform: translateY(-1px);
+  box-shadow: 0 14px 30px -14px rgba(213, 155, 85, 0.55);
+}
+.home .mk-cta--ghost {
+  border: 1px solid var(--mk-goldA);
+  color: var(--mk-goldA) !important;
+  background: transparent;
+}
+.home .mk-cta--ghost:hover { background: rgba(213, 155, 85, 0.12); transform: translateY(-1px); }
+
+/* feature trio */
+.home .mk-feats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(26px, 5vw, 54px);
+  margin-top: clamp(38px, 6vh, 62px);
+}
+.home .mk-feat { max-width: 210px; color: var(--mk-goldA); }
+.home .mk-feat h5 {
+  font-family: "Archivo", system-ui, sans-serif !important;
+  color: var(--mk-goldA);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin: 12px 0 6px;
+}
+.home .mk-feat p { color: var(--mk-mut); font-size: 13px; line-height: 1.6; margin: 0; }
+
+/* the portrait, blended into the night ground */
+.home .mk-hero-photo {
+  position: relative;
+  width: 100%;
+  max-width: 620px;
+  margin: 0 calc(-1 * clamp(20px, 4vw, 44px)) 0 auto;
+}
+.home .mk-hero-photo img {
+  display: block;
+  width: 100%;
+  max-height: 78vh;
+  object-fit: cover;
+  object-position: top;
+}
+.home .mk-hero-fade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(to right, var(--mk-night) 0%, rgba(12, 10, 8, 0) 16%),
+    linear-gradient(to left, var(--mk-night) 0%, rgba(12, 10, 8, 0) 8%),
+    linear-gradient(to bottom, rgba(12, 10, 8, 0) 80%, var(--mk-night) 100%),
+    linear-gradient(to top, rgba(12, 10, 8, 0) 93%, var(--mk-night) 100%);
+}
+@media (max-width: 999px) {
+  .home .mk-hero-photo { margin: 0 auto; max-width: 460px; }
+  .home .mk-hero-photo img { max-height: 58vh; }
+}
+
+/* sections on the night ground */
+.home .mk-philosophy h2,
+.home .mk-gallery-head h2 { color: var(--mk-cream); }
+.home .mk-philosophy p { color: var(--mk-mut); }
+.home .mk-blob { background: var(--mk-night-2); }
+.home .mk-card img { background: var(--mk-night-2); }
+.home .mk-card-title { color: var(--mk-cream); }
+.home .mk-card:hover .mk-card-title { color: var(--mk-goldA); }
+.home .mk-card-price, .home .mk-por,
+.home .mk-card-price .mk-por { color: #cbb489; }
+.home .mk-viewall { color: var(--mk-cream); border-bottom-color: var(--mk-goldA); }
+.home .mk-tile:hover { box-shadow: 0 30px 60px -28px rgba(0, 0, 0, 0.85); }
+.home .mk-card:hover img { box-shadow: 0 30px 60px -28px rgba(0, 0, 0, 0.85); }
+
+/* footer, gone dark */
+.home .mk-footer { border-top-color: rgba(255, 255, 255, 0.08); }
+.home .mk-footer-logo img { filter: brightness(0) invert(1); opacity: 0.95; }
+.home .mk-footer-cols { border-top-color: rgba(255, 255, 255, 0.08); }
+.home .mk-footer h4 { color: #8e8471; }
+.home .mk-footer p, .home .mk-footer a { color: #d9d0bf; }
+.home .mk-footer a:hover { color: var(--mk-goldA); }
+.home .mk-small { color: #8e8471; }
+.home .mk-copyright { color: #8e8471; border-top-color: rgba(255, 255, 255, 0.08); }
