@@ -67,11 +67,21 @@ descriptions, finishes (as a "Finish" attribute) and images.
 
 ## Step 5 — Apply the branding
 
-1. **Colours, fonts, buttons:** Appearance → **Customize → Additional CSS**, and
-   paste the contents of `theme.css`. Load the fonts **Archivo**, **Bodoni
-   Moda** and **Caveat** (Google Fonts) via your theme's font settings or a
-   "Custom Fonts" plugin.
-2. **Logo:** Customize → **Site Identity** → upload `brand/logo.png`.
+**Recommended — install the ready-made theme** (colours, serif headings, pill
+buttons and fonts, all pre-built):
+
+1. Appearance → **Themes → Add New → search "Storefront" → Install** (do **not**
+   activate — it's the base).
+2. Appearance → **Themes → Add New → Upload Theme** → choose
+   `mekubal-africa-theme.zip` (in this folder) → **Install → Activate**.
+
+That's the whole look done. (If you'd rather not use a child theme, the
+alternative is to paste `theme.css` into Appearance → **Customize → Additional
+CSS** and load the fonts **Archivo**, **Bodoni Moda**, **Caveat** yourself.)
+
+Then finish the identity:
+
+1. **Logo:** Customize → **Site Identity** → upload `brand/logo.png`.
 3. **Favicon:** same screen → **Site Icon** → upload `brand/favicon.png`.
 4. **Homepage hero:** use `brand/hero.png` in a banner block, with the headline
    *Handmade Beauty for <span class="mk-accent">Everyday Living.</span>* and a

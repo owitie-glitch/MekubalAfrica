@@ -1,0 +1,97 @@
+/*
+Theme Name: Mekubal Africa
+Theme URI: https://mekubal.africa
+Description: Earthy WooCommerce theme for Mekubal Africa — warm cream ground, terracotta accents, Bodoni serif headings and pill buttons. A child theme of Storefront (install "Storefront" from Appearance → Themes first).
+Author: Mekubal Africa
+Template: storefront
+Version: 1.0
+*/
+
+:root {
+  --mk-bg: #f4efe4;             /* warm cream ground */
+  --mk-ink: #2f2a20;           /* charcoal-brown text */
+  --mk-terracotta: #bd6a4c;    /* primary accent + buttons */
+  --mk-terracotta-dark: #a2593e;
+  --mk-olive: #6f7353;         /* secondary accent */
+  --mk-clay: #ccbca0;          /* warm tan */
+  --mk-line: #ddd5c4;          /* hairlines */
+}
+
+body,
+.site-content,
+.storefront-full-width-content {
+  background: var(--mk-bg);
+  color: var(--mk-ink);
+  font-family: "Archivo", system-ui, sans-serif;
+}
+
+/* Headings → Bodoni serif, mixed case */
+h1, h2, h3, h4,
+.site-title, .product_title, .entry-title,
+.woocommerce-loop-product__title,
+.wp-block-heading {
+  font-family: "Bodoni Moda", Georgia, serif !important;
+  font-weight: 500;
+  color: var(--mk-ink);
+}
+
+/* Terracotta accent — wrap the last word of a headline in
+   <span class="mk-accent">…</span> */
+.mk-accent { color: var(--mk-terracotta); }
+
+/* Header / footer on the cream ground */
+.site-header,
+.site-footer {
+  background: var(--mk-bg) !important;
+  color: var(--mk-ink);
+}
+.site-header a, .main-navigation ul li a { color: var(--mk-ink) !important; }
+.main-navigation ul li a:hover,
+.main-navigation ul li.current-menu-item > a { color: var(--mk-terracotta) !important; }
+
+/* Buttons → terracotta pills, everywhere */
+a.button, button, input[type="submit"], .button,
+.woocommerce a.button, .woocommerce button.button,
+.woocommerce #respond input#submit,
+.woocommerce .single_add_to_cart_button,
+.wp-block-button__link,
+.storefront-sticky-add-to-cart a.button {
+  background-color: var(--mk-terracotta) !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 999px !important;
+  padding: 0.95em 2.1em !important;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  font-size: 0.72rem;
+}
+a.button:hover, button:hover, .button:hover,
+.woocommerce a.button:hover, .woocommerce button.button:hover,
+.woocommerce .single_add_to_cart_button:hover,
+.wp-block-button__link:hover {
+  background-color: var(--mk-terracotta-dark) !important;
+}
+
+/* Product images / cards → soft rounded corners */
+.woocommerce ul.products li.product img,
+.woocommerce div.product .woocommerce-product-gallery__image img,
+.wc-block-grid__product-image img {
+  border-radius: 1.25rem;
+}
+
+/* Links + accents */
+a { color: var(--mk-ink); }
+a:hover { color: var(--mk-terracotta); }
+
+/* "Price on request" reads as a soft olive note */
+.woocommerce div.product p.price,
+.woocommerce ul.products li.product .price {
+  color: var(--mk-olive);
+  font-style: italic;
+}
+
+/* Earthy category tiles, if you build a category row with these classes */
+.mk-tile-terracotta { background: var(--mk-terracotta); color: #fff; border-radius: 1.5rem; }
+.mk-tile-clay       { background: var(--mk-clay);       color: var(--mk-ink); border-radius: 1.5rem; }
+.mk-tile-olive      { background: var(--mk-olive);      color: #fff; border-radius: 1.5rem; }
