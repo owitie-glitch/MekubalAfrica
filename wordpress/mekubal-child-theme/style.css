@@ -4,7 +4,7 @@ Theme URI: https://mekubalafrica.co.ke
 Description: The full Mekubal Africa storefront design — earthy cream ground, terracotta and olive accents, Bodoni serif display type, arched imagery, pill buttons, and WhatsApp enquiry on every product. Built as a child of Storefront, which supplies the WooCommerce machinery underneath.
 Author: Mekubal Africa
 Template: storefront
-Version: 2.5.1
+Version: 2.6.0
 */
 
 /* ---------------------------------------------------------------- tokens */
@@ -27,12 +27,26 @@ Version: 2.5.1
 
 /* ------------------------------------------------------------------ base */
 
-body,
-#page.site,
-.site-content {
+body {
   background: var(--mk-bg) !important;
   color: var(--mk-ink);
   font-family: "Archivo", system-ui, sans-serif;
+}
+#page.site,
+.site-content {
+  background: transparent !important;
+}
+/* The carved-wood backdrop: fixed behind everything, softened by a cream
+   veil so the grain shows without ever fighting the content. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(244, 239, 228, 0.82), rgba(244, 239, 228, 0.82)),
+    url("assets/backdrop.jpg") center / cover no-repeat;
 }
 
 /* One comfortable reading width everywhere — with real air at the sides. */
@@ -43,6 +57,20 @@ body,
 }
 
 .site-content { padding-top: clamp(20px, 3vw, 36px); }
+
+/* Inner pages ride a frosted glass sheet, so text always beats the texture
+   (the homepage composes its own panels instead). */
+body:not(.home) .site-content > .col-full {
+  background: rgba(244, 239, 228, 0.72);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 28px;
+  padding-top: clamp(24px, 3vw, 40px);
+  padding-bottom: clamp(28px, 4vw, 48px);
+  margin-bottom: 48px;
+  box-shadow: 0 30px 60px -40px rgba(47, 42, 32, 0.4);
+}
 
 h1, h2, h3, h4,
 .site-title,
@@ -893,7 +921,10 @@ a.button:hover, button:hover, .button:hover,
 
 .mk-footer {
   margin-top: 110px;
-  border-top: 1px solid var(--mk-line);
+  border-top: 1px solid rgba(255, 255, 255, 0.45);
+  background: rgba(244, 239, 228, 0.78);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   padding: 64px clamp(20px, 4vw, 44px) 40px;
 }
 .mk-footer-logo { display: flex; justify-content: center; margin-bottom: 44px; }
@@ -1001,13 +1032,13 @@ body.home { overflow-x: clip; }
   --mk-fade: clamp(110px, 16vh, 180px);
   align-items: center;
   gap: 28px;
+  /* the night dissolves to transparent, revealing the wood grain beneath */
   background: linear-gradient(
     180deg,
     var(--mk-night) 0%,
     var(--mk-night) calc(100% - var(--mk-fade)),
-    #3f372b calc(100% - var(--mk-fade) * 0.5),
-    #a08d72 calc(100% - var(--mk-fade) * 0.16),
-    var(--mk-bg) 100%
+    rgba(12, 10, 8, 0.55) calc(100% - var(--mk-fade) * 0.5),
+    rgba(12, 10, 8, 0) 100%
   );
   color: var(--mk-cream);
   margin-left: calc(50% - 50vw);
@@ -1025,6 +1056,18 @@ body.home { overflow-x: clip; }
 }
 /* the dusk fade already provides the breathing room above the tiles */
 .home .mk-tiles { margin-top: 26px; }
+
+/* philosophy and gallery ride frosted panels over the wood grain */
+.home .mk-philosophy,
+.home .mk-gallery {
+  background: rgba(244, 239, 228, 0.74);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 28px;
+  padding: clamp(28px, 4vw, 48px);
+  box-shadow: 0 30px 60px -40px rgba(47, 42, 32, 0.4);
+}
 .home .mk-eyebrow { color: var(--mk-goldA); font-size: 12px; letter-spacing: 0.18em; }
 .home .mk-h1 {
   color: var(--mk-cream);

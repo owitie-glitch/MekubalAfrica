@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'MEKUBAL_VERSION', '2.5.1' );
+define( 'MEKUBAL_VERSION', '2.6.0' );
 
 /* ------------------------------------------------------------- setup */
 
