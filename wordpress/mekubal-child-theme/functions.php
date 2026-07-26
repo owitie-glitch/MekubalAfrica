@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'MEKUBAL_VERSION', '2.6.3' );
+define( 'MEKUBAL_VERSION', '2.6.4' );
 
 /* ------------------------------------------------------------- setup */
 
@@ -167,13 +167,20 @@ function mekubal_loop_button( $html, $product ) {
 	return $html;
 }
 
-// Shop pages run full-width; the design has no sidebar.
+// The whole site runs full-width — the design has no sidebar anywhere.
 add_filter( 'body_class', function ( $classes ) {
-	if ( function_exists( 'is_woocommerce' ) && ( is_woocommerce() || is_cart() || is_checkout() || is_account_page() ) ) {
+	if ( ! is_admin() ) {
 		$classes[] = 'storefront-full-width-content';
 	}
 	return $classes;
 } );
+
+// Never render the blog sidebar on the front end. This removes the entire
+// default widget column — Recent Posts, Recent Comments, Archives, Categories,
+// Search, whether they're classic or block widgets — from every page at once.
+add_filter( 'is_active_sidebar', function ( $active, $index ) {
+	return is_admin() ? $active : false;
+}, 10, 2 );
 
 /* ----------------------------------------------------------- widgets */
 
