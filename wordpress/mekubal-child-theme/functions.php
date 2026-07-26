@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'MEKUBAL_VERSION', '2.6.1' );
+define( 'MEKUBAL_VERSION', '2.6.2' );
 
 /* ------------------------------------------------------------- setup */
 
@@ -118,6 +118,53 @@ function mekubal_single_enquiry_button() {
 	echo '<a class="mk-whatsapp-btn" target="_blank" rel="noopener" href="'
 		. esc_url( mekubal_product_enquiry_url( $product ) ) . '">'
 		. mekubal_whatsapp_svg() . 'Enquire on WhatsApp</a>';
+}
+
+// Category filter pills above the shop grid — functional filtering without
+// any plugin: each pill is a category archive, the current one highlighted.
+add_action( 'woocommerce_before_shop_loop', 'mekubal_category_filter_bar', 5 );
+function mekubal_category_filter_bar() {
+	if ( ! ( is_shop() || is_product_category() ) ) {
+		return;
+	}
+	$cats = get_terms( array(
+		'taxonomy'   => 'product_cat',
+		'hide_empty' => true,
+		'orderby'    => 'count',
+		'order'      => 'DESC',
+	) );
+	if ( is_wp_error( $cats ) || empty( $cats ) ) {
+		return;
+	}
+	$current = is_product_category() ? get_queried_object_id() : 0;
+	echo '<nav class="mk-catbar" aria-label="Product categories">';
+	printf(
+		'<a class="%s" href="%s">All</a>',
+		$current ? '' : 'is-active',
+		esc_url( wc_get_page_permalink( 'shop' ) )
+	);
+	foreach ( $cats as $cat ) {
+		printf(
+			'<a class="%s" href="%s">%s</a>',
+			(int) $current === (int) $cat->term_id ? 'is-active' : '',
+			esc_url( get_term_link( $cat ) ),
+			esc_html( $cat->name )
+		);
+	}
+	echo '</nav>';
+}
+
+// On the shop grid, price-on-request pieces get a WhatsApp enquiry button
+// instead of WooCommerce's vague "Read more". Priced products keep their
+// normal add-to-cart behaviour.
+add_filter( 'woocommerce_loop_add_to_cart_link', 'mekubal_loop_button', 10, 2 );
+function mekubal_loop_button( $html, $product ) {
+	if ( $product && '' === $product->get_price() ) {
+		return '<a class="button mk-loop-enquire" target="_blank" rel="noopener" href="'
+			. esc_url( mekubal_product_enquiry_url( $product ) )
+			. '">Enquire on WhatsApp</a>';
+	}
+	return $html;
 }
 
 // Shop pages run full-width; the design has no sidebar.

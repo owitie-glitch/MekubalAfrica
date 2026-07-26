@@ -4,7 +4,7 @@ Theme URI: https://mekubalafrica.co.ke
 Description: The full Mekubal Africa storefront design — earthy cream ground, terracotta and olive accents, Bodoni serif display type, arched imagery, pill buttons, and WhatsApp enquiry on every product. Built as a child of Storefront, which supplies the WooCommerce machinery underneath.
 Author: Mekubal Africa
 Template: storefront
-Version: 2.6.1
+Version: 2.6.2
 */
 
 /* ---------------------------------------------------------------- tokens */
@@ -685,6 +685,13 @@ a.button:hover, button:hover, .button:hover,
   gap: 30px 22px;
   margin: 0 0 28px !important;
 }
+/* WooCommerce's clearfix pseudo-elements become invisible grid items and
+   steal the first cell — remove them. */
+.woocommerce ul.products::before,
+.woocommerce ul.products::after {
+  content: none !important;
+  display: none !important;
+}
 .woocommerce ul.products li.product {
   width: 100% !important;
   float: none !important;
@@ -696,7 +703,7 @@ a.button:hover, button:hover, .button:hover,
   width: 100%;
   aspect-ratio: 1 / 1;
   object-fit: cover;
-  border-radius: 24% 24% 1.1rem 1.1rem / 13% 13% 1.1rem 1.1rem;
+  border-radius: 1rem;
   background: var(--mk-paper);
   transition: transform 0.6s var(--mk-ease), box-shadow 0.5s;
 }
@@ -726,6 +733,42 @@ a.button:hover, button:hover, .button:hover,
   background: var(--mk-ink) !important;
   color: #fff !important;
   border-color: var(--mk-ink) !important;
+}
+/* price-on-request pieces: the card's call-to-action is a WhatsApp enquiry */
+.woocommerce ul.products li.product .button.mk-loop-enquire {
+  background: var(--mk-terracotta) !important;
+  color: #fff !important;
+  border: none !important;
+}
+.woocommerce ul.products li.product .button.mk-loop-enquire:hover {
+  background: var(--mk-terracotta-dark) !important;
+}
+
+/* category filter pills above the shop grid */
+.mk-catbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 2px 0 26px;
+}
+.mk-catbar a {
+  border: 1px solid var(--mk-line);
+  border-radius: 999px;
+  padding: 9px 18px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--mk-ink);
+  background: rgba(255, 255, 255, 0.35);
+  transition: background 0.25s, color 0.25s, border-color 0.25s;
+}
+.mk-catbar a:hover { border-color: var(--mk-ink); }
+.mk-catbar a.is-active {
+  background: var(--mk-ink);
+  color: #fff;
+  border-color: var(--mk-ink);
 }
 
 /* toolbar + pagination */
